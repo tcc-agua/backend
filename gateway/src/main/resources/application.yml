@@ -1,0 +1,35 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      client:
+        registration:
+          azure:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope: openid, profile, email
+            redirect-uri: http://localhost:3000/callback
+            provider: azure  # Adicione essa linha para especificar o provider
+        provider:
+          azure:
+            issuer-uri: ${ISSUER_URI}
+            authorization-uri: ${AUTH_URI}
+            token-uri: ${TOKEN_URI}
+            jwk-set-uri: ${JWK_SET_URI}
+
+  cloud:
+    gateway:
+      routes:
+        - id: resource
+          uri: http://localhost:9000
+          predicates:
+            - Path=/resource
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
