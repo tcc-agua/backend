@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.entities.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,5 +24,13 @@ public class Ponto {
     private String excel;
 
     @Enumerated(EnumType.STRING)
+    @Column(name="status_enum")
     private StatusEnum statusEnum;
+
+    public Ponto(PontoCreateDTO data){
+        this.nome = data.nome();
+        this.localizacao = data.localizacao();
+        this.excel = data.excel();
+        this.statusEnum = StatusEnum.ATIVO;
+    }
 }

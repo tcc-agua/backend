@@ -1,0 +1,7 @@
+CREATE TABLE Ponto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    localizacao VARCHAR(100) NOT NULL,
+    excel VARCHAR(100) NOT NULL,
+    status_enum VARCHAR(100) NOT NULL
+);
