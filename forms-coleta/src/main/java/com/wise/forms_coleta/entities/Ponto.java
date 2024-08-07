@@ -27,10 +27,15 @@ public class Ponto {
     @Column(name="status_enum")
     private StatusEnum statusEnum;
 
+    @OneToOne(mappedBy = "fk_ponto")
+    private ColunasCarvao colunasCarvao;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
         this.excel = data.excel();
         this.statusEnum = StatusEnum.ATIVO;
     }
+
+
 }

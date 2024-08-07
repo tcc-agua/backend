@@ -4,6 +4,7 @@ import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoPutDTO;
 import com.wise.forms_coleta.services.ponto.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ public class PontoController {
     PontoPutService pontoPutService;
 
     @PostMapping
+    @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PontoCreateDTO data, UriComponentsBuilder uriBuilder){
         PontoDTO pontoDTO = pontoSaveService.save(data);
         URI uri = uriBuilder.path("/ponto/{id}").buildAndExpand(pontoDTO.id()).toUri();
@@ -51,11 +53,13 @@ public class PontoController {
     }
 
     @DeleteMapping("{name}")
+    @Transactional
     public ResponseEntity<String> delete(@PathVariable String name){
         return new ResponseEntity<>(pontoDeleteService.delete(name), HttpStatus.OK);
     }
 
     @PutMapping("{name}")
+    @Transactional
     public ResponseEntity<PontoDTO> put(@PathVariable String name, @RequestBody @Valid PontoPutDTO data){
         return new ResponseEntity<>(pontoPutService.put(name, data), HttpStatus.OK);
     }
