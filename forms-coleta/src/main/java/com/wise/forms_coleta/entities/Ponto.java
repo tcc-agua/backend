@@ -42,6 +42,9 @@ public class Ponto {
     @JsonManagedReference
     private Excel excel;
 
+    @OneToOne(mappedBy = "fk_ponto")
+    private BC01 bc01;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
