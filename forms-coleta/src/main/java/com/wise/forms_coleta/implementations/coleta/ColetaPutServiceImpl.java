@@ -8,7 +8,9 @@ import com.wise.forms_coleta.repositories.ColetaRepository;
 import com.wise.forms_coleta.services.coleta.ColetaDeleteService;
 import com.wise.forms_coleta.services.coleta.ColetaPutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ColetaPutServiceImpl implements ColetaPutService {
     @Autowired
     private ColetaRepository coletaRepository;

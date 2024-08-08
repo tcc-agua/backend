@@ -6,7 +6,9 @@ import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.repositories.ColetaRepository;
 import com.wise.forms_coleta.services.coleta.ColetaSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ColetaSaveServiceImpl implements ColetaSaveService {
     @Autowired
     ColetaRepository coletaRepository;

@@ -30,12 +30,17 @@ public class Ponto {
     @OneToOne(mappedBy = "fk_ponto")
     private ColunasCarvao colunasCarvao;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_excel", referencedColumnName = "id")
+    private Excel fk_excel;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
         this.excel = data.excel();
         this.statusEnum = StatusEnum.ATIVO;
     }
+
 
 
 }

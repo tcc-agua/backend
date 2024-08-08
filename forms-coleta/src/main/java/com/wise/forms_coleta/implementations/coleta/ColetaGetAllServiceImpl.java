@@ -4,9 +4,11 @@ import com.wise.forms_coleta.dtos.coleta.ColetaDTO;
 import com.wise.forms_coleta.repositories.ColetaRepository;
 import com.wise.forms_coleta.services.coleta.ColetaGetAllService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ColetaGetAllServiceImpl implements ColetaGetAllService {
 
     @Autowired
