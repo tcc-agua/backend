@@ -43,11 +43,11 @@ public class PontoController {
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<PontoDTO> get(@PathVariable String name){
+    public ResponseEntity<PontoDTO> getByName(@PathVariable String name){
         return new ResponseEntity<>(pontoGetByNameService.getPointByName(name), HttpStatus.OK);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<PontoDTO>> getAll(){
         return new ResponseEntity<>(pontoGetAllService.getAll(), HttpStatus.OK);
     }

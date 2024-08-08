@@ -22,6 +22,10 @@ public class ColunasCarvao {
     @JoinColumn(name="fk_ponto", referencedColumnName = "id")
     private Ponto fk_ponto;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_coleta", referencedColumnName = "id")
+    private Coleta fk_coleta;
+
     private Double pressao_c01;
     private Double pressao_c02;
     private Double pressao_c03;
