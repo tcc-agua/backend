@@ -2,10 +2,7 @@ package com.wise.forms_coleta.entities;
 
 import com.wise.forms_coleta.dtos.coleta.ColetaCreateDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -16,6 +13,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Coleta {
 
     @Id

@@ -2,10 +2,7 @@ package com.wise.forms_coleta.entities;
 
 import com.wise.forms_coleta.dtos.excel.ExcelCreateDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Excel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

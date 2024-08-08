@@ -2,10 +2,7 @@ package com.wise.forms_coleta.entities;
 
 import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="colunas_carvao")
@@ -13,6 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class ColunasCarvao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

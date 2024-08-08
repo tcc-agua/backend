@@ -39,3 +39,16 @@ CREATE TABLE colunas_carvao(
     FOREIGN KEY(fk_ponto) REFERENCES Ponto(id),
     FOREIGN KEY(fk_coleta) REFERENCES Coleta(id)
 );
+
+CREATE TABLE pm_pt(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    fk_ponto BIGINT,
+    fk_coleta BIGINT,
+
+    nivel_agua DOUBLE NOT NULL,
+    nivel_oleo DOUBLE NOT NULL,
+    fl_remo_manual DOUBLE NOT NULL,
+
+    FOREIGN KEY(fk_ponto) REFERENCES Ponto(id),
+    FOREIGN KEY(fk_coleta) REFERENCES Coleta(id)
+);

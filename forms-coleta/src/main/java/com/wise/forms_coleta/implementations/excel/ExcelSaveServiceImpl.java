@@ -16,7 +16,7 @@ public class ExcelSaveServiceImpl implements ExcelSaveService {
     @Override
     public ExcelDTO save(ExcelCreateDTO data) {
         Excel excel = new Excel(data);
-        excelRepository.save(excel);
-        return new ExcelDTO(excel);
+
+        return new ExcelDTO(excelRepository.save(excel));
     }
 }

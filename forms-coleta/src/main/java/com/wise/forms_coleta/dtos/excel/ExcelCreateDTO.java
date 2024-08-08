@@ -5,5 +5,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
-public record ExcelCreateDTO(@NotBlank String nome, @DateTimeFormat(pattern = "dd/MM/yyyy")LocalDate data_coleta) {
+public record ExcelCreateDTO(
+        @NotBlank(message = "O campo 'nome' não pode estar em branco!")
+        String nome,
+
+        @DateTimeFormat(pattern = "dd/MM/yyyy")
+        LocalDate data_coleta
+){
 }

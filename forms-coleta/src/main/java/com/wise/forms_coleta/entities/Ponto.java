@@ -3,10 +3,7 @@ package com.wise.forms_coleta.entities;
 import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.entities.enums.StatusEnum;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="Ponto")
@@ -14,6 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Ponto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +28,9 @@ public class Ponto {
     @OneToOne(mappedBy = "fk_ponto")
     private ColunasCarvao colunasCarvao;
 
+    @OneToOne(mappedBy = "fk_ponto")
+    private PmPt pmPt;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_excel", referencedColumnName = "id")
     private Excel fk_excel;
@@ -40,7 +41,4 @@ public class Ponto {
         this.excel = data.excel();
         this.statusEnum = StatusEnum.ATIVO;
     }
-
-
-
 }
