@@ -32,6 +32,9 @@ public class Ponto {
     @OneToOne(mappedBy = "ponto")
     private PmPt pm_pt;
 
+    @OneToOne(mappedBy = "fk_ponto")
+    private BC06 bc06;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="excel_id", referencedColumnName = "id")
     private Excel excel;

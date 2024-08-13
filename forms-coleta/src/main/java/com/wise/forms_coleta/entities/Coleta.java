@@ -41,6 +41,9 @@ public class Coleta {
             inverseJoinColumns = @JoinColumn(name = "pm_pt_id"))
     private Set<PmPt> pmPtSet = new HashSet<>();
 
+    @OneToOne(mappedBy = "fk_coleta")
+    private BC06 bc06;
+
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
         this.data_coleta = data.dataColeta();
