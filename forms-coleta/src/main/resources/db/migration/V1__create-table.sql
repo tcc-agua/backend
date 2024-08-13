@@ -24,9 +24,9 @@ CREATE TABLE ponto (
     excel VARCHAR(100) NOT NULL,
     status_enum VARCHAR(100) NOT NULL,
 
-    fk_excel BIGINT,
+    excel_id BIGINT,
 
-    FOREIGN KEY(fk_excel) REFERENCES Excel(id)
+    FOREIGN KEY(excel_id) REFERENCES Excel(id)
 );
 
 -- Pontos
