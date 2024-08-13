@@ -38,7 +38,7 @@ public class ColunasCarvaoController {
     public ResponseEntity<String> save(@RequestBody @Valid ColunasCarvaoCreateDTO data, UriComponentsBuilder uriBuilder){
         ColunasCarvaoDTO colunasCarvaoDTO = colunasCarvaoSaveService.save(data);
         URI uri = uriBuilder.path("/colunas-carvao/{id}").buildAndExpand(colunasCarvaoDTO.id()).toUri();
-        return ResponseEntity.created(uri).body("Formulário criado com sucesso!");
+        return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
     @GetMapping
