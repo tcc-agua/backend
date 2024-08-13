@@ -1,4 +1,21 @@
 package com.wise.forms_coleta.dtos.bc01;
 
-public record BC01PutDTO(int horimetro, double pressao, int frequencia, double vazao, int volume) {
+import jakarta.validation.constraints.PositiveOrZero;
+
+public record BC01PutDTO(
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
+        int horimetro,
+
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
+        double pressao,
+
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
+        int frequencia,
+
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
+        double vazao,
+
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
+        int volume
+) {
 }

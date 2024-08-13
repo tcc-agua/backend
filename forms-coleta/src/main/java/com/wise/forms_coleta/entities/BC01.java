@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="BC-01")
 @Getter
@@ -18,15 +21,20 @@ public class BC01 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_ponto", referencedColumnName = "id")
-    private Ponto fk_ponto;
-
     private int horimetro;
     private double pressao;
     private int frequencia;
     private double vazao;
     private int volume;
+
+    //Relacionamentos
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    private Ponto ponto;
+
+    @ManyToMany(mappedBy = "BC01Set", fetch = FetchType.EAGER)
+    private Set<Coleta> coletas = new HashSet<>();
 
     public BC01(BC01CreateDTO data) {
         this.horimetro = data.horimetro();
