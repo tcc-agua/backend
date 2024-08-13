@@ -4,6 +4,9 @@ import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="colunas_carvao")
 @Getter
@@ -20,9 +23,8 @@ public class ColunasCarvao {
     @JoinColumn(name="fk_ponto", referencedColumnName = "id")
     private Ponto fk_ponto;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_coleta", referencedColumnName = "id")
-    private Coleta fk_coleta;
+    @OneToMany(mappedBy = "colunasCarvao", cascade = CascadeType.ALL)
+    private Set<Coleta> coletas = new HashSet<>();
 
     private Double pressao_c01;
     private Double pressao_c02;

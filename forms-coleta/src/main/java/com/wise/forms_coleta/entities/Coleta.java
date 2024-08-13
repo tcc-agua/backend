@@ -31,8 +31,13 @@ public class Coleta {
     @Column(name="hora_fim")
     private LocalTime horaFim;
 
-    @OneToOne(mappedBy = "fk_coleta")
+    @ManyToOne
+    @JoinColumn(name = "colunas_carvao_id")
     private ColunasCarvao colunasCarvao;
+
+    @ManyToOne
+    @JoinColumn(name ="pmpt_id")
+    private PmPt pmPt;
 
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
