@@ -41,8 +41,11 @@ public class Coleta {
             inverseJoinColumns = @JoinColumn(name = "pm_pt_id"))
     private Set<PmPt> pmPtSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "fk_coleta")
-    private BC06 bc06;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_bc06",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "bc06_id"))
+    private Set<BC06> bc06Set = new HashSet<>();
 
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();

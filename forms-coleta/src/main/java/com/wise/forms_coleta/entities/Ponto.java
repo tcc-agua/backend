@@ -1,5 +1,7 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.entities.enums.StatusEnum;
 import jakarta.persistence.*;
@@ -32,11 +34,12 @@ public class Ponto {
     @OneToOne(mappedBy = "ponto")
     private PmPt pm_pt;
 
-    @OneToOne(mappedBy = "fk_ponto")
+    @OneToOne(mappedBy = "ponto")
     private BC06 bc06;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="excel_id", referencedColumnName = "id")
+    @JsonManagedReference
     private Excel excel;
 
     public Ponto(PontoCreateDTO data){

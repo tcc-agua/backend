@@ -21,9 +21,6 @@ public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
     @Autowired
     private PontoRepository pontoRepository;
 
-    @Autowired
-    private ColetaRepository coletaRepository;
-
     @Override
     public ColunasCarvaoDTO save(ColunasCarvaoCreateDTO data) {
 

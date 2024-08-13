@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wise.forms_coleta.dtos.excel.ExcelCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,7 @@ public class Excel {
     private LocalDate data_coleta;
 
     @OneToOne(mappedBy = "excel")
+    @JsonBackReference
     private Ponto ponto;
 
     public Excel(ExcelCreateDTO data){

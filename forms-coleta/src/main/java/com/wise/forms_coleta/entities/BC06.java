@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wise.forms_coleta.dtos.BC06.BC06CreateDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,8 +8,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@Table(name="BC-06")
+@Table(name="bc06")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -20,12 +24,12 @@ public class BC06 {
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_ponto", referencedColumnName = "id")
-    private Ponto fk_ponto;
+    @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Ponto ponto;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_coleta", referencedColumnName = "id")
-    private Coleta fk_coleta;
+    @ManyToMany(mappedBy = "bc06Set", fetch = FetchType.EAGER)
+    private Set<Coleta> coletas = new HashSet<>();
 
     private String pressao;
     private String horimetro;
