@@ -39,6 +39,6 @@ public class Ponto {
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
-        this.status = StatusEnum.ATIVO;
+        this.status = StatusEnum.NAO_COLETADO;
     }
 }

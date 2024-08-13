@@ -14,7 +14,9 @@ public class ColunasCarvaoDeleteServiceImpl implements ColunasCarvaoDeleteServic
 
     @Override
     public String delete(Long id) {
-        ColunasCarvao colunasCarvao = colunasCarvaoRepository.findById(id).orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+        ColunasCarvao colunasCarvao = colunasCarvaoRepository.findById(id)
+                .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+
         colunasCarvaoRepository.delete(colunasCarvao);
         return "Formulário deletado com sucesso!";
     }

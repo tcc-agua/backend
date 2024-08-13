@@ -14,6 +14,7 @@ public class ColetaGetByIdServiceImpl implements ColetaGetByIdService {
 
     @Override
     public ColetaDTO getById(Long id) {
-        return new ColetaDTO(coletaRepository.findById(id).orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!")));
+        return new ColetaDTO(coletaRepository.findById(id)
+                .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!")));
     }
 }

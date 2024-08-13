@@ -1,7 +1,7 @@
 CREATE TABLE excel(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
 
-    nome_excel VARCHAR(100) NOT NULL,
+    nome VARCHAR(100) NOT NULL,
     data_coleta VARCHAR(100) NOT NULL
 );
 

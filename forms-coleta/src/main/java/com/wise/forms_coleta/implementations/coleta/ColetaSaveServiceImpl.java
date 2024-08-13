@@ -15,8 +15,6 @@ public class ColetaSaveServiceImpl implements ColetaSaveService {
 
     @Override
     public ColetaDTO save(ColetaCreateDTO data) {
-        Coleta coleta = new Coleta(data);
-        coletaRepository.save(coleta);
-        return new ColetaDTO(coleta);
+        return new ColetaDTO(coletaRepository.save(new Coleta(data)));
     }
 }

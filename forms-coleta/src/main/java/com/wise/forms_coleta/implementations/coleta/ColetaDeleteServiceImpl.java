@@ -14,7 +14,9 @@ public class ColetaDeleteServiceImpl implements ColetaDeleteService {
 
     @Override
     public String delete(Long id) {
-        Coleta coleta = coletaRepository.findById(id).orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
+        Coleta coleta = coletaRepository.findById(id)
+                .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
+
         coletaRepository.delete(coleta);
         return "Coleta deletada com sucesso!";
     }

@@ -16,8 +16,6 @@ public class PmPtSaveServiceImpl implements PmPtSaveService {
 
     @Override
     public PmPtDTO save(PmPtCreateDTO data) {
-        PmPt pmPt = new PmPt(data);
-
-        return new PmPtDTO(repository.save(pmPt));
+        return new PmPtDTO(repository.save(new PmPt(data)));
     }
 }

@@ -10,6 +10,6 @@ public record PontoCreateDTO(
         String localizacao,
 
         @NotBlank(message = "O campo 'excel' não pode estar em branco!")
-        String excel
+        String nome_excel
 ) {
 }

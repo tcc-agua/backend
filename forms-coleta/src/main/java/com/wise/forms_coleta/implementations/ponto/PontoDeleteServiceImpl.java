@@ -17,11 +17,9 @@ public class PontoDeleteServiceImpl implements PontoDeleteService {
 
     @Override
     public String delete(String name) {
-        Optional<Ponto> ponto = pontoRepository.findByNome(name);
-        if(ponto.isPresent()){
-            pontoRepository.delete(ponto.get());
-            return "Ponto deletado com sucesso!";
-        }
-        throw new GenericsNotFoundException("Ponto não encontrado!");
+        Ponto ponto = pontoRepository.findByNome(name).orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
+
+        pontoRepository.delete(ponto);
+        return "Ponto deletado com sucesso!";
     }
 }

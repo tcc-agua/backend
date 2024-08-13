@@ -17,11 +17,10 @@ public class PontoGetByNameServiceImpl implements PontoGetByNameService {
 
     @Override
     public PontoDTO getPointByName(String name) {
-        Optional<Ponto> ponto = pontoRepository.findByNome(name);
+        Ponto ponto = pontoRepository.findByNome(name)
+                .orElseThrow(() -> new GenericsNotFoundException( "Ponto não encontrado!"));
 
-        if(ponto.isPresent()){
-            return new PontoDTO(ponto.get());
-        }
-        throw new GenericsNotFoundException("Ponto não encontrado!");
+        return new PontoDTO(ponto);
+
     }
 }

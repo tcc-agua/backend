@@ -18,9 +18,7 @@ public class PontoSaveServiceImpl implements PontoSaveService {
 
     @Override
     public PontoDTO save(PontoCreateDTO data) {
-        Ponto ponto = new Ponto(data);
-        pontoRepository.save(ponto);
-        return new PontoDTO(ponto);
+        return new PontoDTO(pontoRepository.save(new Ponto(data)));
     }
 
 }

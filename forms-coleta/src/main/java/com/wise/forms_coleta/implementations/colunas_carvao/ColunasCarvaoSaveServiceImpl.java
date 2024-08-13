@@ -2,7 +2,9 @@ package com.wise.forms_coleta.implementations.colunas_carvao;
 
 import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
 import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoDTO;
+import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.entities.ColunasCarvao;
+import com.wise.forms_coleta.entities.Ponto;
 import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.ColetaRepository;
 import com.wise.forms_coleta.repositories.ColunasCarvaoRepository;
@@ -24,13 +26,16 @@ public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
 
     @Override
     public ColunasCarvaoDTO save(ColunasCarvaoCreateDTO data) {
-        if(pontoRepository.findByNome(data.nomePonto()).isPresent()){
-            ColunasCarvao colunasCarvao = new ColunasCarvao(data);
-            colunasCarvao.setFk_ponto(pontoRepository.findByNome(data.nomePonto()).get());
-            colunasCarvao.setFk_coleta(coletaRepository.findById(data.idColeta()).orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!")));
-            colunasCarvaoRepository.save(colunasCarvao);
-            return new ColunasCarvaoDTO(colunasCarvao);
-        }
-        throw new GenericsNotFoundException("Ponto não encontrado!");
+
+        Ponto ponto = pontoRepository.findByNome(data.nomePonto())
+                .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
+
+        ColunasCarvao colunasCarvao = new ColunasCarvao(data);
+        colunasCarvao.setPonto(ponto);
+
+        colunasCarvaoRepository.save(colunasCarvao);
+
+        return new ColunasCarvaoDTO(colunasCarvao);
+
     }
 }

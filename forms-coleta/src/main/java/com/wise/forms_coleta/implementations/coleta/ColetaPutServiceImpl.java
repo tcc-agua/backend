@@ -17,11 +17,14 @@ public class ColetaPutServiceImpl implements ColetaPutService {
 
     @Override
     public ColetaDTO put(Long id, ColetaCreateDTO data) {
-        Coleta coleta = coletaRepository.findById(id).orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
+        Coleta coleta = coletaRepository.findById(id)
+                .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
+
         coleta.setTecnico(data.tecnico());
-        coleta.setDataColeta(data.dataColeta());
-        coleta.setHoraInicio(data.horaInicio());
-        coleta.setHoraFim(data.horaFim());
+        coleta.setData_coleta(data.dataColeta());
+        coleta.setHora_inicio(data.horaInicio());
+        coleta.setHora_fim(data.horaFim());
+
         coletaRepository.save(coleta);
         return new ColetaDTO(coleta);
     }

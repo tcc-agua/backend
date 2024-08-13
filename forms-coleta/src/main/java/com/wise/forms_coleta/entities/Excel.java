@@ -18,6 +18,7 @@ public class Excel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nome;
 
     private LocalDate data_coleta;
 
