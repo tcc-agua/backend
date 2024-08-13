@@ -9,6 +9,4 @@ import java.util.Optional;
 
 public interface PontoRepository extends JpaRepository<Ponto, Long> {
     Optional<Ponto> findByNome(String name);
-
-    List<Ponto> findAllByStatusEnumIn(List<StatusEnum> statusEnum);
 }

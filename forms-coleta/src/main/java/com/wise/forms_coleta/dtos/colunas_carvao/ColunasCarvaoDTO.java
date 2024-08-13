@@ -14,6 +14,6 @@ public record ColunasCarvaoDTO(
         Ponto ponto
 ){
     public ColunasCarvaoDTO(ColunasCarvao data){
-        this(data.getId(), data.getPressao_c01(), data.getPressao_c02(), data.getPressao_c03(), data.getPressao_saida(), data.getHouve_troca_carvao(), data.getHouve_retrolavagem(), data.getFk_ponto());
+        this(data.getId(), data.getPressao_c01(), data.getPressao_c02(), data.getPressao_c03(), data.getPressao_saida(), data.getHouve_troca_carvao(), data.getHouve_retrolavagem(), data.getPonto());
     }
 }

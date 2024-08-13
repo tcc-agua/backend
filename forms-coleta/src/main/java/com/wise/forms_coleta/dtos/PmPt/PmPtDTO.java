@@ -11,6 +11,6 @@ public record PmPtDTO(
 
 ){
     public PmPtDTO(PmPt pmPt){
-        this(pmPt.getId(), pmPt.getNivelAgua(), pmPt.getNivelOleo(), pmPt.getFlRemoManual());
+        this(pmPt.getId(), pmPt.getNivel_agua(), pmPt.getNivel_oleo(), pmPt.getFl_remo_manual());
     }
 }

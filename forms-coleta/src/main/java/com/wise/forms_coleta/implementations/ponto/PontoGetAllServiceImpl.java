@@ -17,10 +17,10 @@ public class PontoGetAllServiceImpl implements PontoGetAllService {
 
     @Override
     public List<PontoDTO> getAll() {
-        List<StatusEnum> statusList = List.of(StatusEnum.NAO_COLETADO, StatusEnum.COLETADO);
 
-        return pontoRepository.findAllByStatusEnumIn(statusList)
+        return pontoRepository.findAll()
                 .stream()
+                .filter(ponto -> ponto.getStatus() == StatusEnum.COLETADO || ponto.getStatus() == StatusEnum.NAO_COLETADO)
                 .map(PontoDTO::new)
                 .toList();
     }

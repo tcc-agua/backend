@@ -26,6 +26,6 @@ public class Excel {
     private Ponto ponto;
 
     public Excel(ExcelCreateDTO data){
-        this.data_coleta = data.data_coleta();
+        this.nome = data.nome();
     }
 }

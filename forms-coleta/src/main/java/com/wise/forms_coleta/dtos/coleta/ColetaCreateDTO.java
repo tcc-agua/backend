@@ -18,5 +18,7 @@ public record ColetaCreateDTO(
 
         @DateTimeFormat(pattern = "HH:mm:ss")
         LocalTime horaFim
+
+        // Pensar em como Receber o ID da entidade coletada
 ){
 }

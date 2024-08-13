@@ -7,9 +7,6 @@ import java.time.LocalDate;
 
 public record ExcelCreateDTO(
         @NotBlank(message = "O campo 'nome' não pode estar em branco!")
-        String nome,
-
-        @DateTimeFormat(pattern = "dd/MM/yyyy")
-        LocalDate data_coleta
+        String nome
 ){
 }

@@ -11,6 +11,6 @@ public record ExcelDTO(
 ){
 
     public ExcelDTO(Excel excel){
-        this(excel.getId(), excel.getNomeExcel(), excel.getData_coleta());
+        this(excel.getId(), excel.getNome(), excel.getData_coleta());
     }
 }
