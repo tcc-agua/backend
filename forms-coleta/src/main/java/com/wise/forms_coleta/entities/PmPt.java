@@ -20,27 +20,22 @@ public class PmPt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nivel_agua")
-    private Double  nivelAgua;
+    private Double  nivel_agua;
+    private Double nivel_oleo;
+    private Double fl_remo_manual;
 
-    @Column(name = "nivel_oleo")
-    private Double nivelOleo;
-
-    @Column(name = "fl_remo_manual")
-    private Double flRemoManual;
+//    Relacionamentos
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_ponto", referencedColumnName = "id")
-    private Ponto fk_ponto;
+    @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    private Ponto ponto;
 
-    @OneToMany(mappedBy = "pmPt", cascade = CascadeType.ALL)
-    @JoinColumn(name="coleta_id", referencedColumnName = "id")
+    @ManyToMany(mappedBy = "pmPtSet", fetch = FetchType.EAGER)
     private Set<Coleta> coletas = new HashSet<>();
 
-
      public PmPt(PmPtCreateDTO data){
-         this.nivelAgua = data.nivelAgua();
-         this.nivelOleo = data.nivelOleo();
-         this.flRemoManual = data.flRemoManual();
+         this.nivel_agua = data.nivelAgua();
+         this.nivel_oleo = data.nivelOleo();
+         this.fl_remo_manual = data.flRemoManual();
      }
 }

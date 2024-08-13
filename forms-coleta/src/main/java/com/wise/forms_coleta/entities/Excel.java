@@ -14,18 +14,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Excel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="nome_excel")
-    private String nomeExcel;
+
     private LocalDate data_coleta;
 
-    @OneToOne(mappedBy = "fk_excel")
+    @OneToOne(mappedBy = "excel")
     private Ponto ponto;
 
     public Excel(ExcelCreateDTO data){
-        this.nomeExcel = data.nome();
         this.data_coleta = data.data_coleta();
     }
 }

@@ -15,16 +15,10 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class ColunasCarvao {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_ponto", referencedColumnName = "id")
-    private Ponto fk_ponto;
-
-    @OneToMany(mappedBy = "colunasCarvao", cascade = CascadeType.ALL)
-    private Set<Coleta> coletas = new HashSet<>();
 
     private Double pressao_c01;
     private Double pressao_c02;
@@ -32,6 +26,15 @@ public class ColunasCarvao {
     private Double pressao_saida;
     private Boolean houve_troca_carvao;
     private Boolean houve_retrolavagem;
+
+//    Relacionamentos
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    private Ponto ponto;
+
+    @ManyToMany(mappedBy = "colunasCarvaoSet", fetch = FetchType.EAGER)
+    private Set<Coleta> coletas = new HashSet<>();
 
     public ColunasCarvao(ColunasCarvaoCreateDTO data){
         this.pressao_c01 = data.pressao_c01();

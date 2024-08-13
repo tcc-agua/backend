@@ -21,8 +21,7 @@ CREATE TABLE ponto (
 
     nome VARCHAR(100) NOT NULL,
     localizacao VARCHAR(100) NOT NULL,
-    excel VARCHAR(100) NOT NULL,
-    status_enum VARCHAR(100) NOT NULL,
+    status VARCHAR(100) NOT NULL,
 
     excel_id BIGINT,
 

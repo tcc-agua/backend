@@ -13,32 +13,32 @@ import lombok.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Ponto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nome;
     private String localizacao;
-    private String excel;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="status_enum")
-    private StatusEnum statusEnum;
+    private StatusEnum status;
 
-    @OneToOne(mappedBy = "fk_ponto")
-    private ColunasCarvao colunasCarvao;
+//    Relacionamentos
 
-    @OneToOne(mappedBy = "fk_ponto")
-    private PmPt pmPt;
+    @OneToOne(mappedBy = "ponto")
+    private ColunasCarvao colunas_carvao;
+
+    @OneToOne(mappedBy = "ponto")
+    private PmPt pm_pt;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_excel", referencedColumnName = "id")
-    private Excel fk_excel;
+    @JoinColumn(name="excel_id", referencedColumnName = "id")
+    private Excel excel;
 
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
-        this.excel = data.excel();
-        this.statusEnum = StatusEnum.ATIVO;
+        this.status = StatusEnum.ATIVO;
     }
 }

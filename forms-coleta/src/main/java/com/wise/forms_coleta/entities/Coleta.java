@@ -6,6 +6,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Coleta")
@@ -21,28 +23,28 @@ public class Coleta {
     private Long id;
 
     private String tecnico;
+    private LocalDate data_coleta;
+    private LocalTime hora_inicio;
+    private LocalTime hora_fim;
 
-    @Column(name="data_coleta")
-    private LocalDate dataColeta;
+//    Relacionamentos
 
-    @Column(name="hora_inicio")
-    private LocalTime horaInicio;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_colunas_carvao",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "colunas_carvao_id"))
+    private Set<ColunasCarvao> colunasCarvaoSet = new HashSet<>();
 
-    @Column(name="hora_fim")
-    private LocalTime horaFim;
-
-    @ManyToOne
-    @JoinColumn(name = "colunas_carvao_id")
-    private ColunasCarvao colunasCarvao;
-
-    @ManyToOne
-    @JoinColumn(name ="pmpt_id")
-    private PmPt pmPt;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_pmpt",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "pm_pt_id"))
+    private Set<PmPt> pmPtSet = new HashSet<>();
 
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
-        this.dataColeta = data.dataColeta();
-        this.horaInicio = data.horaInicio();
-        this.horaFim = data.horaFim();
+        this.data_coleta = data.dataColeta();
+        this.hora_inicio = data.horaInicio();
+        this.hora_fim = data.horaFim();
     }
 }
