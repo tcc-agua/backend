@@ -9,7 +9,9 @@ import com.wise.forms_coleta.repositories.FiltroCartuchoRepository;
 import com.wise.forms_coleta.repositories.PontoRepository;
 import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FiltroCartuchoSaveServiceImpl implements FiltroCartuchoSaveService {
     @Autowired
     private FiltroCartuchoRepository filtroCartuchoRepository;

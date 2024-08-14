@@ -7,7 +7,9 @@ import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.FiltroCartuchoRepository;
 import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoPutService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class FiltroCartuchoPutServiceImpl implements FiltroCartuchoPutService {
     @Autowired
     private FiltroCartuchoRepository filtroCartuchoRepository;
