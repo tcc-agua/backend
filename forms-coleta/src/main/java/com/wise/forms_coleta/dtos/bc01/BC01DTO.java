@@ -7,11 +7,11 @@ import org.springframework.web.util.UriComponents;
 public record BC01DTO(
         Long id,
         Ponto nomePonto,
-        int horimetro,
-        double pressao,
-        int frequencia,
-        double vazao,
-        int volume
+        Integer horimetro,
+        Double pressao,
+        Integer frequencia,
+        Double vazao,
+        Integer volume
 ) {
     public BC01DTO(BC01 bc01) {
         this(bc01.getId(), bc01.getPonto(), bc01.getHorimetro(), bc01.getPressao(), bc01.getFrequencia(), bc01.getVazao(), bc01.getVolume());

@@ -1,27 +1,20 @@
-package com.wise.forms_coleta.dtos.bc01;
+package com.wise.forms_coleta.dtos.cd;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
-public record BC01CreateDTO(
+public record CDCreateDTO(
         @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
         String nomePonto,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Integer horimetro,
+        String tipo_rede,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Double pressao,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Integer frequencia,
+        Integer hidrometro
 
-        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Double vazao,
-
-        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Integer volume
-){
-
+) {
 }

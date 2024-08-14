@@ -21,11 +21,11 @@ public class BC01 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int horimetro;
-    private double pressao;
-    private int frequencia;
-    private double vazao;
-    private int volume;
+    private Integer horimetro;
+    private Double pressao;
+    private Integer frequencia;
+    private Double vazao;
+    private Integer volume;
 
     //Relacionamentos
 
