@@ -33,6 +33,5 @@ public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
         colunasCarvaoRepository.save(colunasCarvao);
 
         return new ColunasCarvaoDTO(colunasCarvao);
-
     }
 }

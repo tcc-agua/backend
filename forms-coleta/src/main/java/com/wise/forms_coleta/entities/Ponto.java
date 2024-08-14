@@ -37,16 +37,17 @@ public class Ponto {
     @OneToOne(mappedBy = "ponto")
     private BC06 bc06;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="excel_id", referencedColumnName = "id")
-    @JsonManagedReference
-    private Excel excel;
-
     @OneToOne(mappedBy = "ponto")
     private BC01 bc01;
 
     @OneToOne(mappedBy = "ponto")
     private PBs pBs;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="excel_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private Excel excel;
+
 
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();

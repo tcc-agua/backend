@@ -1,6 +1,6 @@
 package com.wise.forms_coleta.entities;
 
-import com.wise.forms_coleta.dtos.pbs.PbDTO;
+import com.wise.forms_coleta.dtos.pbs.PbCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "pm_pt")
+@Table(name = "pbs")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -26,6 +26,8 @@ public class PBs {
     private Double nivel_agua;
     private Double vol_rem_oleo;
 
+//    Relacionamentos
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     private Ponto ponto;
@@ -33,7 +35,7 @@ public class PBs {
     @ManyToMany(mappedBy = "pbSet", fetch = FetchType.EAGER)
     private Set<Coleta> coletas = new HashSet<>();
 
-    public PBs(PbDTO data) {
+    public PBs(PbCreateDTO data) {
         this.pressao = data.pressao();
         this.pulsos = data.pulsos();
         this.nivel_oleo = data.nivel_oleo();

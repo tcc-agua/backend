@@ -1,21 +1,16 @@
 package com.wise.forms_coleta.dtos.pbs;
 
-import jakarta.validation.constraints.PositiveOrZero;
+import com.wise.forms_coleta.entities.PBs;
 
 public record PbDTO(
-        @PositiveOrZero
+        Long id,
         Double pressao,
-
-        @PositiveOrZero
         Double pulsos,
-
-        @PositiveOrZero
         Double nivel_oleo,
-
-        @PositiveOrZero
         Double nivel_agua,
-
-        @PositiveOrZero
         Double vol_rem_oleo
-) {
+){
+    public PbDTO(PBs pBs){
+        this(pBs.getId(), pBs.getPressao(), pBs.getPulsos(), pBs.getNivel_oleo(), pBs.getNivel_agua(), pBs.getVol_rem_oleo());
+    }
 }

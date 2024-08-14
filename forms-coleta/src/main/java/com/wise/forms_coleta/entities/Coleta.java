@@ -57,7 +57,7 @@ public class Coleta {
     @JoinTable(name = "coleta_pbs",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "pb_id"))
-    private Set<BC01> pbSet = new HashSet<>();
+    private Set<PBs> pbSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_horimetro",

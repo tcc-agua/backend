@@ -52,7 +52,6 @@ CREATE TABLE bc06 (
     pressao VARCHAR(45) NOT NULL,
     horimetro VARCHAR(45) NOT NULL,
     ponto_id BIGINT,
-
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
 );
 
@@ -68,6 +67,19 @@ CREATE TABLE bc01 (
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
 );
 
+
+CREATE TABLE pbs (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pressao DOUBLE NOT NULL,
+    pulsos DOUBLE NOT NULL,
+    nivel_oleo DOUBLE NOT NULL,
+    nivel_agua DOUBLE NOT NULL,
+    vol_rem_oleo DOUBLE NOT NULL,
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
+
+
 CREATE TABLE horimetro(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     horimetro VARCHAR(45) NOT NULL,
@@ -76,7 +88,9 @@ CREATE TABLE horimetro(
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
+
 -- Auxiliares
+
 
 CREATE TABLE coleta_pmpt (
     coleta_id BIGINT,
@@ -99,20 +113,29 @@ CREATE TABLE coleta_colunas_carvao (
 CREATE TABLE coleta_bc06 (
     coleta_id BIGINT,
     bc06_id BIGINT,
-
     PRIMARY KEY (coleta_id, bc06_id),
     FOREIGN KEY (coleta_id) REFERENCES coleta(id),
     FOREIGN KEY (bc06_id) REFERENCES bc06(id)
 );
 
 
-CREATE TABLE coleta_BC01 (
+CREATE TABLE coleta_bc01 (
     coleta_id BIGINT,
-    BC01_id BIGINT,
-    PRIMARY KEY (coleta_id, BC01_id),
+    bc01_id BIGINT,
+    PRIMARY KEY (coleta_id, bc01_id),
     FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (BC01_id) REFERENCES bc01(id)
+    FOREIGN KEY (bc01_id) REFERENCES bc01(id)
 );
+
+
+CREATE TABLE coleta_pbs (
+    coleta_id BIGINT,
+    pbs_id BIGINT,
+    PRIMARY KEY (coleta_id, pbs_id),
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY (pbs_id) REFERENCES pbs(id)
+);
+
 
 CREATE TABLE coleta_horimetro(
     coleta_id BIGINT,
