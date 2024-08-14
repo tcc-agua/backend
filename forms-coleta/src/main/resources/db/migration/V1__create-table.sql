@@ -64,7 +64,16 @@ CREATE TABLE bc01 (
     frequencia INT NOT NULL,
     vazao DOUBLE NOT NULL,
     volume INT NOT NULL,
+    ponto_id BIGINT,
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
+
+CREATE TABLE horimetro(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    horimetro VARCHAR(45) NOT NULL,
+    ponto_id BIGINT,
+
+    FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
 -- Auxiliares
@@ -102,5 +111,14 @@ CREATE TABLE coleta_BC01 (
     BC01_id BIGINT,
     PRIMARY KEY (coleta_id, BC01_id),
     FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (BC01_id) REFERENCES BCO1(id)
+    FOREIGN KEY (BC01_id) REFERENCES bc01(id)
+);
+
+CREATE TABLE coleta_horimetro(
+    coleta_id BIGINT,
+    horimetro_id BIGINT,
+
+    PRIMARY KEY(coleta_id, horimetro_id),
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY(horimetro_id) REFERENCES horimetro(id)
 );

@@ -4,9 +4,11 @@ import com.wise.forms_coleta.dtos.bc01.BC01DTO;
 import com.wise.forms_coleta.repositories.BC01Repository;
 import com.wise.forms_coleta.services.BC01.BC01GetAllService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class BC01GetAllServiceImpl implements BC01GetAllService {
 
     @Autowired

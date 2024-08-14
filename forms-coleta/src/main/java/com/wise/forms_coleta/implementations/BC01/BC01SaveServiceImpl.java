@@ -9,7 +9,9 @@ import com.wise.forms_coleta.repositories.BC01Repository;
 import com.wise.forms_coleta.repositories.PontoRepository;
 import com.wise.forms_coleta.services.BC01.BC01SaveService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BC01SaveServiceImpl implements BC01SaveService {
 
     @Autowired

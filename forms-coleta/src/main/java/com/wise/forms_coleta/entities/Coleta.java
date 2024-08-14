@@ -59,6 +59,12 @@ public class Coleta {
             inverseJoinColumns = @JoinColumn(name= "pb_id"))
     private Set<BC01> pbSet = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_horimetro",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name= "horimetro_id"))
+    private Set<Horimetro> horimetroSet = new HashSet<>();
+
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
         this.data_coleta = data.dataColeta();
