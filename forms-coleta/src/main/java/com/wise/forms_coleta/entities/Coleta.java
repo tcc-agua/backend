@@ -56,7 +56,7 @@ public class Coleta {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_pbs",
             joinColumns = @JoinColumn(name = "coleta_id"),
-            inverseJoinColumns = @JoinColumn(name= "pb_id"))
+            inverseJoinColumns = @JoinColumn(name= "pbs_id"))
     private Set<PBs> pbSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -64,6 +64,12 @@ public class Coleta {
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "horimetro_id"))
     private Set<Horimetro> horimetroSet = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_filtro_cartucho",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name= "filtro_cartucho_id"))
+    private Set<FiltroCartucho> filtroCartuchoSet = new HashSet<>();
 
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();

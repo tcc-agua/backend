@@ -88,6 +88,15 @@ CREATE TABLE horimetro(
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
+CREATE TABLE filtro_cartucho(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pressao_entrada DOUBLE NOT NULL,
+    pressao_saida DOUBLE NOT NULL,
+    ponto_id BIGINT,
+
+    FOREIGN KEY(ponto_id) REFERENCES ponto(id)
+);
+
 
 -- Auxiliares
 
@@ -144,4 +153,14 @@ CREATE TABLE coleta_horimetro(
     PRIMARY KEY(coleta_id, horimetro_id),
     FOREIGN KEY(coleta_id) REFERENCES coleta(id),
     FOREIGN KEY(horimetro_id) REFERENCES horimetro(id)
+);
+
+CREATE TABLE coleta_filtro_cartucho(
+    coleta_id BIGINT,
+    filtro_cartucho_id BIGINT,
+    PRIMARY KEY(coleta_id, filtro_cartucho_id),
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY(filtro_cartucho_id) REFERENCES filtro_cartucho(id)
+
+
 );
