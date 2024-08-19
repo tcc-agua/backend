@@ -9,7 +9,10 @@ public record SensorPHCreateDTO(
         Double ph,
 
         @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
-        String nomePonto
+        String nomePonto,
+
+        @NotBlank
+        String nomeTecnico
 
 ) {
 

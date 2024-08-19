@@ -106,14 +106,22 @@ CREATE TABLE cd (
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
+CREATE TABLE sensor_ph (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    ph DOUBLE NOT NULL,
+    ponto_id BIGINT,
+
+    FOREIGN KEY(ponto_id) REFERENCES ponto(id)
+);
+
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
     coleta_id BIGINT,
     pm_pt_id BIGINT,
     PRIMARY KEY (coleta_id, pm_pt_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (pm_pt_id) REFERENCES pm_pt(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (pm_pt_id) REFERENCES pm_pt(id) ON DELETE CASCADE
 );
 
 
@@ -121,8 +129,8 @@ CREATE TABLE coleta_colunas_carvao (
     coleta_id BIGINT,
     colunas_carvao_id BIGINT,
     PRIMARY KEY (coleta_id, colunas_carvao_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (colunas_carvao_id) REFERENCES colunas_carvao(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (colunas_carvao_id) REFERENCES colunas_carvao(id) ON DELETE CASCADE
 );
 
 
@@ -131,8 +139,8 @@ CREATE TABLE coleta_bc06 (
     bc06_id BIGINT,
 
     PRIMARY KEY (coleta_id, bc06_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (bc06_id) REFERENCES bc06(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (bc06_id) REFERENCES bc06(id) ON DELETE CASCADE
 );
 
 
@@ -140,16 +148,16 @@ CREATE TABLE coleta_bc01 (
     coleta_id BIGINT,
     bc01_id BIGINT,
     PRIMARY KEY (coleta_id, bc01_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (bc01_id) REFERENCES bc01(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (bc01_id) REFERENCES bc01(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_pbs (
     coleta_id BIGINT,
     pbs_id BIGINT,
     PRIMARY KEY (coleta_id, pbs_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (pbs_id) REFERENCES pbs(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (pbs_id) REFERENCES pbs(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_horimetro(
@@ -157,16 +165,16 @@ CREATE TABLE coleta_horimetro(
     horimetro_id BIGINT,
 
     PRIMARY KEY(coleta_id, horimetro_id),
-    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY(horimetro_id) REFERENCES horimetro(id)
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(horimetro_id) REFERENCES horimetro(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_filtro_cartucho(
     coleta_id BIGINT,
     filtro_cartucho_id BIGINT,
     PRIMARY KEY(coleta_id, filtro_cartucho_id),
-    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY(filtro_cartucho_id) REFERENCES filtro_cartucho(id)
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(filtro_cartucho_id) REFERENCES filtro_cartucho(id) ON DELETE CASCADE
 
 
 );
@@ -175,6 +183,14 @@ CREATE TABLE coleta_cd (
     coleta_id BIGINT,
     cd_id BIGINT,
     PRIMARY KEY(coleta_id, cd_id),
-    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY(cd_id) REFERENCES cd(id)
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(cd_id) REFERENCES cd(id) ON DELETE CASCADE
 );
+
+CREATE TABLE coleta_ph (
+    coleta_id BIGINT,
+    sensor_ph_id BIGINT,
+    PRIMARY KEY(coleta_id, sensor_ph_id),
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(sensor_ph_id) REFERENCES sensor_ph(id) ON DELETE CASCADE
+)

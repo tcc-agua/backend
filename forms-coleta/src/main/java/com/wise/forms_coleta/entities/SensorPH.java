@@ -1,6 +1,7 @@
 package com.wise.forms_coleta.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wise.forms_coleta.dtos.sensor_ph.SensorPHCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,9 +28,11 @@ public class SensorPH {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    @JsonBackReference
     private Ponto ponto;
 
-    @ManyToMany(mappedBy = "sensorPHSet", fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "phSet", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Coleta> coletas = new HashSet<>();
 
     public SensorPH(SensorPHCreateDTO data) {

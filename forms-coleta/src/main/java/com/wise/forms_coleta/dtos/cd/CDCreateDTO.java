@@ -14,7 +14,10 @@ public record CDCreateDTO(
         Double pressao,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Integer hidrometro
+        Integer hidrometro,
+
+        @NotBlank
+        String nomeTecnico
 
 ) {
 }

@@ -21,7 +21,10 @@ public record BC01CreateDTO(
         Double vazao,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Integer volume
+        Integer volume,
+
+        @NotBlank
+        String nomeTecnico
 ){
 
 }
