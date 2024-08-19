@@ -1,5 +1,7 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;

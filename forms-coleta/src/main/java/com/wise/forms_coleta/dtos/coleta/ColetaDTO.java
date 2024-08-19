@@ -14,7 +14,7 @@ public record ColetaDTO(
 ){
 
     public ColetaDTO(Coleta coleta){
-        this(coleta.getId(), coleta.getTecnico(), coleta.getData_coleta(), coleta.getHora_inicio(), coleta.getHora_fim());
+        this(coleta.getId(), coleta.getTecnico(), coleta.getDataColeta(), coleta.getHora_inicio(), coleta.getHora_fim());
     }
 
 }

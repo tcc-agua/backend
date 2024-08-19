@@ -101,6 +101,7 @@ CREATE TABLE cd (
     tipo_rede VARCHAR(45) NOT NULL,
     pressao DOUBLE NOT NULL,
     hidrometro INT NOT NULL,
+    ponto_id BIGINT,
 
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );

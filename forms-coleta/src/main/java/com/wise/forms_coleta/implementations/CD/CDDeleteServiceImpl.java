@@ -5,7 +5,9 @@ import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.CDRepository;
 import com.wise.forms_coleta.services.CD.CDDeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CDDeleteServiceImpl implements CDDeleteService {
 
     @Autowired

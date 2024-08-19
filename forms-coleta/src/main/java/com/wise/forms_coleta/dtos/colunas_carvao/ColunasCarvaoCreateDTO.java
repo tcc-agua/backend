@@ -20,7 +20,10 @@ public record ColunasCarvaoCreateDTO(
         Boolean houve_retrolavagem,
 
         @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
-        String nomePonto
+        String nomePonto,
+
+        @NotBlank
+        String nomeTecnico
 ){
 
 }

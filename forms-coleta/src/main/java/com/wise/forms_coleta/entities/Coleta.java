@@ -1,5 +1,7 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wise.forms_coleta.dtos.coleta.ColetaCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,7 +25,8 @@ public class Coleta {
     private Long id;
 
     private String tecnico;
-    private LocalDate data_coleta;
+    @Column(name="data_coleta")
+    private LocalDate dataColeta;
     private LocalTime hora_inicio;
     private LocalTime hora_fim;
 
@@ -56,8 +59,8 @@ public class Coleta {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_pbs",
             joinColumns = @JoinColumn(name = "coleta_id"),
-            inverseJoinColumns = @JoinColumn(name= "pb_id"))
-    private Set<BC01> pbSet = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name= "pbs_id"))
+    private Set<PBs> pbSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_horimetro",
@@ -79,8 +82,14 @@ public class Coleta {
 
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
-        this.data_coleta = data.dataColeta();
+        this.dataColeta = data.dataColeta();
         this.hora_inicio = data.horaInicio();
         this.hora_fim = data.horaFim();
+    }
+
+    public Coleta(String nomeTecnico, LocalDate data_coleta, LocalTime hora_inicio){
+        this.tecnico = nomeTecnico;
+        this.dataColeta = data_coleta;
+        this.hora_inicio = hora_inicio;
     }
 }

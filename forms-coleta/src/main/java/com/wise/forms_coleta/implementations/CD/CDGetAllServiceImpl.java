@@ -4,9 +4,11 @@ import com.wise.forms_coleta.dtos.cd.CDDTO;
 import com.wise.forms_coleta.repositories.CDRepository;
 import com.wise.forms_coleta.services.CD.CDGetAllService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CDGetAllServiceImpl implements CDGetAllService {
     @Autowired
     private CDRepository cdRepo;

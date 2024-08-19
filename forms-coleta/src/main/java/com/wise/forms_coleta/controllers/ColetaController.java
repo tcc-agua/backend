@@ -2,6 +2,8 @@ package com.wise.forms_coleta.controllers;
 
 import com.wise.forms_coleta.dtos.coleta.ColetaCreateDTO;
 import com.wise.forms_coleta.dtos.coleta.ColetaDTO;
+import com.wise.forms_coleta.dtos.coleta.ColetaGetByDateDTO;
+import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.services.coleta.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,6 +34,9 @@ public class ColetaController {
 
     @Autowired
     ColetaPutService coletaPutService;
+
+    @Autowired
+    ColetaGetByDateService coletaGetByDateService;
 
     @PostMapping
     @Transactional
@@ -60,5 +66,11 @@ public class ColetaController {
     @Transactional
     public ResponseEntity<ColetaDTO> put(@PathVariable Long id, @RequestBody @Valid ColetaCreateDTO data){
         return new ResponseEntity<>(coletaPutService.put(id, data), HttpStatus.OK);
+    }
+
+    @GetMapping("/get-by-date")
+    public ResponseEntity<List<Coleta>> getByDate(@RequestParam("data")LocalDate data){
+        return new ResponseEntity<>(coletaGetByDateService.getALlByDate(data), HttpStatus.OK);
+
     }
 }
