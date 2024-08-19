@@ -89,6 +89,13 @@ public class Coleta {
     private Set<CD> cdSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_fase_livre",
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name= "fase_livre_id"))
+    @JsonManagedReference
+    private Set<FaseLivre> faseLivreSet = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_ph",
                 joinColumns = @JoinColumn(name= "coleta_id"),
                 inverseJoinColumns = @JoinColumn(name = "sensor_ph_id"))

@@ -1,15 +1,15 @@
-package com.wise.forms_coleta.implementations.colunas_carvao;
+package com.wise.forms_coleta.implementations.faseLivre;
 
-import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
-import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoDTO;
+import com.wise.forms_coleta.dtos.faseLivre.FaseLivreCreateDTO;
+import com.wise.forms_coleta.dtos.faseLivre.FaseLivreDTO;
 import com.wise.forms_coleta.entities.Coleta;
-import com.wise.forms_coleta.entities.ColunasCarvao;
+import com.wise.forms_coleta.entities.FaseLivre;
 import com.wise.forms_coleta.entities.Ponto;
 import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.ColetaRepository;
-import com.wise.forms_coleta.repositories.ColunasCarvaoRepository;
+import com.wise.forms_coleta.repositories.FaseLivreRepository;
 import com.wise.forms_coleta.repositories.PontoRepository;
-import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoSaveService;
+import com.wise.forms_coleta.services.faseLivre.FaseLivreSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +17,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Service
-public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
+public class FaseLivreSaveServiceImpl implements FaseLivreSaveService {
+
     @Autowired
-    private ColunasCarvaoRepository colunasCarvaoRepository;
+    private FaseLivreRepository faseLivreRepository;
 
     @Autowired
     private PontoRepository pontoRepository;
@@ -27,24 +28,26 @@ public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+
     @Override
-    public ColunasCarvaoDTO save(ColunasCarvaoCreateDTO data) {
+    public FaseLivreDTO save(FaseLivreCreateDTO data) {
 
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
         Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
 
-        ColunasCarvao colunasCarvao = new ColunasCarvao(data);
-        colunasCarvao.setPonto(ponto);
+        FaseLivre faseLivre = new FaseLivre(data);
 
-        coleta.getColunasCarvaoSet().add(colunasCarvao);
+        faseLivre.setPonto(ponto);
+
+        coleta.getFaseLivreSet().add(faseLivre);
 
         coleta.setHora_fim(LocalTime.now());
 
-        colunasCarvaoRepository.save(colunasCarvao);
+        faseLivreRepository.save(faseLivre);
         coletaRepository.save(coleta);
 
-        return new ColunasCarvaoDTO(colunasCarvao);
+        return new FaseLivreDTO(faseLivre);
     }
 }
