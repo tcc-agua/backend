@@ -36,6 +36,7 @@ public class Coleta {
     @JoinTable(name = "coleta_colunas_carvao",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name = "colunas_carvao_id"))
+    @JsonManagedReference // Marca o lado gerenciado
     private Set<ColunasCarvao> colunasCarvaoSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)

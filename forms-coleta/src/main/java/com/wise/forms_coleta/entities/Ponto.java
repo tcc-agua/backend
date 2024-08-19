@@ -29,6 +29,7 @@ public class Ponto {
 //    Relacionamentos
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private ColunasCarvao colunas_carvao;
 
     @OneToOne(mappedBy = "ponto")

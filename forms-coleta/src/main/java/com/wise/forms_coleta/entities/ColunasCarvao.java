@@ -33,9 +33,11 @@ public class ColunasCarvao {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    @JsonBackReference
     private Ponto ponto;
 
     @ManyToMany(mappedBy = "colunasCarvaoSet", fetch = FetchType.EAGER)
+    @JsonBackReference // Marca o lado de referência
     private Set<Coleta> coletas = new HashSet<>();
 
     public ColunasCarvao(ColunasCarvaoCreateDTO data){
