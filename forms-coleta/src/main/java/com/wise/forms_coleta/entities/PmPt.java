@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.wise.forms_coleta.dtos.PmPt.PmPtCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,9 +29,11 @@ public class PmPt {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    @JsonBackReference
     private Ponto ponto;
 
     @ManyToMany(mappedBy = "pmPtSet", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Coleta> coletas = new HashSet<>();
 
      public PmPt(PmPtCreateDTO data){

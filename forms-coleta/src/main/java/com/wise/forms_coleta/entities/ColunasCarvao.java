@@ -1,5 +1,7 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wise.forms_coleta.dtos.colunas_carvao.ColunasCarvaoCreateDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,9 +33,11 @@ public class ColunasCarvao {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
+    @JsonBackReference
     private Ponto ponto;
 
     @ManyToMany(mappedBy = "colunasCarvaoSet", fetch = FetchType.EAGER)
+    @JsonBackReference // Marca o lado de referência
     private Set<Coleta> coletas = new HashSet<>();
 
     public ColunasCarvao(ColunasCarvaoCreateDTO data){

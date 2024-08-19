@@ -21,7 +21,7 @@ public class ColetaPutServiceImpl implements ColetaPutService {
                 .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
 
         coleta.setTecnico(data.tecnico());
-        coleta.setData_coleta(data.dataColeta());
+        coleta.setDataColeta(data.dataColeta());
         coleta.setHora_inicio(data.horaInicio());
         coleta.setHora_fim(data.horaFim());
 

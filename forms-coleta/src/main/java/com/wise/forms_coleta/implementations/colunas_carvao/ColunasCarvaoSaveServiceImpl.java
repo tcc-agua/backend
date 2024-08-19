@@ -13,6 +13,9 @@ import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Service
 public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
     @Autowired
@@ -21,16 +24,25 @@ public class ColunasCarvaoSaveServiceImpl implements ColunasCarvaoSaveService {
     @Autowired
     private PontoRepository pontoRepository;
 
+    @Autowired
+    private ColetaRepository coletaRepository;
+
     @Override
     public ColunasCarvaoDTO save(ColunasCarvaoCreateDTO data) {
 
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+
         ColunasCarvao colunasCarvao = new ColunasCarvao(data);
         colunasCarvao.setPonto(ponto);
 
+        coleta.getColunasCarvaoSet().add(colunasCarvao);
+
         colunasCarvaoRepository.save(colunasCarvao);
+        coleta.setHora_fim(LocalTime.now());
+        coletaRepository.save(coleta);
 
         return new ColunasCarvaoDTO(colunasCarvao);
     }
