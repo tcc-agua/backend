@@ -61,6 +61,14 @@ public class Ponto {
     @JsonManagedReference
     private FaseLivre faseLivre;
 
+    @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
+    private TQ02 tq02;
+
+    @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
+    private TQ01 tq01;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();

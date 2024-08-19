@@ -131,6 +131,16 @@ CREATE TABLE tq01 (
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
+CREATE TABLE tq02(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    sensor_ph DOUBLE NOT NULL,
+    it_02_1 VARCHAR(100) NOT NULL
+
+    ponto_id BIGINT,
+    FOREIGN KEY(ponto_id) REFERENCES ponto(id)
+
+);
+
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -228,4 +238,12 @@ CREATE TABLE coleta_tq01 (
     PRIMARY KEY(coleta_id, tq01_id),
     FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
     FOREIGN KEY(tq01_id) REFERENCES tq01(id) ON DELETE CASCADE
+);
+
+CREATE TABLE coleta_tq02 (
+    coleta_id BIGINT,
+    tq02_id BIGINT,
+    PRIMARY KEY(coleta_id, tq02_id),
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(tq02_id) REFERENCES tq02(id) ON DELETE CASCADE
 );
