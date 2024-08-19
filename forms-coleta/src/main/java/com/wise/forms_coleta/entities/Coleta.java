@@ -102,6 +102,13 @@ public class Coleta {
     @JsonManagedReference
     private Set<SensorPH> phSet = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "coleta_tq01",
+                joinColumns = @JoinColumn(name = "coleta_id"),
+                inverseJoinColumns = @JoinColumn(name = "tq01_id"))
+    @JsonManagedReference
+    private Set<TQ01> tq01Set = new HashSet<>();
+
     public Coleta(ColetaCreateDTO data){
         this.tecnico = data.tecnico();
         this.dataColeta = data.dataColeta();
