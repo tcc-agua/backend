@@ -109,7 +109,7 @@ CREATE TABLE cd (
 CREATE TABLE fase_livre(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     volume DOUBLE NOT NULL,
-    houveTroca TINYINT NOT NULL,
+    houve_troca TINYINT NOT NULL,
     ponto_id BIGINT,
 
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
