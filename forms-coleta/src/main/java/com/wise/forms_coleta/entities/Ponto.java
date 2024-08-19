@@ -57,6 +57,10 @@ public class Ponto {
     @JsonManagedReference
     private FiltroCartucho filtroCartucho;
 
+    @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
+    private FaseLivre faseLivre;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();

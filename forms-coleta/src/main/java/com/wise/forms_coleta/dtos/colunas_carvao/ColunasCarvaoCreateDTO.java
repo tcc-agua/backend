@@ -22,7 +22,7 @@ public record ColunasCarvaoCreateDTO(
         @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank
+        @NotBlank(message = "O campo 'nomeTecnico' não pode estar em branco!")
         String nomeTecnico
 ){
 

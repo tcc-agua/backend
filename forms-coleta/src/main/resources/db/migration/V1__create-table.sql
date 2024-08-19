@@ -106,6 +106,15 @@ CREATE TABLE cd (
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
 );
 
+CREATE TABLE fase_livre(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    volume DOUBLE NOT NULL,
+    houve_troca TINYINT NOT NULL,
+    ponto_id BIGINT,
+
+    FOREIGN KEY(ponto_id) REFERENCES ponto(id)
+);
+
 CREATE TABLE sensor_ph (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     ph DOUBLE NOT NULL,
@@ -186,6 +195,16 @@ CREATE TABLE coleta_cd (
     FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
     FOREIGN KEY(cd_id) REFERENCES cd(id) ON DELETE CASCADE
 );
+
+CREATE TABLE coleta_fase_livre (
+    coleta_id BIGINT,
+    fase_livre_id BIGINT,
+    PRIMARY KEY(coleta_id, fase_livre_id),
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id)
+);
+
+
 
 CREATE TABLE coleta_ph (
     coleta_id BIGINT,
