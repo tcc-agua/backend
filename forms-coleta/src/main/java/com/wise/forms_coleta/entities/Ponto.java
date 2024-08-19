@@ -33,9 +33,11 @@ public class Ponto {
     private ColunasCarvao colunas_carvao;
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private PmPt pm_pt;
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private BC06 bc06;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -44,12 +46,15 @@ public class Ponto {
     private Excel excel;
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private BC01 bc01;
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private PBs pBs;
 
     @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
     private FiltroCartucho filtroCartucho;
 
     public Ponto(PontoCreateDTO data){

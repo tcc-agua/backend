@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wise.forms_coleta.dtos.BC06.BC06CreateDTO;
 import jakarta.persistence.*;
@@ -25,10 +26,11 @@ public class BC06 {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonBackReference
     private Ponto ponto;
 
     @ManyToMany(mappedBy = "bc06Set", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Coleta> coletas = new HashSet<>();
 
     private String pressao;

@@ -43,42 +43,49 @@ public class Coleta {
     @JoinTable(name = "coleta_pmpt",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name = "pm_pt_id"))
+    @JsonManagedReference
     private Set<PmPt> pmPtSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_bc06",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name = "bc06_id"))
+    @JsonManagedReference
     private Set<BC06> bc06Set = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_BC01",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "BC01_id"))
+    @JsonManagedReference
     private Set<BC01> BC01Set = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_pbs",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "pbs_id"))
+    @JsonManagedReference
     private Set<PBs> pbSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_horimetro",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "horimetro_id"))
+    @JsonManagedReference
     private Set<Horimetro> horimetroSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_filtro_cartucho",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "filtro_cartucho_id"))
+    @JsonManagedReference
     private Set<FiltroCartucho> filtroCartuchoSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_cd",
             joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name= "cd_id"))
+    @JsonManagedReference
     private Set<CD> cdSet = new HashSet<>();
 
     public Coleta(ColetaCreateDTO data){

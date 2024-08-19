@@ -1,5 +1,6 @@
 package com.wise.forms_coleta.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wise.forms_coleta.dtos.horimetro.HorimetroCreateDTO;
 import jakarta.persistence.*;
@@ -26,10 +27,11 @@ public class Horimetro {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonBackReference
     private Ponto ponto;
 
     @ManyToMany(mappedBy = "horimetroSet", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Coleta> coletas = new HashSet<>();
 
     public Horimetro(HorimetroCreateDTO data){
