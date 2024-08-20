@@ -148,7 +148,14 @@ CREATE TABLE bh02 (
     frequencia INTEGER NOT NULL,
     ponto_id BIGINT,
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
-)
+);
+
+CREATE TABLE bs01_pressao (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pressao DOUBLE NOT NULL,
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -263,3 +270,11 @@ CREATE TABLE coleta_bh02 (
     FOREIGN KEY (coleta_id) REFERENCES coleta(id),
     FOREIGN KEY (bh02_id) REFERENCES bh02(id)
 );
+
+CREATE TABLE coleta_bs01pressao (
+    coleta_id BIGINT,
+    bs01pressao_id BIGINT,
+    PRIMARY KEY(coleta_id, bs01pressao_id),
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY (bs01pressao_id) REFERENCES bs01_pressao(id)
+)
