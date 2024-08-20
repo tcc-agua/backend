@@ -24,10 +24,150 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: resource
-          uri: http://localhost:9000
+        - id: BC01
+          uri: http://localhost:8081
           predicates:
-            - Path=/resource
+            - Path=/BC01
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: BC06
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bc06
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: cd
+          uri: http://localhost:8081
+          predicates:
+            - Path=/cd
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: coleta
+          uri: http://localhost:8081
+          predicates:
+            - Path=/coleta
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: colunas-carvao
+          uri: http://localhost:8081
+          predicates:
+            - Path=/colunas-carvao
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: excel
+          uri: http://localhost:8081
+          predicates:
+            - Path=/excel
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: faselivre
+          uri: http://localhost:8081
+          predicates:
+            - Path=/faselivre
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: filtro_cartucho
+          uri: http://localhost:8081
+          predicates:
+            - Path=/filtro_cartucho
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: horimetro
+          uri: http://localhost:8081
+          predicates:
+            - Path=/horimetro
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: pb
+          uri: http://localhost:8081
+          predicates:
+            - Path=/pb
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: pmpt
+          uri: http://localhost:8081
+          predicates:
+            - Path=/pmpt
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: ponto
+          uri: http://localhost:8081
+          predicates:
+            - Path=/ponto
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: sensor-ph
+          uri: http://localhost:8081
+          predicates:
+            - Path=/sensor-ph
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: TQ01
+          uri: http://localhost:8081
+          predicates:
+            - Path=/TQ01
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: bh02
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bh02
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
