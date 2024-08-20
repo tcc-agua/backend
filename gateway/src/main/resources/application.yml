@@ -163,3 +163,13 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: bh02
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bh02
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:3000
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
