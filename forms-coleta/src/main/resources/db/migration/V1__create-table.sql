@@ -141,6 +141,14 @@ CREATE TABLE tq02(
 
 );
 
+CREATE TABLE bh02 (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    horimetro INTEGER NOT NULL,
+    pressao INTEGER NOT NULL,
+    frequencia INTEGER NOT NULL,
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+)
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -246,4 +254,12 @@ CREATE TABLE coleta_tq02 (
     PRIMARY KEY(coleta_id, tq02_id),
     FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
     FOREIGN KEY(tq02_id) REFERENCES tq02(id) ON DELETE CASCADE
+);
+
+CREATE TABLE coleta_bh02 (
+    coleta_id BIGINT,
+    bh02_id BIGINT,
+    PRIMARY KEY (coleta_id, bh02_id),
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY (bh02_id) REFERENCES bh02(id)
 );
