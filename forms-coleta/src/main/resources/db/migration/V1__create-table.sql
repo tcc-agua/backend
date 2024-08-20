@@ -267,14 +267,14 @@ CREATE TABLE coleta_bh02 (
     coleta_id BIGINT,
     bh02_id BIGINT,
     PRIMARY KEY (coleta_id, bh02_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (bh02_id) REFERENCES bh02(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (bh02_id) REFERENCES bh02(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_bs01pressao (
     coleta_id BIGINT,
     bs01pressao_id BIGINT,
     PRIMARY KEY(coleta_id, bs01pressao_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (bs01pressao_id) REFERENCES bs01_pressao(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (bs01pressao_id) REFERENCES bs01_pressao(id) ON DELETE CASCADE
 )
