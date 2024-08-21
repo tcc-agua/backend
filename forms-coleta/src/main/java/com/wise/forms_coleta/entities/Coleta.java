@@ -125,7 +125,7 @@ public class Coleta {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_bs01pressao",
-            joinColumns = @JoinColumn(name = "coleta-id"),
+            joinColumns = @JoinColumn(name = "coleta_id"),
             inverseJoinColumns = @JoinColumn(name = "bs01pressao_id"))
     @JsonManagedReference
     private Set<BS01Pressao> bs01PressaoSet = new HashSet<>();

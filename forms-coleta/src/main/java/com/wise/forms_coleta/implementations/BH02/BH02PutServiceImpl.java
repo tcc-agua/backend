@@ -15,11 +15,6 @@ public class BH02PutServiceImpl implements BH02PutService {
     private BH02Repository bh02Repository;
 
     @Override
-    public BH02DTO put(Long id, BH02DTO data) {
-        return null;
-    }
-
-    @Override
     public BH02DTO put(Long id, BH02PutDTO data) {
         BH02 bh02 = bh02Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
