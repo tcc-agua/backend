@@ -264,8 +264,8 @@ CREATE TABLE coleta_fase_livre (
     coleta_id BIGINT,
     fase_livre_id BIGINT,
     PRIMARY KEY(coleta_id, fase_livre_id),
-    FOREIGN KEY(coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id)
+    FOREIGN KEY(coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_ph (
@@ -318,7 +318,7 @@ CREATE TABLE coleta_tq04_tq05(
 
 CREATE TABLE coleta_bomba_bc03(
      coleta_id BIGINT,
-     bomba_bc03_id,
+     bomba_bc03_id BIGINT,
      PRIMARY KEY(coleta_id, bomba_bc03_id),
      FOREIGN KEY (bomba_bc03_id) REFERENCES bomba_bc03(id) ON DELETE CASCADE,
      FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE
@@ -328,6 +328,6 @@ CREATE TABLE coleta_bs01hidrometro (
     coleta_id BIGINT,
     bs01hidrometro_id BIGINT,
     PRIMARY KEY (coleta_id, bs01hidrometro_id),
-    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
-    FOREIGN KEY (bs01hidrometro_id) REFERENCES bs01_hidrometro(id)
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (bs01hidrometro_id) REFERENCES bs01_hidrometro(id) ON DELETE CASCADE
 );
