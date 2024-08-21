@@ -161,6 +161,7 @@ CREATE TABLE tq04_tq05(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     houve_preparo_solucao TINYINT,
     qtd_bombonas DOUBLE NOT NULL,
+    kg_bombonas DOUBLE NOT NULL,
     horimetro INTEGER NOT NULL,
     hidrometro INTEGER NOT NULL,
 
