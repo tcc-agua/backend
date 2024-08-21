@@ -156,6 +156,19 @@ CREATE TABLE bs01_pressao (
     ponto_id BIGINT,
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
 );
+
+CREATE TABLE tq04_tq05(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    houve_preparo_solucao TINYINT,
+    qtd_bombonas DOUBLE NOT NULL,
+    horimetro INTEGER NOT NULL,
+    hidrometro INTEGER NOT NULL,
+
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+
+);
+
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -237,8 +250,6 @@ CREATE TABLE coleta_fase_livre (
     FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id)
 );
 
-
-
 CREATE TABLE coleta_ph (
     coleta_id BIGINT,
     sensor_ph_id BIGINT,
@@ -277,4 +288,12 @@ CREATE TABLE coleta_bs01pressao (
     PRIMARY KEY(coleta_id, bs01pressao_id),
     FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
     FOREIGN KEY (bs01pressao_id) REFERENCES bs01_pressao(id) ON DELETE CASCADE
-)
+);
+
+CREATE TABLE coleta_tq04_tq05(
+    coleta_id BIGINT,
+    tq04_tq05_id BIGINT,
+    PRIMARY KEY(coleta_id, tq04_tq05_id),
+    FOREIGN KEY (tq04_tq05_id) REFERENCES tq04_tq05(id) ON DELETE CASCADE,
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE
+);
