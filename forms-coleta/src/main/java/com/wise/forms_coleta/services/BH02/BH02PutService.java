@@ -4,5 +4,7 @@ import com.wise.forms_coleta.dtos.bh02.BH02DTO;
 import com.wise.forms_coleta.dtos.bh02.BH02PutDTO;
 
 public interface BH02PutService {
+    BH02DTO put(Long id, BH02DTO data);
+
     BH02DTO put(Long id, BH02PutDTO data);
 }
