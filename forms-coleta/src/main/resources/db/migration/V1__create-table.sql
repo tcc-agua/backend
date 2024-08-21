@@ -169,6 +169,14 @@ CREATE TABLE tq04_tq05(
 
 );
 
+CREATE TABLE bs01_hidrometro (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    volume INTEGER NOT NULL,
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
+
+
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -250,6 +258,8 @@ CREATE TABLE coleta_fase_livre (
     FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id)
 );
 
+
+
 CREATE TABLE coleta_ph (
     coleta_id BIGINT,
     sensor_ph_id BIGINT,
@@ -296,4 +306,12 @@ CREATE TABLE coleta_tq04_tq05(
     PRIMARY KEY(coleta_id, tq04_tq05_id),
     FOREIGN KEY (tq04_tq05_id) REFERENCES tq04_tq05(id) ON DELETE CASCADE,
     FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE coleta_bs01hidrometro (
+    coleta_id BIGINT,
+    bs01hidrometro_id BIGINT,
+    PRIMARY KEY (coleta_id, bs01hidrometro_id),
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id),
+    FOREIGN KEY (bs01hidrometro_id) REFERENCES bs01_hidrometro(id)
 );
