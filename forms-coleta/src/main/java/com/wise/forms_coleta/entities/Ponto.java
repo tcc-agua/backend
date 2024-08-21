@@ -73,6 +73,10 @@ public class Ponto {
     @JsonManagedReference
     private Tq04Tq05 tq04Tq05;
 
+    @OneToOne(mappedBy = "ponto")
+    @JsonManagedReference
+    private BombaBc03 bombaBc03;
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();

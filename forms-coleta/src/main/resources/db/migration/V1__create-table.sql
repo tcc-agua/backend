@@ -169,6 +169,16 @@ CREATE TABLE tq04_tq05(
 
 );
 
+CREATE TABLE bomba_bc03(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    pressao DOUBLE NOT NULL,
+    hidrometro DOUBLE NOT NULL,
+    horimetro DOUBLE NOT NULL,
+
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
+
 CREATE TABLE bs01_hidrometro (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     volume INTEGER NOT NULL,
@@ -258,8 +268,6 @@ CREATE TABLE coleta_fase_livre (
     FOREIGN KEY(fase_livre_id) REFERENCES fase_livre(id)
 );
 
-
-
 CREATE TABLE coleta_ph (
     coleta_id BIGINT,
     sensor_ph_id BIGINT,
@@ -306,6 +314,14 @@ CREATE TABLE coleta_tq04_tq05(
     PRIMARY KEY(coleta_id, tq04_tq05_id),
     FOREIGN KEY (tq04_tq05_id) REFERENCES tq04_tq05(id) ON DELETE CASCADE,
     FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE
+);
+
+CREATE TABLE coleta_bomba_bc03(
+     coleta_id BIGINT,
+     bomba_bc03_id,
+     PRIMARY KEY(coleta_id, bomba_bc03_id),
+     FOREIGN KEY (bomba_bc03_id) REFERENCES bomba_bc03(id) ON DELETE CASCADE,
+     FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE
 );
 
 CREATE TABLE coleta_bs01hidrometro (
