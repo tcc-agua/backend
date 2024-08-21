@@ -23,9 +23,9 @@ public class ExcelController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> save(@RequestBody @Valid ExcelCreateDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<?> save(@RequestBody @Valid ExcelCreateDTO data, UriComponentsBuilder uriBuilder){
         ExcelDTO excelDTO = excelSaveService.save(data);
         URI uri = uriBuilder.path("/excel/{id}").buildAndExpand(excelDTO.id()).toUri();
-        return ResponseEntity.created(uri).body("Excel criado com sucesso!");
+        return ResponseEntity.created(uri).body(excelDTO);
     }
 }
