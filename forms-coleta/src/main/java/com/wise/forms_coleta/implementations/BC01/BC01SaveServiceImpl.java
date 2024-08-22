@@ -38,14 +38,12 @@ public class BC01SaveServiceImpl implements BC01SaveService {
 
         BC01 bc01 = new BC01(data);
         bc01.setPonto(ponto);
-
         coleta.getBC01Set().add(bc01);
 
         bc01Repo.save(bc01);
         coleta.setHora_fim(LocalTime.now());
         coletaRepository.save(coleta);
 
-
-        return  new BC01DTO(bc01);
+        return new BC01DTO(bc01);
     }
 }
