@@ -20,10 +20,10 @@ public record PbCreateDTO(
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Double vol_rem_oleo,
 
-        @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank(message = "O campo 'nomeTecnico' não pode estar em branco!")
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomeTecnico
 ) {
 }
