@@ -7,16 +7,16 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public record ColetaCreateDTO(
-        @NotBlank(message = "O campo 'técnico' não pode estar em branco!")
+        @NotBlank(message = "O campo não pode estar em branco!")
         String tecnico,
 
         @DateTimeFormat(pattern = "dd/MM/yyyy")
         LocalDate dataColeta,
 
-        @DateTimeFormat(pattern = "HH:mm:ss")
+        @DateTimeFormat(pattern = "hh:mm:ss")
         LocalTime horaInicio,
 
-        @DateTimeFormat(pattern = "HH:mm:ss")
+        @DateTimeFormat(pattern = "hh:mm:ss")
         LocalTime horaFim
 
         // Pensar em como Receber o ID da entidade coletada

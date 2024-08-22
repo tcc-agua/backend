@@ -8,10 +8,10 @@ public record TQ01CreateDTO(
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a zero!")
         String nivel,
 
-        @NotBlank
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomeTecnico
 
 ) {

@@ -5,24 +5,24 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 public record Tq04Tq05CreateDTO(
 
-        @NotBlank(message = "O campo 'nomePonto' não pode estar em branco!")
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank(message = "O campo 'nomeTecnico' não pode estar em branco!")
+        @NotBlank(message = "O campo não pode estar em branco!")
         String nomeTecnico,
 
         Boolean houve_preparo_solucao,
 
-        @PositiveOrZero
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Integer qtd_bombonas,
 
-        @PositiveOrZero
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Double kg_bombonas,
 
-        @PositiveOrZero
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Double horimetro,
 
-        @PositiveOrZero
+        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Double hidrometro
 ){
 }

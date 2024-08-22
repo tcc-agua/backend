@@ -21,7 +21,7 @@ public class TQ02 {
     private Long id;
 
     private Double sensor_ph;
-    private String it_02_1;
+    private String lt_02_1;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
@@ -34,6 +34,6 @@ public class TQ02 {
 
     public TQ02(TQ02CreateDTO data) {
         this.sensor_ph = data.sensor_ph();
-        this.it_02_1 = data.it_02_1();
+        this.lt_02_1 = data.Lt_02_1();
     }
 }
