@@ -40,7 +40,7 @@ public class Ponto {
     @JsonManagedReference
     private BC06 bc06;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="excel_id", referencedColumnName = "id")
     @JsonManagedReference
     private Excel excel;

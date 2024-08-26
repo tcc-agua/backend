@@ -23,7 +23,7 @@ public class Excel {
 
     private LocalDate data_coleta;
 
-    @OneToOne(mappedBy = "excel")
+    @OneToMany(mappedBy = "excel", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private Ponto ponto;
 

@@ -20,7 +20,7 @@ CREATE TABLE ponto (
     localizacao VARCHAR(100) NOT NULL,
     status VARCHAR(100) NOT NULL,
     excel_id BIGINT,
-    FOREIGN KEY (excel_id) REFERENCES excel(id)
+    FOREIGN KEY (excel_id) REFERENCES excel(id) ON DELETE CASCADE
 );
 
 
