@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="Excel")
@@ -25,7 +27,7 @@ public class Excel {
 
     @OneToMany(mappedBy = "excel", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
-    private Ponto ponto;
+    private Set<Ponto> ponto = new HashSet<>();
 
     public Excel(ExcelCreateDTO data){
         this.nome = data.nome();
