@@ -17,7 +17,8 @@ public record BombaBc03CreateDTO(
         Double hidrometro,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Double horimetro
+        Double horimetro,
+        Long idColeta
 
 ) {
 }

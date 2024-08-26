@@ -24,7 +24,9 @@ public record BC01CreateDTO(
         Integer volume,
 
         @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico
+        String nomeTecnico,
+
+        Long idColeta
 ){
 
 }

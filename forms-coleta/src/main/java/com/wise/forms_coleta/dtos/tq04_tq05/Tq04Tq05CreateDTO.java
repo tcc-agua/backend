@@ -23,6 +23,7 @@ public record Tq04Tq05CreateDTO(
         Double horimetro,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
-        Double hidrometro
+        Double hidrometro,
+        Long idColeta
 ){
 }

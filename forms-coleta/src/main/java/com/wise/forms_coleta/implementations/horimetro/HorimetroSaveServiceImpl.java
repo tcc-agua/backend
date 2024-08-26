@@ -33,7 +33,8 @@ public class HorimetroSaveServiceImpl implements HorimetroSaveService {
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
-        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+        Coleta coleta = coletaRepository.findById(data.idColeta())
+                .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
         Horimetro horimetro = new Horimetro(data);
         horimetro.setPonto(ponto);

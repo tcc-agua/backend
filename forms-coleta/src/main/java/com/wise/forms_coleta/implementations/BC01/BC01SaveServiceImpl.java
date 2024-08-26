@@ -34,7 +34,8 @@ public class BC01SaveServiceImpl implements BC01SaveService {
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
-        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+        Coleta coleta = coletaRepository.findById(data.idColeta())
+                .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
         BC01 bc01 = new BC01(data);
         bc01.setPonto(ponto);

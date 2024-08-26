@@ -33,7 +33,8 @@ public class BH02SaveServiceImpl implements BH02SaveService {
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
-        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+        Coleta coleta = coletaRepository.findById(data.idColeta())
+                .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
         BH02 bh02 = new BH02(data);
         bh02.setPonto(ponto);

@@ -17,7 +17,8 @@ public record CDCreateDTO(
         Integer hidrometro,
 
         @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico
+        String nomeTecnico,
+        Long idColeta
 
 ) {
 }

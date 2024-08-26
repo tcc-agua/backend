@@ -33,7 +33,8 @@ public class TQ01SaveServiceImpl implements TQ01SaveService {
         Ponto ponto =pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
-        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+        Coleta coleta = coletaRepository.findById(data.idColeta())
+                .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
         TQ01 tq01 = new TQ01(data);
         tq01.setPonto(ponto);

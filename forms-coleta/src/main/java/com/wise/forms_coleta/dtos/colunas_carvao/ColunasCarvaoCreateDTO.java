@@ -23,7 +23,8 @@ public record ColunasCarvaoCreateDTO(
         String nomePonto,
 
         @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico
+        String nomeTecnico,
+        Long idColeta
 ){
 
 }

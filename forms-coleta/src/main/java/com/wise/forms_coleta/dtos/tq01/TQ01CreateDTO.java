@@ -12,7 +12,8 @@ public record TQ01CreateDTO(
         String nomePonto,
 
         @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico
+        String nomeTecnico,
+        Long idColeta
 
 ) {
 }

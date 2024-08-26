@@ -33,7 +33,8 @@ public class BS01PressaoSaveServiceImpl implements BS01PressaoSaveService {
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
-        Coleta coleta = new Coleta(data.nomeTecnico(), LocalDate.now(), LocalTime.now());
+        Coleta coleta = coletaRepository.findById(data.idColeta())
+                .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
         BS01Pressao bs01Pressao = new BS01Pressao(data);
         bs01Pressao.setPonto(ponto);
