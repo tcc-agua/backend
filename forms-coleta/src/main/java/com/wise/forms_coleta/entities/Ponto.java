@@ -7,6 +7,9 @@ import com.wise.forms_coleta.entities.enums.StatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="Ponto")
 @Getter
@@ -49,9 +52,9 @@ public class Ponto {
     @JsonManagedReference
     private BC01 bc01;
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private PBs pBs;
+    private Set<PBs> pBsSet = new HashSet<>();
 
     @OneToOne(mappedBy = "ponto")
     @JsonManagedReference
@@ -76,6 +79,10 @@ public class Ponto {
     @OneToOne(mappedBy = "ponto")
     @JsonManagedReference
     private BombaBc03 bombaBc03;
+
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<CD> cdSet = new HashSet<>();
 
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
