@@ -131,7 +131,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     }
                 }
             }
-
+            
             // Escrever os dados do workbook no output stream e retornar como recurso
             try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
                 workbook.write(outputStream);
