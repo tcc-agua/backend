@@ -10,7 +10,5 @@ public record BS01PressaoCreateDTO(
         @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico,
         Long idColeta
 ){}

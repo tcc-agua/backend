@@ -23,9 +23,6 @@ public record BC01CreateDTO(
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         Integer volume,
 
-        @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico,
-
         Long idColeta
 ){
 

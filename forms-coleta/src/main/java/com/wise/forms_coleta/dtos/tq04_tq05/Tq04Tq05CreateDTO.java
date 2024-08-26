@@ -8,9 +8,6 @@ public record Tq04Tq05CreateDTO(
         @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico,
-
         Boolean houve_preparo_solucao,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")

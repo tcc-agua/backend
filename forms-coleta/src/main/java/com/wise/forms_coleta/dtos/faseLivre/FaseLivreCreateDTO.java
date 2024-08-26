@@ -12,8 +12,6 @@ public record FaseLivreCreateDTO(
 
         Boolean houve_troca,
 
-        @NotBlank(message = "O campo não pode estar em branco!")
-        String nomeTecnico,
         Long idColeta
 
 ){
