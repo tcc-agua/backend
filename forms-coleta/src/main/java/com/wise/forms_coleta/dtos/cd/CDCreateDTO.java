@@ -7,7 +7,6 @@ public record CDCreateDTO(
         @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,
 
-        @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
         String tipo_rede,
 
         @PositiveOrZero(message = "O número valor precisa ser maior ou igual a 0!")
