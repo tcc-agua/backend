@@ -97,15 +97,15 @@ public class Coleta {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_ph",
-                joinColumns = @JoinColumn(name= "coleta_id"),
-                inverseJoinColumns = @JoinColumn(name = "sensor_ph_id"))
+            joinColumns = @JoinColumn(name= "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "sensor_ph_id"))
     @JsonManagedReference
     private Set<SensorPH> phSet = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_tq01",
-                joinColumns = @JoinColumn(name = "coleta_id"),
-                inverseJoinColumns = @JoinColumn(name = "tq01_id"))
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "tq01_id"))
     @JsonManagedReference
     private Set<TQ01> tq01Set = new HashSet<>();
 
@@ -118,8 +118,8 @@ public class Coleta {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "coleta_bh02",
-                joinColumns = @JoinColumn(name = "coleta_id"),
-                inverseJoinColumns = @JoinColumn(name = "bh02_id"))
+            joinColumns = @JoinColumn(name = "coleta_id"),
+            inverseJoinColumns = @JoinColumn(name = "bh02_id"))
     @JsonManagedReference
     private Set<BH02> bh02Set = new HashSet<>();
 
