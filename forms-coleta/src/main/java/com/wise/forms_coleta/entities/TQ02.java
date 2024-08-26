@@ -23,7 +23,7 @@ public class TQ02 {
     private Double sensor_ph;
     private String lt_02_1;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;

@@ -28,8 +28,8 @@ public class BH02 {
 
     // Relacionamentos
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ponto_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;
 

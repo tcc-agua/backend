@@ -26,7 +26,7 @@ public class FiltroCartucho {
     private Double pressao_entrada;
     private Double pressao_saida;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;

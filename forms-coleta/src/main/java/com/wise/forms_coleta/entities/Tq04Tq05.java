@@ -30,7 +30,7 @@ public class Tq04Tq05 {
 
 //    Relacionamentos
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;

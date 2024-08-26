@@ -24,7 +24,7 @@ public class BC06 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;

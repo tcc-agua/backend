@@ -31,54 +31,54 @@ public class Ponto {
 
 //    Relacionamentos
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private ColunasCarvao colunas_carvao;
+    private Set<ColunasCarvao> colunasCarvaoSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private PmPt pm_pt;
+    private Set<PmPt> pmPtSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private BC06 bc06;
+    private Set<BC06> bc06Set = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name="excel_id", referencedColumnName = "id")
     @JsonManagedReference
     private Excel excel;
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private BC01 bc01;
+    private Set<BC01> bc01Set = new HashSet<>();
 
     @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private Set<PBs> pBsSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private FiltroCartucho filtroCartucho;
+    private Set<FiltroCartucho> filtroCartuchoSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private FaseLivre faseLivre;
+    private Set<FaseLivre> faseLivreSet = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private TQ02 tq02;
+    private Set<TQ02> tq02Set = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private TQ01 tq01;
+    private Set<TQ01> tq01Set = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private Tq04Tq05 tq04Tq05;
+    private Set<Tq04Tq05> tq04Tq05Set = new HashSet<>();
 
-    @OneToOne(mappedBy = "ponto")
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private BombaBc03 bombaBc03;
+    private Set<BombaBc03> bombaBc03Set = new HashSet<>();
 
     @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference

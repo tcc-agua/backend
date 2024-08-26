@@ -31,7 +31,7 @@ public class ColunasCarvao {
 
 //    Relacionamentos
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;

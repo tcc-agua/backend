@@ -23,7 +23,7 @@ public class FaseLivre {
     private Double volume;
     private Boolean houve_troca;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
     @JsonBackReference
     private Ponto ponto;
