@@ -12,11 +12,9 @@ public record ColetaCreateDTO(
 
         @DateTimeFormat(pattern = "dd/MM/yyyy")
         LocalDate dataColeta,
-
-        @DateTimeFormat(pattern = "hh:mm:ss")
+        @DateTimeFormat(pattern = "HH:mm:ss")
         LocalTime horaInicio,
-
-        @DateTimeFormat(pattern = "hh:mm:ss")
+        @DateTimeFormat(pattern = "HH:mm:ss")
         LocalTime horaFim
 
         // Pensar em como Receber o ID da entidade coletada
