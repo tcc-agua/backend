@@ -28,7 +28,7 @@ public class TQ02Controller {
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid TQ02CreateDTO data, UriComponentsBuilder uriBuilder){
         TQ02DTO tq02DTO = tq02SaveService.save(data);
-        URI uri = uriBuilder.path("/pb/{id}").buildAndExpand(tq02DTO.id()).toUri();
+        URI uri = uriBuilder.path("/tq02/{id}").buildAndExpand(tq02DTO.id()).toUri();
         return ResponseEntity.created(uri).body("TQ02 criado com sucesso!");
     }
 }
