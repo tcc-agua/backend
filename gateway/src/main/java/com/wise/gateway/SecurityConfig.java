@@ -28,7 +28,7 @@ public class SecurityConfig {
                         .pathMatchers("/login").permitAll()
                         .anyExchange().authenticated())
                 .oauth2Login(conf -> conf
-                        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:5173/profile")))
+                        .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:5173/inicial")))
                 .oauth2ResourceServer(conf -> conf
                         .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())));
         return http.build();
