@@ -42,8 +42,8 @@ public class BombaBc03SaveServiceImpl implements BombaBc03SaveService {
 
         coleta.setHora_fim(LocalTime.now());
 
-        coletaRepository.save(coleta);
         bombaBc03Repository.save(bombaBc03);
+        coletaRepository.save(coleta);
 
         return new BombaBc03DTO(bombaBc03);
     }

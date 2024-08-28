@@ -42,8 +42,9 @@ public class Tq04Tq05SaveServiceImpl implements Tq04Tq05SaveService {
 
         coleta.setHora_fim(LocalTime.now());
 
-        coletaRepository.save(coleta);
         tq04Tq05Repository.save(tq04Tq05);
+        coletaRepository.save(coleta);
+
 
         return new Tq04Tq05DTO(tq04Tq05);
     }
