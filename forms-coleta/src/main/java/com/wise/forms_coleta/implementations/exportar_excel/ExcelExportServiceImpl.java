@@ -5,6 +5,7 @@ import com.wise.forms_coleta.repositories.*;
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportService;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +32,53 @@ public class ExcelExportServiceImpl implements ExcelExportService {
     @Override
     public ByteArrayResource exportToExcel() throws IOException {
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+
+            CellStyle headerStyleRoyalBlue = workbook.createCellStyle();
+            headerStyleRoyalBlue.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            headerStyleRoyalBlue.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyleRoyalBlue.setBorderBottom(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderTop(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderLeft(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderRight(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setAlignment(HorizontalAlignment.CENTER);
+            headerStyleRoyalBlue.setVerticalAlignment(VerticalAlignment.CENTER);
+            headerStyleRoyalBlue.setVerticalAlignment(VerticalAlignment.CENTER);
+
+            Font fontRoyalBlue = workbook.createFont();
+            fontRoyalBlue.setColor(IndexedColors.WHITE.getIndex()); // Define a cor da fonte para branco
+            fontRoyalBlue.setBold(true);
+            headerStyleRoyalBlue.setFont(fontRoyalBlue);
+
+            Font fontSubHeader = workbook.createFont();
+            fontSubHeader.setColor(IndexedColors.WHITE.getIndex()); // Define a cor da fonte para branco
+
+            CellStyle subHeaderStyle = workbook.createCellStyle();
+            subHeaderStyle.setFillForegroundColor(IndexedColors.ROYAL_BLUE.getIndex());
+            subHeaderStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            subHeaderStyle.setBorderBottom(BorderStyle.MEDIUM);
+            subHeaderStyle.setBorderTop(BorderStyle.MEDIUM);
+            subHeaderStyle.setBorderLeft(BorderStyle.MEDIUM);
+            subHeaderStyle.setBorderRight(BorderStyle.MEDIUM);
+            subHeaderStyle.setAlignment(HorizontalAlignment.CENTER);
+            subHeaderStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+            subHeaderStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+            subHeaderStyle.setFont(fontSubHeader);
+
+            CellStyle dataStyle = workbook.createCellStyle();
+            dataStyle.setBorderBottom(BorderStyle.THIN);
+            dataStyle.setBorderTop(BorderStyle.THIN);
+            dataStyle.setBorderLeft(BorderStyle.THIN);
+            dataStyle.setBorderRight(BorderStyle.THIN);
+            dataStyle.setAlignment(HorizontalAlignment.CENTER);
+            dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
             List<Ponto> pontos = pontoRepository.findAll();
             List<Excel> excels = excelRepository.findAll();
 
@@ -42,11 +91,23 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                 Row headerRow = sheet.createRow(rowNum++);
                 int cellIndex = 0;
 
+
                 // Adiciona os cabeçalhos gerais
-                headerRow.createCell(cellIndex++).setCellValue("Técnico");
-                headerRow.createCell(cellIndex++).setCellValue("Data");
-                headerRow.createCell(cellIndex++).setCellValue("Hora Início");
-                headerRow.createCell(cellIndex++).setCellValue("Hora Fim");
+                Cell tecnicoHeader = headerRow.createCell(cellIndex++);
+                tecnicoHeader.setCellValue("Técnico");
+                tecnicoHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell dataHeader = headerRow.createCell(cellIndex++);
+                dataHeader.setCellValue("Data");
+                dataHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell horaInicioHeader = headerRow.createCell(cellIndex++);
+                horaInicioHeader.setCellValue("Hora Início");
+                horaInicioHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell horaFimHeader = headerRow.createCell(cellIndex++);
+                horaFimHeader.setCellValue("Hora Fim");
+                horaFimHeader.setCellStyle(headerStyleRoyalBlue);
 
                 // Filtrar pontos pertencentes ao Excel atual
                 List<Ponto> pontosFiltrados = pontos.stream()
@@ -57,27 +118,28 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                 for (Ponto ponto : pontosFiltrados) {
                     int numCols = ponto.getNome().toUpperCase().contains("PB") ? 5 :
                             ponto.getNome().toUpperCase().contains("CD") ? 3 :
-                                    (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) ? 3 :
-                                            ponto.getNome().toUpperCase().contains("SENSOR") ? 1 :
-                                                    ponto.getNome().toUpperCase().contains("FASE LIVRE") ? 2 :
-                                                            ponto.getNome().toUpperCase().contains("TQ-01") ? 1 :
-                                                                    ponto.getNome().toUpperCase().contains("BC-01") ? 5 :
-                                                                            ponto.getNome().toUpperCase().contains("TQ-02") ? 2 :
-                                                                                    ponto.getNome().toUpperCase().contains("BH-02") ? 3 :
-                                                                                            ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") ? 2 :
-                                                                                                    ponto.getNome().toUpperCase().contains("HORÍMETRO") ? 1 :
-                                                                                                            ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") ? 6 :
-                                                                                                                    ponto.getNome().toUpperCase().contains("BC-03") ? 3 :
-                                                                                                                            (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05")) ? 5 :
-                                                                                                                                    ponto.getNome().toUpperCase().contains("BC-06") ? 2 :
-                                                                                                                                            ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") ? 1 :
-                                                                                                                                                    ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") ? 1 : 0;
+                            (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) ? 3 :
+                                    ponto.getNome().toUpperCase().contains("SENSOR") ? 1 :
+                                            ponto.getNome().toUpperCase().contains("FASE LIVRE") ? 2 :
+                                        ponto.getNome().toUpperCase().contains("TQ-01") ? 1 :
+                                                ponto.getNome().toUpperCase().contains("BC-01") ? 5 :
+                                                        ponto.getNome().toUpperCase().contains("TQ-02") ? 2 :
+                                                                ponto.getNome().toUpperCase().contains("BH-02") ? 3 :
+                                                                        ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") ? 2 :
+                                                                                ponto.getNome().toUpperCase().contains("HORÍMETRO") ? 1 :
+                                                                                        ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") ? 6 :
+                                                                                                ponto.getNome().toUpperCase().contains("BC-03") ? 3 :
+                                                                                                        (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05")) ? 5 :
+                                                                                                                ponto.getNome().toUpperCase().contains("BC-06") ? 2 :
+                                                                                                                        ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") ? 1 :
+                                                                                                                                ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") ? 1 : 0;
 
 
                     if (numCols > 0) {
                         Cell pontoCell = headerRow.createCell(cellIndex);
                         pontoCell.setCellValue(ponto.getNome());
-                        sheet.setColumnWidth(cellIndex, 6000); // Ajusta a largura da coluna
+                        pontoCell.setCellStyle(headerStyleRoyalBlue);
+                        sheet.autoSizeColumn(cellIndex); // Ajusta a largura da coluna
 
                         // Mescla as células do cabeçalho do ponto, garantindo que o intervalo seja válido
                         if (numCols > 1) {
@@ -102,10 +164,21 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                 cellIndex = 0;
 
                 // Adiciona os subcabeçalhos gerais
-                subHeaderRow.createCell(cellIndex++).setCellValue(""); // Espaço reservado para "Técnico"
-                subHeaderRow.createCell(cellIndex++).setCellValue(""); // Espaço reservado para "Data"
-                subHeaderRow.createCell(cellIndex++).setCellValue(""); // Espaço reservado para "Hora Início"
-                subHeaderRow.createCell(cellIndex++).setCellValue(""); // Espaço reservado para "Hora Fim"
+                Cell tecnicoSubHeader = subHeaderRow.createCell(cellIndex++);
+                tecnicoSubHeader.setCellValue(""); // Espaço reservado para "Técnico"
+                tecnicoSubHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell dataSubHeader = subHeaderRow.createCell(cellIndex++);
+                dataSubHeader.setCellValue(""); // Espaço reservado para "Data"
+                dataSubHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell horaInicioSubHeader = subHeaderRow.createCell(cellIndex++);
+                horaInicioSubHeader.setCellValue(""); // Espaço reservado para "Hora Início"
+                horaInicioSubHeader.setCellStyle(headerStyleRoyalBlue);
+
+                Cell horaFimSubHeader = subHeaderRow.createCell(cellIndex++);
+                horaFimSubHeader.setCellValue(""); // Espaço reservado para "Hora Fim"
+                horaFimSubHeader.setCellStyle(headerStyleRoyalBlue);
 
                 // Adiciona os subcabeçalhos dos pontos
                 for (Ponto ponto : pontosFiltrados) {
@@ -153,8 +226,13 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     }
 
                     for (String header : headers) {
-                        Cell headerCell = subHeaderRow.createCell(cellIndex++);
+                        Cell headerCell = subHeaderRow.createCell(cellIndex++);;
                         headerCell.setCellValue(header);
+                        headerCell.setCellStyle(subHeaderStyle);
+                    }
+
+                    for (int i = 0; i < headers.length; i++) {
+                        sheet.autoSizeColumn(cellIndex - headers.length + i);
                     }
                 }
 
@@ -190,10 +268,21 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                         cellIndex = 0;
 
                         // Adiciona os dados principais da coleta
-                        row.createCell(cellIndex++).setCellValue(coleta.getTecnico());
-                        row.createCell(cellIndex++).setCellValue(coleta.getDataColeta().toString());
-                        row.createCell(cellIndex++).setCellValue(coleta.getHora_inicio().toString());
-                        row.createCell(cellIndex++).setCellValue(coleta.getHora_fim().toString());
+                        Cell dadosTecnico = row.createCell(cellIndex++);
+                        dadosTecnico.setCellValue(coleta.getTecnico());
+                        dadosTecnico.setCellStyle(borderStyle);
+
+                        Cell dadosData = row.createCell(cellIndex++);
+                        dadosData.setCellValue(coleta.getDataColeta().toString());
+                        dadosData.setCellStyle(borderStyle);
+
+                        Cell dadosHoraInicio = row.createCell(cellIndex++);
+                        dadosHoraInicio.setCellValue(coleta.getHora_inicio().toString());
+                        dadosHoraInicio.setCellStyle(borderStyle);
+
+                        Cell dadosHoraFim = row.createCell(cellIndex++);
+                        dadosHoraFim.setCellValue(coleta.getHora_fim().toString());
+                        dadosHoraFim.setCellStyle(borderStyle);
 
                         // Adiciona os dados dos pontos
                         for (Ponto ponto : pontosFiltrados) {
@@ -249,87 +338,192 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                     .filter(bs01HidrometroItem -> bs01HidrometroItem.getPonto().equals(ponto))
                                     .findFirst().orElse(null);
 
-                            if (ponto.getNome().toUpperCase().contains("PB") && pb != null) {
-                                row.createCell(cellIndex++).setCellValue(pb.getPressao() != null ? pb.getPressao() : 0);
-                                row.createCell(cellIndex++).setCellValue(pb.getPulsos() != null ? pb.getPulsos() : 0);
-                                row.createCell(cellIndex++).setCellValue(pb.getNivel_oleo() != null ? pb.getNivel_oleo() : 0);
-                                row.createCell(cellIndex++).setCellValue(pb.getNivel_agua() != null ? pb.getNivel_agua() : 0);
-                                row.createCell(cellIndex++).setCellValue(pb.getVol_rem_oleo() != null ? pb.getVol_rem_oleo() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("CD") && cd != null) {
-                                row.createCell(cellIndex++).setCellValue(cd.getPressao() != null ? cd.getPressao() : 0);
-                                row.createCell(cellIndex++).setCellValue(cd.getHidrometro() != null ? cd.getHidrometro() : 0);
-                                row.createCell(cellIndex++).setCellValue(cd.getTipo_rede() != null ? cd.getTipo_rede() : "");
-                            } else if ((ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) && pmpt != null) {
-                                row.createCell(cellIndex++).setCellValue(pmpt.getNivel_agua() != null ? pmpt.getNivel_agua() : 0);
-                                row.createCell(cellIndex++).setCellValue(pmpt.getNivel_oleo() != null ? pmpt.getNivel_oleo() : 0);
-                                row.createCell(cellIndex++).setCellValue(pmpt.getFl_remo_manual() != null ? pmpt.getFl_remo_manual() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("SENSOR") && sensorPH != null) {
-                                row.createCell(cellIndex++).setCellValue(sensorPH.getPh() != null ? sensorPH.getPh() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("FASE LIVRE") && faseLivre != null) {
-                                row.createCell(cellIndex++).setCellValue(faseLivre.getVolume() != null ? faseLivre.getVolume() : 0);
-                                if(!faseLivre.getHouve_troca()){
-                                    row.createCell(cellIndex++).setCellValue("NÃO");
-                                } else {
-                                    row.createCell(cellIndex++).setCellValue("SIM");
-                                }
-                            } else if(ponto.getNome().toUpperCase().contains("TQ-01") && tq01 != null){
-                                row.createCell(cellIndex++).setCellValue(tq01.getNivel() != null ? tq01.getNivel() : "0");
-                            } else if (ponto.getNome().toUpperCase().contains("BC-01") && bc01 != null){
-                                row.createCell(cellIndex++).setCellValue(bc01.getHorimetro() != null ? bc01.getHorimetro() : 0);
-                                row.createCell(cellIndex++).setCellValue(bc01.getPressao() != null ? bc01.getPressao() : 0);
-                                row.createCell(cellIndex++).setCellValue(bc01.getFrequencia() != null ? bc01.getFrequencia() : 0);
-                                row.createCell(cellIndex++).setCellValue(bc01.getVazao() != null ? bc01.getVazao() : 0);
-                                row.createCell(cellIndex++).setCellValue(bc01.getVolume() != null ? bc01.getVolume() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("TQ-02") && tq02 != null){
-                                row.createCell(cellIndex++).setCellValue(tq02.getSensor_ph() != null ? tq02.getSensor_ph() : 0);
-                                row.createCell(cellIndex++).setCellValue(tq02.getLt_02_1() != null ? tq02.getLt_02_1() : "0");
-                            } else if (ponto.getNome().toUpperCase().contains("BH-02") && bh02 != null){
-                                row.createCell(cellIndex++).setCellValue(bh02.getHorimetro() != null ? bh02.getHorimetro() : 0);
-                                row.createCell(cellIndex++).setCellValue(bh02.getPressao() != null ? bh02.getPressao() : 0);
-                                row.createCell(cellIndex++).setCellValue(bh02.getFrequencia() != null ? bh02.getFrequencia() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") && filtroCartucho != null){
-                                row.createCell(cellIndex++).setCellValue(filtroCartucho.getPressao_entrada() != null ? filtroCartucho.getPressao_entrada() : 0);
-                                row.createCell(cellIndex++).setCellValue(filtroCartucho.getPressao_saida() != null ? filtroCartucho.getPressao_saida() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("HORÍMETRO") && horimetro != null){
-                                row.createCell(cellIndex++).setCellValue(horimetro.getHorimetro() != null ? horimetro.getHorimetro() : "0");
-                            } else if (ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") && colunasCarvao != null){
-                                row.createCell(cellIndex++).setCellValue(colunasCarvao.getPressao_c01() != null ? colunasCarvao.getPressao_c01() : 0);
-                                row.createCell(cellIndex++).setCellValue(colunasCarvao.getPressao_c02() != null ? colunasCarvao.getPressao_c02() : 0);
-                                row.createCell(cellIndex++).setCellValue(colunasCarvao.getPressao_c03() != null ? colunasCarvao.getPressao_c03() : 0);
-                                row.createCell(cellIndex++).setCellValue(colunasCarvao.getPressao_saida() != null ? colunasCarvao.getPressao_saida() : 0);
-                                if(!colunasCarvao.getHouve_troca_carvao()){
-                                    row.createCell(cellIndex++).setCellValue("NÃO");
-                                } else {
-                                    row.createCell(cellIndex++).setCellValue("SIM");
-                                }
 
-                                if(!colunasCarvao.getHouve_retrolavagem()){
-                                    row.createCell(cellIndex++).setCellValue("NÃO");
-                                } else {
-                                    row.createCell(cellIndex++).setCellValue("SIM");
-                                }
-                            } else if (ponto.getNome().toUpperCase().contains("BC-03") && bombaBc03 != null){
-                                row.createCell(cellIndex++).setCellValue(bombaBc03.getPressao() != null ? bombaBc03.getPressao() : 0);
-                                row.createCell(cellIndex++).setCellValue(bombaBc03.getHidrometro() != null ? bombaBc03.getHidrometro() : 0);
-                                row.createCell(cellIndex++).setCellValue(bombaBc03.getHorimetro() != null ? bombaBc03.getHorimetro() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05") && tq04Tq05 != null){
-                                if(!tq04Tq05.getHouve_preparo_solucao()){
-                                    row.createCell(cellIndex++).setCellValue("NÃO");
-                                } else {
-                                    row.createCell(cellIndex++).setCellValue("SIM");
-                                }
-                                row.createCell(cellIndex++).setCellValue(tq04Tq05.getQtd_bombonas() != null ? tq04Tq05.getQtd_bombonas() : 0);
-                                row.createCell(cellIndex++).setCellValue(tq04Tq05.getKg_bombonas() != null ? tq04Tq05.getKg_bombonas() : 0);
-                                row.createCell(cellIndex++).setCellValue(tq04Tq05.getHorimetro() != null ? tq04Tq05.getHorimetro() : 0);
-                                row.createCell(cellIndex++).setCellValue(tq04Tq05.getHidrometro() != null ? tq04Tq05.getHidrometro() : 0);
-                            } else if (ponto.getNome().toUpperCase().contains("BC-06") && bc06 != null){
-                                row.createCell(cellIndex++).setCellValue(bc06.getPressao() != null ? bc06.getPressao() : "0");
-                                row.createCell(cellIndex++).setCellValue(bc06.getHorimetro() != null ? bc06.getHorimetro() : "0");
-                            } else if (ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") && bs01Pressao != null){
-                                row.createCell(cellIndex++).setCellValue(bs01Pressao.getPressao() != null ? bs01Pressao.getPressao() : 0);
-                            }
-                            else if (ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") && bs01Hidrometro != null){
-                                row.createCell(cellIndex++).setCellValue(bs01Hidrometro.getVolume() != null ? bs01Hidrometro.getVolume() : 0);
+// Adiciona os dados principais da coleta com bordas
+                            if (ponto.getNome().toUpperCase().contains("PB") && pb != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(pb.getPressao() != null ? pb.getPressao() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(pb.getPulsos() != null ? pb.getPulsos() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(pb.getNivel_oleo() != null ? pb.getNivel_oleo() : 0);
+                                cell3.setCellStyle(borderStyle);
+
+                                Cell cell4 = row.createCell(cellIndex++);
+                                cell4.setCellValue(pb.getNivel_agua() != null ? pb.getNivel_agua() : 0);
+                                cell4.setCellStyle(borderStyle);
+
+                                Cell cell5 = row.createCell(cellIndex++);
+                                cell5.setCellValue(pb.getVol_rem_oleo() != null ? pb.getVol_rem_oleo() : 0);
+                                cell5.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("CD") && cd != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(cd.getPressao() != null ? cd.getPressao() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(cd.getHidrometro() != null ? cd.getHidrometro() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(cd.getTipo_rede() != null ? cd.getTipo_rede() : "");
+                                cell3.setCellStyle(borderStyle);
+                            } else if ((ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) && pmpt != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(pmpt.getNivel_agua() != null ? pmpt.getNivel_agua() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(pmpt.getNivel_oleo() != null ? pmpt.getNivel_oleo() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(pmpt.getFl_remo_manual() != null ? pmpt.getFl_remo_manual() : 0);
+                                cell3.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("SENSOR") && sensorPH != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(sensorPH.getPh() != null ? sensorPH.getPh() : 0);
+                                cell1.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("FASE LIVRE") && faseLivre != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(faseLivre.getVolume() != null ? faseLivre.getVolume() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(!faseLivre.getHouve_troca() ? "NÃO" : "SIM");
+                                cell2.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("TQ-01") && tq01 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(tq01.getNivel() != null ? tq01.getNivel() : "0");
+                                cell1.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BC-01") && bc01 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bc01.getHorimetro() != null ? bc01.getHorimetro() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(bc01.getPressao() != null ? bc01.getPressao() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(bc01.getFrequencia() != null ? bc01.getFrequencia() : 0);
+                                cell3.setCellStyle(borderStyle);
+
+                                Cell cell4 = row.createCell(cellIndex++);
+                                cell4.setCellValue(bc01.getVazao() != null ? bc01.getVazao() : 0);
+                                cell4.setCellStyle(borderStyle);
+
+                                Cell cell5 = row.createCell(cellIndex++);
+                                cell5.setCellValue(bc01.getVolume() != null ? bc01.getVolume() : 0);
+                                cell5.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("TQ-02") && tq02 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(tq02.getSensor_ph() != null ? tq02.getSensor_ph() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(tq02.getLt_02_1() != null ? tq02.getLt_02_1() : "0");
+                                cell2.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BH-02") && bh02 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bh02.getHorimetro() != null ? bh02.getHorimetro() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(bh02.getPressao() != null ? bh02.getPressao() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(bh02.getFrequencia() != null ? bh02.getFrequencia() : 0);
+                                cell3.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") && filtroCartucho != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(filtroCartucho.getPressao_entrada() != null ? filtroCartucho.getPressao_entrada() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(filtroCartucho.getPressao_saida() != null ? filtroCartucho.getPressao_saida() : 0);
+                                cell2.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("HORÍMETRO") && horimetro != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(horimetro.getHorimetro() != null ? horimetro.getHorimetro() : "0");
+                                cell1.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") && colunasCarvao != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(colunasCarvao.getPressao_c01() != null ? colunasCarvao.getPressao_c01() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(colunasCarvao.getPressao_c02() != null ? colunasCarvao.getPressao_c02() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(colunasCarvao.getPressao_c03() != null ? colunasCarvao.getPressao_c03() : 0);
+                                cell3.setCellStyle(borderStyle);
+
+                                Cell cell4 = row.createCell(cellIndex++);
+                                cell4.setCellValue(colunasCarvao.getPressao_saida() != null ? colunasCarvao.getPressao_saida() : 0);
+                                cell4.setCellStyle(borderStyle);
+
+                                Cell cell5 = row.createCell(cellIndex++);
+                                cell5.setCellValue(!colunasCarvao.getHouve_troca_carvao() ? "NÃO" : "SIM");
+                                cell5.setCellStyle(borderStyle);
+
+                                Cell cell6 = row.createCell(cellIndex++);
+                                cell6.setCellValue(!colunasCarvao.getHouve_retrolavagem() ? "NÃO" : "SIM");
+                                cell6.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BC-03") && bombaBc03 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bombaBc03.getPressao() != null ? bombaBc03.getPressao() : 0);
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(bombaBc03.getHidrometro() != null ? bombaBc03.getHidrometro() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(bombaBc03.getHorimetro() != null ? bombaBc03.getHorimetro() : 0);
+                                cell3.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05") && tq04Tq05 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(!tq04Tq05.getHouve_preparo_solucao() ? "NÃO" : "SIM");
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(tq04Tq05.getQtd_bombonas() != null ? tq04Tq05.getQtd_bombonas() : 0);
+                                cell2.setCellStyle(borderStyle);
+
+                                Cell cell3 = row.createCell(cellIndex++);
+                                cell3.setCellValue(tq04Tq05.getKg_bombonas() != null ? tq04Tq05.getKg_bombonas() : 0);
+                                cell3.setCellStyle(borderStyle);
+
+                                Cell cell4 = row.createCell(cellIndex++);
+                                cell4.setCellValue(tq04Tq05.getHorimetro() != null ? tq04Tq05.getHorimetro() : 0);
+                                cell4.setCellStyle(borderStyle);
+
+                                Cell cell5 = row.createCell(cellIndex++);
+                                cell5.setCellValue(tq04Tq05.getHidrometro() != null ? tq04Tq05.getHidrometro() : 0);
+                                cell5.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BC-06") && bc06 != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bc06.getPressao() != null ? bc06.getPressao() : "0");
+                                cell1.setCellStyle(borderStyle);
+
+                                Cell cell2 = row.createCell(cellIndex++);
+                                cell2.setCellValue(bc06.getHorimetro() != null ? bc06.getHorimetro() : "0");
+                                cell2.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") && bs01Pressao != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bs01Pressao.getPressao() != null ? bs01Pressao.getPressao() : 0);
+                                cell1.setCellStyle(borderStyle);
+                            } else if (ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") && bs01Hidrometro != null) {
+                                Cell cell1 = row.createCell(cellIndex++);
+                                cell1.setCellValue(bs01Hidrometro.getVolume() != null ? bs01Hidrometro.getVolume() : 0);
+                                cell1.setCellStyle(borderStyle);
                             }
                         }
                     }
