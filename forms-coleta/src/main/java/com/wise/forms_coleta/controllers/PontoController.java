@@ -34,6 +34,9 @@ public class PontoController {
     @Autowired
     PontoPutService pontoPutService;
 
+    @Autowired
+    PontoGetAllByExcelService pontoGetAllByExcelService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PontoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -62,5 +65,10 @@ public class PontoController {
     @Transactional
     public ResponseEntity<PontoDTO> put(@PathVariable String name, @RequestBody @Valid PontoPutDTO data){
         return new ResponseEntity<>(pontoPutService.put(name, data), HttpStatus.OK);
+    }
+
+    @GetMapping("/excel/{excel}")
+    public ResponseEntity<List<PontoDTO>> getAllByExcel(@PathVariable String excel){
+        return new ResponseEntity<>(pontoGetAllByExcelService.getAllPointsByExcel(excel), HttpStatus.OK);
     }
 }
