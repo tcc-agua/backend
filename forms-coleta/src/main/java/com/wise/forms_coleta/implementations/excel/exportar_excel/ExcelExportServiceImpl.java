@@ -1,4 +1,4 @@
-package com.wise.forms_coleta.implementations.exportar_excel;
+package com.wise.forms_coleta.implementations.excel.exportar_excel;
 
 import com.wise.forms_coleta.entities.*;
 import com.wise.forms_coleta.repositories.*;
@@ -8,10 +8,13 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +31,9 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
     @Autowired
     private ExcelRepository excelRepository;
+
+    @Value("${excel.export.path}")
+    private String exportPath;
 
     @Override
     public ByteArrayResource exportToExcel() throws IOException {
@@ -532,6 +538,13 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
             try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 workbook.write(baos);
+                workbook.close();
+
+                File file = new File(exportPath + "/coletas.xlsx");
+                try(FileOutputStream fos = new FileOutputStream(file)) {
+                    fos.write(baos.toByteArray());
+                }
+
                 return new ByteArrayResource(baos.toByteArray());
             }
         }
