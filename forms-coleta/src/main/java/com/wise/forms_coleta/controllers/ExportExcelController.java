@@ -5,6 +5,7 @@ import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +25,8 @@ public class ExportExcelController {
     @Autowired
     GetExcelDataService getExcelDataService;
 
-    @GetMapping
-    public ResponseEntity<ByteArrayResource> exportToExcel(){
+    @GetMapping()
+    public ResponseEntity<ByteArrayResource> exportToExcel() {
         try {
             ByteArrayResource excelFile = excelExportService.exportToExcel();
 
@@ -34,8 +35,8 @@ public class ExportExcelController {
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .contentLength(excelFile.contentLength())
                     .body(excelFile);
-        } catch (IOException e){
-            return ResponseEntity.internalServerError().build();
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
