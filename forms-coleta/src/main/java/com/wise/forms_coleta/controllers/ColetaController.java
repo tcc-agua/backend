@@ -69,7 +69,8 @@ public class ColetaController {
     }
 
     @GetMapping("/get-by-date")
-    public ResponseEntity<List<Coleta>> getByDate(@RequestParam("data")LocalDate data){
+    public ResponseEntity<List<Coleta>> getByDate(@RequestParam("day")int day, @RequestParam("month")int month, @RequestParam("year")int year){
+        LocalDate data = LocalDate.of(year, month, day);
         return new ResponseEntity<>(coletaGetByDateService.getALlByDate(data), HttpStatus.OK);
 
     }
