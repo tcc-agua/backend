@@ -57,7 +57,7 @@ spring:
         - id: coleta
           uri: http://localhost:8081
           predicates:
-            - Path=/coleta
+            - Path=/coleta/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
