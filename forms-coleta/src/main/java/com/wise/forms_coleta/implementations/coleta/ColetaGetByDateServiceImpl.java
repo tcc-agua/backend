@@ -15,7 +15,12 @@ public class ColetaGetByDateServiceImpl implements ColetaGetByDateService {
     private ColetaRepository coletaRepository;
 
     @Override
-    public List<Coleta> getALlByDate(LocalDate date) {
+    public List<Coleta> getAllByDate(LocalDate date) {
         return coletaRepository.findAllByDataColeta(date);
+    }
+
+    @Override
+    public List<Coleta> getAllByDateRange(LocalDate startDate, LocalDate endDate) {
+        return coletaRepository.findAllByDataColetaBetween(startDate, endDate);
     }
 }

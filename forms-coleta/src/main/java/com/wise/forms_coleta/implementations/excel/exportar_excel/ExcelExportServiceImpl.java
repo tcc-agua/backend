@@ -32,6 +32,8 @@ public class ExcelExportServiceImpl implements ExcelExportService {
     @Autowired
     private ExcelRepository excelRepository;
 
+    private static final String DIRECTORY_PATH = "src/main/resources/excel";
+
     @Value("${excel.export.path}")
     private String exportPath;
 
@@ -124,21 +126,21 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                 for (Ponto ponto : pontosFiltrados) {
                     int numCols = ponto.getNome().toUpperCase().contains("PB") ? 5 :
                             ponto.getNome().toUpperCase().contains("CD") ? 3 :
-                            (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) ? 3 :
-                                    ponto.getNome().toUpperCase().contains("SENSOR") ? 1 :
-                                            ponto.getNome().toUpperCase().contains("FASE LIVRE") ? 2 :
-                                        ponto.getNome().toUpperCase().contains("TQ-01") ? 1 :
-                                                ponto.getNome().toUpperCase().contains("BC-01") ? 5 :
-                                                        ponto.getNome().toUpperCase().contains("TQ-02") ? 2 :
-                                                                ponto.getNome().toUpperCase().contains("BH-02") ? 3 :
-                                                                        ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") ? 2 :
-                                                                                ponto.getNome().toUpperCase().contains("HORÍMETRO") ? 1 :
-                                                                                        ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") ? 6 :
-                                                                                                ponto.getNome().toUpperCase().contains("BC-03") ? 3 :
-                                                                                                        (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05")) ? 5 :
-                                                                                                                ponto.getNome().toUpperCase().contains("BC-06") ? 2 :
-                                                                                                                        ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") ? 1 :
-                                                                                                                                ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") ? 1 : 0;
+                                    (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) ? 3 :
+                                            ponto.getNome().toUpperCase().contains("SENSOR") ? 1 :
+                                                    ponto.getNome().toUpperCase().contains("FASE LIVRE") ? 2 :
+                                                            ponto.getNome().toUpperCase().contains("TQ-01") ? 1 :
+                                                                    ponto.getNome().toUpperCase().contains("BC-01") ? 5 :
+                                                                            ponto.getNome().toUpperCase().contains("TQ-02") ? 2 :
+                                                                                    ponto.getNome().toUpperCase().contains("BH-02") ? 3 :
+                                                                                            ponto.getNome().toUpperCase().contains("FILTRO CARTUCHO") ? 2 :
+                                                                                                    ponto.getNome().toUpperCase().contains("HORÍMETRO") ? 1 :
+                                                                                                            ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") ? 6 :
+                                                                                                                    ponto.getNome().toUpperCase().contains("BC-03") ? 3 :
+                                                                                                                            (ponto.getNome().toUpperCase().contains("TQ-04") || ponto.getNome().toUpperCase().contains("TQ-05")) ? 5 :
+                                                                                                                                    ponto.getNome().toUpperCase().contains("BC-06") ? 2 :
+                                                                                                                                            ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") ? 1 :
+                                                                                                                                                    ponto.getNome().toUpperCase().contains("BS-01 HIDRÔMETRO") ? 1 : 0;
 
 
                     if (numCols > 0) {
@@ -538,7 +540,6 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
             try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 workbook.write(baos);
-                workbook.close();
 
                 File file = new File(exportPath + "/coletas.xlsx");
                 try(FileOutputStream fos = new FileOutputStream(file)) {
@@ -547,6 +548,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
                 return new ByteArrayResource(baos.toByteArray());
             }
+
         }
     }
 }

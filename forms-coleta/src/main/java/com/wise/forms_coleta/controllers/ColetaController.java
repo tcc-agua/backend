@@ -8,6 +8,7 @@ import com.wise.forms_coleta.services.coleta.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -69,9 +70,15 @@ public class ColetaController {
     }
 
     @GetMapping("/get-by-date")
-    public ResponseEntity<List<Coleta>> getByDate(@RequestParam("day")int day, @RequestParam("month")int month, @RequestParam("year")int year){
-        LocalDate data = LocalDate.of(year, month, day);
-        return new ResponseEntity<>(coletaGetByDateService.getALlByDate(data), HttpStatus.OK);
+    public ResponseEntity<List<Coleta>> getByDate(
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
+        // Se endDate for nulo ou igual a startDate, busca coletas para aquela data específica
+        if (endDate == null || endDate.isEqual(startDate)) {
+            return new ResponseEntity<>(coletaGetByDateService.getAllByDate(startDate), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(coletaGetByDateService.getAllByDateRange(startDate, endDate), HttpStatus.OK);
+        }
     }
 }

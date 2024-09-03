@@ -29,13 +29,13 @@ public class ExportExcelController {
     public ResponseEntity<ByteArrayResource> exportToExcel() {
         try {
             ByteArrayResource excelFile = excelExportService.exportToExcel();
-
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=coletas.xlsx")
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .contentLength(excelFile.contentLength())
                     .body(excelFile);
         } catch (IOException e) {
+            e.printStackTrace(); // Adicione logs para ajudar na depuração
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

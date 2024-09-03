@@ -6,5 +6,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ColetaGetByDateService {
-    List<Coleta> getALlByDate(LocalDate date);
+    List<Coleta> getAllByDate(LocalDate date);
+
+    List<Coleta> getAllByDateRange(LocalDate startDate, LocalDate endDate);
+
 }

@@ -9,4 +9,6 @@ import java.util.List;
 
 public interface ColetaRepository extends JpaRepository<Coleta, Long> {
     List<Coleta> findAllByDataColeta(LocalDate date);
+    List<Coleta> findAllByDataColetaBetween(LocalDate startDate, LocalDate endDate);
+
 }
