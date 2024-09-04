@@ -39,6 +39,9 @@ public class ColetaController {
     @Autowired
     ColetaGetByDateService coletaGetByDateService;
 
+    @Autowired
+    ColetaGetAllPontosService coletaGetAllPontosService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid ColetaCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -80,5 +83,10 @@ public class ColetaController {
         } else {
             return new ResponseEntity<>(coletaGetByDateService.getAllByDateRange(startDate, endDate), HttpStatus.OK);
         }
+    }
+
+    @GetMapping("/get-pontos-by-coleta/{id}")
+    public ResponseEntity<List<?>> getPontosByColeta(@PathVariable Long id){
+        return new ResponseEntity<>(coletaGetAllPontosService.getAllPontosByColeta(id), HttpStatus.OK);
     }
 }
