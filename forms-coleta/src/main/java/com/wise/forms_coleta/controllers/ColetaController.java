@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/coleta")
@@ -73,20 +74,18 @@ public class ColetaController {
     }
 
     @GetMapping("/get-by-date")
-    public ResponseEntity<List<Coleta>> getByDate(
+    public ResponseEntity<List<Map<String, Object>>> getByDate(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
 
-        // Se endDate for nulo ou igual a startDate, busca coletas para aquela data específica
-        if (endDate == null || endDate.isEqual(startDate)) {
-            return new ResponseEntity<>(coletaGetByDateService.getAllByDate(startDate), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(coletaGetByDateService.getAllByDateRange(startDate, endDate), HttpStatus.OK);
-        }
+        // Log para verificar as datas recebidas
+        System.out.println("Start Date: " + startDate.getClass());
+        System.out.println("End Date: " + endDate.getClass());
+
+        // Se endDate é nulo, considera-se o mesmo valor que startDate para um intervalo de uma única data.
+        List<Map<String, Object>> pontosColeta = coletaGetAllPontosService.getAllPontosByDate(startDate, endDate != null ? endDate : startDate);
+
+        return new ResponseEntity<>(pontosColeta, HttpStatus.OK);
     }
 
-    @GetMapping("/get-pontos-by-coleta/{id}")
-    public ResponseEntity<List<?>> getPontosByColeta(@PathVariable Long id){
-        return new ResponseEntity<>(coletaGetAllPontosService.getAllPontosByColeta(id), HttpStatus.OK);
-    }
 }
