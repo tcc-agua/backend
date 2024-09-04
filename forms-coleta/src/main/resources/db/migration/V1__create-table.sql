@@ -187,6 +187,12 @@ CREATE TABLE bs01_hidrometro (
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
 );
 
+CREATE TABLE notificacoes (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tabela VARCHAR(45) NOT NULL,
+    tipo VARCHAR(45) NOT NULL,
+    data DATE NOT NULL
+);
 
 -- Auxiliares
 
