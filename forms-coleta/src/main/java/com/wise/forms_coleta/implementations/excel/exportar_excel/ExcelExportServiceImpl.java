@@ -196,7 +196,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                         headers = new String[]{"Pressão PI-B.01.1 (kgf/cm²)", "Pulsos PQ-B.01.1", "Nível de Óleo (m)", "Nível d'água (m)", "Volume Manual Removido de Óleo (L)"};
                     } else if (ponto.getNome().toUpperCase().contains("CD")) {
                         headers = new String[]{"Pressão (Kgf/cm²)", "Hidrômetro (m³)", "Rede Pluvial ou ETAS?"};
-                    } else if (ponto.getNome().toUpperCase().contains("PMPT") || ponto.getNome().toUpperCase().contains("PT")) {
+                    } else if (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) {
                         headers = new String[]{"NA(m)", "NO(m)", "FL REMO. MANUAL (L)"};
                     } else if (ponto.getNome().toUpperCase().contains("SENSOR")) {
                         headers = new String[]{""};
