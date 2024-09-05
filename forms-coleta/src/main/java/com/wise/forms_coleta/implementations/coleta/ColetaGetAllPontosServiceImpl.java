@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +29,20 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
             Map<String, Object> coletaData = new LinkedHashMap<>(); // Usa LinkedHashMap para manter a ordem dos campos
             coletaData.put("id", coleta.getId()); // Adiciona o id da coleta primeiro
             coletaData.put("date", coleta.getDataColeta().toString()); // Ajuste o formato da data conforme necessário
-            coletaData.put("description", "A"); // Ajuste conforme a descrição da coleta
+
+            DateTimeFormatter dateFormatterForDateField = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String formattedDateForDateField = coleta.getDataColeta().format(dateFormatterForDateField);
+            coletaData.put("date", formattedDateForDateField);
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("EEEE, dd 'de' MMMM 'de' yyyy", new Locale("pt", "BR"));
+            String formattedDate = coleta.getDataColeta().format(dateFormatter);
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+            String formattedTime = coleta.getHora_inicio().format(timeFormatter);
+
+            // Adiciona manualmente o fuso horário "BRT" à string formatada
+            String description = formattedDate + ", " + formattedTime + " BRT";
+
+            coletaData.put("description", description); // Usa a data formatada na descrição// Ajuste conforme a descrição da coleta
 
             // Adiciona os pontos da coleta
             List<Map<String, Object>> pontosColeta = new ArrayList<>();
