@@ -182,3 +182,13 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+        - id: notificacoes
+          uri: http://localhost:8081
+          predicates:
+            - Path=/notificacoes/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
