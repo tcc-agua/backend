@@ -147,7 +147,7 @@ spring:
         - id: sensor-ph
           uri: http://localhost:8081
           predicates:
-            - Path=/sensor-ph
+            - Path=/sensor-ph/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -192,3 +192,5 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+
+
