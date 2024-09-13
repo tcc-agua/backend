@@ -17,6 +17,8 @@ public class ProfileController {
     @GetMapping("/userinfo")
     @CrossOrigin("http://localhost:5173")
     public Map<String, Object> userInfo(@AuthenticationPrincipal OidcUser oidcUser, @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+
+        System.out.println("TOKEN:" + authorizedClient.getAccessToken().getTokenValue());
         Map<String, Object> attributesMap = new HashMap<>(oidcUser.getAttributes());
         attributesMap.put("id_token", oidcUser.getIdToken().getTokenValue());
         attributesMap.put("access_token", authorizedClient.getAccessToken().getTokenValue());

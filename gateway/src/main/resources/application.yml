@@ -182,7 +182,6 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
-
         - id: notificacoes
           uri: http://localhost:8081
           predicates:
@@ -192,5 +191,9 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
-
-
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.cloud.gateway.filter.factory.TokenRelayGatewayFilterFactory: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security.oauth2: DEBUG
