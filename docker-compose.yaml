@@ -17,12 +17,12 @@ services:
     build:
       context: ./backend/api-gateway
     environment:
-      - AUTH_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/oauth2/v2.0/authorize
-      - CLIENT_ID=f3356453-a32a-45db-8dcb-b565c3c2a508
-      - CLIENT_SECRET=lQf8Q~vwZIPGxpU145C1.rtnTBC8m2XD_AVHDanc
-      - ISSUER_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/v2.0
-      - JWK_SET_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/discovery/v2.0/keys
-      - TOKEN_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/oauth2/v2.0/token
+      - AUTH_URI=
+      - CLIENT_ID=
+      - CLIENT_SECRET=
+      - ISSUER_URI=
+      - JWK_SET_URI=
+      - TOKEN_URI=
     ports:
       - "8000:8000"
     networks:
@@ -40,7 +40,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://wise-db:3306/wise
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: admin123
-      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/v2.0
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: 
     ports:
       - "8081:8081"
     networks:
