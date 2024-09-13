@@ -1,0 +1,64 @@
+version: '3.3'
+services:
+  wise-db:
+    image: mysql:8.0
+    container_name: wise-db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: wise
+    ports:
+      - "3306:3306"
+    networks:
+      - wise-net
+    volumes:
+      - mysql-data:/var/lib/mysql
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./backend/api-gateway
+    environment:
+      - AUTH_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/oauth2/v2.0/authorize
+      - CLIENT_ID=f3356453-a32a-45db-8dcb-b565c3c2a508
+      - CLIENT_SECRET=lQf8Q~vwZIPGxpU145C1.rtnTBC8m2XD_AVHDanc
+      - ISSUER_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/v2.0
+      - JWK_SET_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/discovery/v2.0/keys
+      - TOKEN_URI=https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/oauth2/v2.0/token
+    ports:
+      - "8000:8000"
+    networks:
+      - wise-net
+
+  forms-coleta:
+    depends_on:
+      - api-gateway
+      - wise-db
+    container_name: forms-coleta
+    build:
+      context: ./backend/forms-coleta
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://wise-db:3306/wise
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: admin123
+      SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI: https://login.microsoftonline.com/0ae51e19-07c8-4e4b-bb6d-648ee58410f4/v2.0
+    ports:
+      - "8081:8081"
+    networks:
+      - wise-net
+
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5173:5173"
+    networks:
+      - wise-net
+  
+volumes:
+  mysql-data:
+
+networks:
+  wise-net:
+    driver: bridge
