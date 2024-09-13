@@ -17,12 +17,7 @@ services:
     build:
       context: ./backend/api-gateway
     environment:
-      - AUTH_URI=
-      - CLIENT_ID=
-      - CLIENT_SECRET=
-      - ISSUER_URI=
-      - JWK_SET_URI=
-      - TOKEN_URI=
+        # URIS
     ports:
       - "8000:8000"
     networks:
