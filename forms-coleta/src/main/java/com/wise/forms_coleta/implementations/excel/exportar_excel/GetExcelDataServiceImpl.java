@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetExcelDataServiceImpl implements GetExcelDataService {
 
-//    private static final String FILE_PATH = "C:/Users/fma6ca/Desktop/backend_wise/forms-coleta/src/main/java/com/wise/forms_coleta/implementations/excel/excel_file/coletas.xlsx";
-private static final String FILE_PATH = "C:/Users/ct67ca/Desktop/wise/backend/forms-coleta/src/main/java/com/wise/forms_coleta/implementations/excel/excel_file/coletas.xlsx";
+    private static final String FILE_PATH = "C:/Users/ct67ca/Desktop/backend/forms-coleta/src/main/java/com/wise/forms_coleta/implementations/excel/excel_file/coletas.xlsx";
+
     @Override
     public List<List<String>> readExcelFile(String sheetName) throws IOException {
         List<List<String>> data = new ArrayList<>();
