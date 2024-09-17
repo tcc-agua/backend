@@ -38,9 +38,6 @@ public class ColetaController {
     ColetaPutService coletaPutService;
 
     @Autowired
-    ColetaGetByDateService coletaGetByDateService;
-
-    @Autowired
     ColetaGetAllPontosService coletaGetAllPontosService;
 
     @PostMapping

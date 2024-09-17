@@ -40,8 +40,8 @@ public class ExportExcelController {
         }
     }
 
-    @GetMapping("/data/{sheetName}")
-    public List<List<String>> getExcelData(@PathVariable String sheetName) throws IOException {
-        return getExcelDataService.readExcelFile(sheetName);
-    }
+//    @GetMapping("/data/{sheetName}")
+//    public List<List<String>> getExcelData(@PathVariable String sheetName) throws IOException {
+//        return getExcelDataService.readExcelFile(sheetName);
+//    }
 }
