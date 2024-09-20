@@ -547,11 +547,6 @@ public class ExcelExportServiceImpl implements ExcelExportService {
             try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
                 workbook.write(baos);
 
-                File file = new File(exportPath + "/coletas.xlsx");
-                try(FileOutputStream fos = new FileOutputStream(file)) {
-                    fos.write(baos.toByteArray());
-                }
-
                 return new ByteArrayResource(baos.toByteArray());
             }
 
