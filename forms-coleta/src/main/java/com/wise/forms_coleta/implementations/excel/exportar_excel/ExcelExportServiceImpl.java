@@ -406,7 +406,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                 cell2.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("TQ-01") && tq01 != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
-                                cell1.setCellValue(tq01.getNivel() != null ? tq01.getNivel() : "0");
+                                cell1.setCellValue(tq01.getNivel() != null ? tq01.getNivel() : 0);
                                 cell1.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("BC-01") && bc01 != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
@@ -434,7 +434,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                 cell1.setCellStyle(borderStyle);
 
                                 Cell cell2 = row.createCell(cellIndex++);
-                                cell2.setCellValue(tq02.getLt_02_1() != null ? tq02.getLt_02_1() : "0");
+                                cell2.setCellValue(tq02.getLt_02_1() != null ? tq02.getLt_02_1() : 0);
                                 cell2.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("BH-02") && bh02 != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
@@ -458,7 +458,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                 cell2.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("HORÍMETRO") && horimetro != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
-                                cell1.setCellValue(horimetro.getHorimetro() != null ? horimetro.getHorimetro() : "0");
+                                cell1.setCellValue(horimetro.getHorimetro() != null ? horimetro.getHorimetro() : 0);
                                 cell1.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("COLUNAS DE CARVÃO") && colunasCarvao != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
@@ -518,11 +518,11 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                 cell5.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("BC-06") && bc06 != null) {
                                 Cell cell1 = row.createCell(cellIndex++);
-                                cell1.setCellValue(bc06.getPressao() != null ? bc06.getPressao() : "0");
+                                cell1.setCellValue(bc06.getPressao() != null ? bc06.getPressao() : 0);
                                 cell1.setCellStyle(borderStyle);
 
                                 Cell cell2 = row.createCell(cellIndex++);
-                                cell2.setCellValue(bc06.getHorimetro() != null ? bc06.getHorimetro() : "0");
+                                cell2.setCellValue(bc06.getHorimetro() != null ? bc06.getHorimetro() : 0);
                                 cell2.setCellStyle(borderStyle);
                             } else if (ponto.getNome().toUpperCase().contains("BS-01 PRESSÃO") && bs01Pressao != null) {
                                 Cell cell1 = row.createCell(cellIndex++);

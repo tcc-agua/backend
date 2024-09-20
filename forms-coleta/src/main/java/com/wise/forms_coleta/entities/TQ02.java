@@ -21,7 +21,7 @@ public class TQ02 {
     private Long id;
 
     private Double sensor_ph;
-    private String lt_02_1;
+    private Double lt_02_1;
 
     @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")
