@@ -1,6 +1,7 @@
 package com.wise.forms_coleta.implementations.excel.exportar_excel;
 
 import com.wise.forms_coleta.entities.*;
+import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.*;
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportService;
 import org.apache.poi.ss.usermodel.*;
@@ -34,10 +35,8 @@ public class ExcelExportServiceImpl implements ExcelExportService {
     @Autowired
     private ExcelRepository excelRepository;
 
-    private static final String DIRECTORY_PATH = "src/main/resources/excel";
-
-    @Value("${excel.export.path}")
-    private String exportPath;
+//    @Value("${excel.export.path}")
+//    private String exportPath;
 
     @Override
     public ByteArrayResource exportToExcel(LocalDate startDate, LocalDate endDate) throws IOException {
@@ -92,41 +91,40 @@ public class ExcelExportServiceImpl implements ExcelExportService {
             List<Ponto> pontos = pontoRepository.findAll();
             List<Excel> excels = excelRepository.findAll();
 
+            List<Coleta> coletasFiltradas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
+
             for (Excel excel : excels) {
-                // Criar uma nova aba com o nome do Excel
-                Sheet sheet = workbook.createSheet(excel.getNome());
-                int rowNum = 0; // Reseta o número da linha para cada aba
+                if(!coletasFiltradas.isEmpty()) {
+                    // Criar uma nova aba com o nome do Excel
+                    Sheet sheet = workbook.createSheet(excel.getNome());
+                    int rowNum = 0; // Reseta o número da linha para cada aba
 
-                // Adiciona a linha de cabeçalhos principais
-                Row headerRow = sheet.createRow(rowNum++);
-                int cellIndex = 0;
+                    // Adiciona a linha de cabeçalhos principais
+                    Row headerRow = sheet.createRow(rowNum++);
+                    int cellIndex = 0;
 
 
-                // Adiciona os cabeçalhos gerais
-                Cell tecnicoHeader = headerRow.createCell(cellIndex++);
-                tecnicoHeader.setCellValue("Técnico");
-                tecnicoHeader.setCellStyle(headerStyleRoyalBlue);
+                    // Adiciona os cabeçalhos gerais
+                    Cell tecnicoHeader = headerRow.createCell(cellIndex++);
+                    tecnicoHeader.setCellValue("Técnico");
+                    tecnicoHeader.setCellStyle(headerStyleRoyalBlue);
 
-                Cell dataHeader = headerRow.createCell(cellIndex++);
-                dataHeader.setCellValue("Data");
-                dataHeader.setCellStyle(headerStyleRoyalBlue);
+                    Cell dataHeader = headerRow.createCell(cellIndex++);
+                    dataHeader.setCellValue("Data");
+                    dataHeader.setCellStyle(headerStyleRoyalBlue);
 
-                Cell horaInicioHeader = headerRow.createCell(cellIndex++);
-                horaInicioHeader.setCellValue("Hora Início");
-                horaInicioHeader.setCellStyle(headerStyleRoyalBlue);
+                    Cell horaInicioHeader = headerRow.createCell(cellIndex++);
+                    horaInicioHeader.setCellValue("Hora Início");
+                    horaInicioHeader.setCellStyle(headerStyleRoyalBlue);
 
-                Cell horaFimHeader = headerRow.createCell(cellIndex++);
-                horaFimHeader.setCellValue("Hora Fim");
-                horaFimHeader.setCellStyle(headerStyleRoyalBlue);
+                    Cell horaFimHeader = headerRow.createCell(cellIndex++);
+                    horaFimHeader.setCellValue("Hora Fim");
+                    horaFimHeader.setCellStyle(headerStyleRoyalBlue);
 
-                // Filtrar pontos pertencentes ao Excel atual
-                List<Ponto> pontosFiltrados = pontos.stream()
-                        .filter(ponto -> ponto.getExcel() != null && ponto.getExcel().getId().equals(excel.getId()))
-                        .collect(Collectors.toList());
-
-                List<Coleta> coletasFiltradas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
-
-                if (!coletasFiltradas.isEmpty()) {
+                    // Filtrar pontos pertencentes ao Excel atual
+                    List<Ponto> pontosFiltrados = pontos.stream()
+                            .filter(ponto -> ponto.getExcel() != null && ponto.getExcel().getId().equals(excel.getId()))
+                            .collect(Collectors.toList());
 
                     for (Ponto ponto : pontosFiltrados) {
                         int numCols = ponto.getNome().toUpperCase().contains("PB") ? 5 :
@@ -256,6 +254,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     sheet.addMergedRegion(new CellRangeAddress(0, 1, 3, 3)); // "Hora Fim"
 
                     // Adiciona os dados de coleta filtrados pelos pontos da aba atual
+//                    for (Coleta coleta : coletasFiltradas) {
                     for (Coleta coleta : coletasFiltradas) {
                         boolean coletaRelevante = coleta.getPbSet().stream().anyMatch(pb -> pontosFiltrados.contains(pb.getPonto())) ||
                                 coleta.getCdSet().stream().anyMatch(cd -> pontosFiltrados.contains(cd.getPonto())) ||
@@ -541,6 +540,8 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                             }
                         }
                     }
+                } else {
+                    throw new GenericsNotFoundException("Excel não preenchido!");
                 }
             }
 
@@ -549,7 +550,6 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
                 return new ByteArrayResource(baos.toByteArray());
             }
-
         }
     }
 }
