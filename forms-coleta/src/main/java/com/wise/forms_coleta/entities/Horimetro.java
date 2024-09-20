@@ -23,7 +23,7 @@ public class Horimetro {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String horimetro;
+    private Double horimetro;
 
     @ManyToOne
     @JoinColumn(name="ponto_id", referencedColumnName = "id")

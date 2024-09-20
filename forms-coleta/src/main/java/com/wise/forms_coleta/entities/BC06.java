@@ -33,8 +33,8 @@ public class BC06 {
     @JsonBackReference
     private Set<Coleta> coletas = new HashSet<>();
 
-    private String pressao;
-    private String horimetro;
+    private Double pressao;
+    private Double horimetro;
 
     public BC06(BC06CreateDTO data){
         this.pressao = data.pressao();

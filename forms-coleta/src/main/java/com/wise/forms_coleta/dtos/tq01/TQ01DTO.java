@@ -5,7 +5,7 @@ import com.wise.forms_coleta.entities.TQ01;
 
 public record TQ01DTO(
         Long id,
-        String nivel,
+        Double nivel,
         Ponto ponto
 ) {
     public TQ01DTO(TQ01 data) {

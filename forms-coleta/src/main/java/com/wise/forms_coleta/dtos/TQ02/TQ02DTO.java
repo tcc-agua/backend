@@ -6,7 +6,7 @@ import com.wise.forms_coleta.entities.TQ02;
 public record TQ02DTO(
         Long id,
         Double sensor_ph,
-        String Lt_02_1,
+        Double Lt_02_1,
         Ponto ponto
 
 ) {

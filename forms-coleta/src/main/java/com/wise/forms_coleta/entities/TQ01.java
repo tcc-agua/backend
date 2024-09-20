@@ -22,7 +22,7 @@ public class TQ01 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nivel;
+    private Double nivel;
 
     // Relacionamentos
 

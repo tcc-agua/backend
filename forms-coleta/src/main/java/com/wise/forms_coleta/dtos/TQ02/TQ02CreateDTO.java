@@ -10,7 +10,7 @@ public record TQ02CreateDTO(
         Double sensor_ph,
 
         @NotNull(message = "O campo não pode estar vazio!")
-        String Lt_02_1,
+        Double Lt_02_1,
 
         @NotBlank(message = "O campo não pode estar em branco!")
         String nomePonto,

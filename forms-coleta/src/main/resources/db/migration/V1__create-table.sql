@@ -49,8 +49,8 @@ CREATE TABLE pm_pt (
 
 CREATE TABLE bc06 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    pressao VARCHAR(45) NOT NULL,
-    horimetro VARCHAR(45) NOT NULL,
+    pressao DOUBLE NOT NULL,
+    horimetro DOUBLE NOT NULL,
     ponto_id BIGINT,
 
     FOREIGN KEY (ponto_id) REFERENCES ponto(id)
@@ -81,7 +81,7 @@ CREATE TABLE pbs (
 
 CREATE TABLE horimetro(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    horimetro VARCHAR(45) NOT NULL,
+    horimetro DOUBLE NOT NULL,
     ponto_id BIGINT,
 
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
@@ -125,7 +125,7 @@ CREATE TABLE sensor_ph (
 
 CREATE TABLE tq01 (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    nivel VARCHAR(45) NOT NULL,
+    nivel DOUBLE NOT NULL,
     ponto_id BIGINT,
 
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
@@ -134,7 +134,7 @@ CREATE TABLE tq01 (
 CREATE TABLE tq02(
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     sensor_ph DOUBLE NOT NULL,
-    lt_02_1 VARCHAR(100) NOT NULL,
+    lt_02_1 DOUBLE NOT NULL,
 
     ponto_id BIGINT,
     FOREIGN KEY(ponto_id) REFERENCES ponto(id)
