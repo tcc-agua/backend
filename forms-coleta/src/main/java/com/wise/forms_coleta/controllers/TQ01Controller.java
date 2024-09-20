@@ -42,7 +42,7 @@ public class TQ01Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
-    @GetMapping
+    @GetMapping ("/get")
     public ResponseEntity<List<TQ01DTO>> getAll() {
         return new ResponseEntity<>(tq01GetAllService.getAll(), HttpStatus.OK);
     }
