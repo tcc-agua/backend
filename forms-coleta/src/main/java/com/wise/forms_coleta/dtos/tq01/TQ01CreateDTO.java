@@ -5,7 +5,7 @@ import jakarta.validation.constraints.PositiveOrZero;
 
 public record TQ01CreateDTO(
 
-        @NotBlank(message = "O campo não pode estar em branco!")
+        @PositiveOrZero
         Double nivel,
 
         @NotBlank(message = "O campo não pode estar em branco!")
