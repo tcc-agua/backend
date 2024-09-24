@@ -34,7 +34,7 @@ public class ExcelController {
     }
 
     @GetMapping("{sheetName}")
-    public ResponseEntity<Map<String, List<Object>>> getPontosByExcel(@PathVariable String sheetName){
+    public ResponseEntity<List<List<Object>>> getPontosByExcel(@PathVariable String sheetName){
         return new ResponseEntity<>(getExcelDataService.readExcelFile(sheetName), HttpStatus.OK);
     }
 }

@@ -25,6 +25,8 @@ public class ExportExcelController {
 
     @GetMapping()
     public ResponseEntity<ByteArrayResource> exportToExcel(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        System.out.println("DATA INICIO: " + startDate + "\nDATA FIM: " + endDate);
+        System.out.println("TIPO DATA INICIO: " + startDate.getClass() + "\nTIPO DATA FIM: "+ endDate.getClass());
         try {
             ByteArrayResource excelFile = excelExportService.exportToExcel(startDate, endDate);
             return ResponseEntity.ok()

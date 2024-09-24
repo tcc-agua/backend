@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface GetExcelDataService {
-    Map<String, List<Object>> readExcelFile(String sheetName);
+    List<List<Object>> readExcelFile(String sheetName);
 }
