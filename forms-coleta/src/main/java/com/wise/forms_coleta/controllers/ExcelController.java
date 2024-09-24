@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ExcelController {
     }
 
     @GetMapping("{sheetName}")
-    public ResponseEntity<List<List<Object>>> getPontosByExcel(@PathVariable String sheetName){
-        return new ResponseEntity<>(getExcelDataService.readExcelFile(sheetName), HttpStatus.OK);
+    public ResponseEntity<List<List<Object>>> getPontosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+        return new ResponseEntity<>(getExcelDataService.readExcelFile(sheetName, startDate, endDate), HttpStatus.OK);
     }
 }

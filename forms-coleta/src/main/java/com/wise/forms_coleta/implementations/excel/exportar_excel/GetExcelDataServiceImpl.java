@@ -8,6 +8,7 @@ import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -19,9 +20,9 @@ public class GetExcelDataServiceImpl implements GetExcelDataService {
     private ColetaRepository coletaRepository;
 
     @Override
-    public List<List<Object>> readExcelFile(String sheetName) {
+    public List<List<Object>> readExcelFile(String sheetName, LocalDate startDate, LocalDate endDate) {
         // Filtra as coletas por data
-        List<Coleta> coletas = coletaRepository.findAll();
+        List<Coleta> coletas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
         Excel excel = excelRepository.findByNome(sheetName)
                 .orElseThrow(() -> new GenericsNotFoundException("Excel não encontrado!"));
 
