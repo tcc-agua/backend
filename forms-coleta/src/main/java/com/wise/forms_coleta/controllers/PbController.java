@@ -3,7 +3,10 @@ package com.wise.forms_coleta.controllers;
 
 import com.wise.forms_coleta.dtos.pbs.PbCreateDTO;
 import com.wise.forms_coleta.dtos.pbs.PbDTO;
+import com.wise.forms_coleta.dtos.pbs.PbPutDTO;
+import com.wise.forms_coleta.services.pbs.PbDeleteService;
 import com.wise.forms_coleta.services.pbs.PbGetAllService;
+import com.wise.forms_coleta.services.pbs.PbPutService;
 import com.wise.forms_coleta.services.pbs.PbSaveService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +30,12 @@ public class PbController {
     @Autowired
     PbGetAllService pbGetAllService;
 
+    @Autowired
+    PbDeleteService pbDeleteService;
+
+    @Autowired
+    PbPutService pbPutService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PbCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -38,5 +47,17 @@ public class PbController {
     @GetMapping("/get")
     public ResponseEntity<List<PbDTO>> getAll() {
         return new ResponseEntity<>(pbGetAllService.getAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        return new ResponseEntity<>(pbDeleteService.delete(id), HttpStatus.OK);
+    }
+
+    @PutMapping("{id}")
+    @Transactional
+    public ResponseEntity<PbDTO> put(@PathVariable Long id, @RequestBody @Valid PbPutDTO data){
+        return new ResponseEntity<>(pbPutService.put(id, data), HttpStatus.OK);
     }
 }

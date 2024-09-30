@@ -124,7 +124,23 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     // Filtrar pontos pertencentes ao Excel atual
                     List<Ponto> pontosFiltrados = pontos.stream()
                             .filter(ponto -> ponto.getExcel() != null && ponto.getExcel().getId().equals(excel.getId()))
-                            .collect(Collectors.toList());
+                            .filter(ponto -> coletasFiltradas.stream().anyMatch(coleta ->
+                                    coleta.getColunasCarvaoSet().stream().anyMatch(colunas -> ponto.getColunasCarvaoSet().contains(colunas)) ||
+                                            coleta.getPmPtSet().stream().anyMatch(pmPt -> ponto.getPmPtSet().contains(pmPt)) ||
+                                            coleta.getBc06Set().stream().anyMatch(bc06 -> ponto.getBc06Set().contains(bc06)) ||
+                                            coleta.getBC01Set().stream().anyMatch(bc01 -> ponto.getBc01Set().contains(bc01)) ||
+                                            coleta.getPbSet().stream().anyMatch(pbs -> ponto.getPBsSet().contains(pbs)) ||
+                                            coleta.getFiltroCartuchoSet().stream().anyMatch(filtro -> ponto.getFiltroCartuchoSet().contains(filtro)) ||
+                                            coleta.getFaseLivreSet().stream().anyMatch(fase -> ponto.getFaseLivreSet().contains(fase)) ||
+                                            coleta.getTq01Set().stream().anyMatch(tq01 -> ponto.getTq01Set().contains(tq01)) ||
+                                            coleta.getTq02Set().stream().anyMatch(tq02 -> ponto.getTq02Set().contains(tq02)) ||
+                                            coleta.getBh02Set().stream().anyMatch(bh02 -> ponto.getBh02Set().contains(bh02)) ||
+                                            coleta.getBs01PressaoSet().stream().anyMatch(bs01Pressao -> ponto.getBs01PressaoSet().contains(bs01Pressao)) ||
+                                            coleta.getTq04Tq05Set().stream().anyMatch(tq04tq05 -> ponto.getTq04Tq05Set().contains(tq04tq05)) ||
+                                            coleta.getBombaBc03Set().stream().anyMatch(bomba -> ponto.getBombaBc03Set().contains(bomba)) ||
+                                            coleta.getBs01HidrometroSet().stream().anyMatch(hidrometro -> ponto.getBs01HidrometroSet().contains(hidrometro))
+                            ))
+                            .toList();
 
                     for (Ponto ponto : pontosFiltrados) {
                         int numCols = ponto.getNome().toUpperCase().contains("PB") ? 5 :
