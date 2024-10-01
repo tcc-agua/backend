@@ -27,7 +27,7 @@ spring:
         - id: BC01
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/BC01
+            - Path=/bc01/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -37,7 +37,7 @@ spring:
         - id: BC06
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/bc06
+            - Path=/bc06/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -47,7 +47,7 @@ spring:
         - id: cd
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/cd
+            - Path=/cd/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -67,7 +67,7 @@ spring:
         - id: colunas-carvao
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/colunas-carvao
+            - Path=/colunas-carvao/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -77,7 +77,7 @@ spring:
         - id: excel
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/excel
+            - Path=/excel/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -87,7 +87,7 @@ spring:
         - id: faselivre
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/faselivre
+            - Path=/faselivre/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -97,7 +97,7 @@ spring:
         - id: filtro_cartucho
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/filtro_cartucho
+            - Path=/filtro_cartucho/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -107,7 +107,7 @@ spring:
         - id: horimetro
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/horimetro
+            - Path=/horimetro/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -117,7 +117,7 @@ spring:
         - id: pb
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/pb
+            - Path=/pb/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -127,7 +127,7 @@ spring:
         - id: pmpt
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/pmpt
+            - Path=/pmpt/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -157,7 +157,7 @@ spring:
         - id: TQ01
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/TQ01/**
+            - Path=/tq01/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -167,7 +167,7 @@ spring:
         - id: bh02
           uri: http://forms-coleta:8081
           predicates:
-            - Path=/bh02
+            - Path=/bh02/**
           filters:
             - name: TokenRelay
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
@@ -191,7 +191,51 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
-
+        - id: bs01-hidrometro
+          uri: http://forms-coleta:8081
+          predicates:
+            - Path=/bs01-hidrometro/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+        - id: bs01-pressao
+          uri: http://forms-coleta:8081
+          predicates:
+            - Path=/bs01-pressao/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+        - id: bombabc03
+          uri: http://forms-coleta:8081
+          predicates:
+            - Path=/bombabc03/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+        - id: tq02
+          uri: http://forms-coleta:8081
+          predicates:
+            - Path=/tq02/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+        - id: tq04tq05
+          uri: http://forms-coleta:8081
+          predicates:
+            - Path=/tq04tq05/**
+          filters:
+            - name: TokenRelay
+            - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+            - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+            - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 logging:
   level:
     org.springframework.security: DEBUG
