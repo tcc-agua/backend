@@ -19,7 +19,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/BC01")
+@RequestMapping("/bc01")
 public class BC01Controller {
 
     @Autowired

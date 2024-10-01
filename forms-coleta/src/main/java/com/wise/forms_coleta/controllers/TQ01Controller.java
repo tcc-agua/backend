@@ -20,7 +20,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/TQ01")
+@RequestMapping("/tq01")
 public class TQ01Controller {
     @Autowired
     TQ01SaveService tq01SaveService;
