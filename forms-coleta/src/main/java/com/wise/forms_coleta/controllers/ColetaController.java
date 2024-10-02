@@ -2,12 +2,12 @@ package com.wise.forms_coleta.controllers;
 
 import com.wise.forms_coleta.dtos.coleta.ColetaCreateDTO;
 import com.wise.forms_coleta.dtos.coleta.ColetaDTO;
-import com.wise.forms_coleta.dtos.coleta.ColetaGetByDateDTO;
-import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.services.coleta.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,16 +71,17 @@ public class ColetaController {
     }
 
     @GetMapping("/get-by-date")
-    public ResponseEntity<List<Map<String, Object>>> getByDate(
+    public ResponseEntity<Page<Map<String, Object>>> getByDate(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-
-        // Log para verificar as datas recebidas
-        System.out.println("Start Date: " + startDate.getClass());
-        System.out.println("End Date: " + endDate.getClass());
+            @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
 
         // Se endDate é nulo, considera-se o mesmo valor que startDate para um intervalo de uma única data.
-        List<Map<String, Object>> pontosColeta = coletaGetAllPontosService.getAllPontosByDate(startDate, endDate != null ? endDate : startDate);
+        Page<Map<String, Object>> pontosColeta = coletaGetAllPontosService.getAllPontosByDate(startDate,
+                endDate != null ? endDate : startDate, pageRequest);
 
         return new ResponseEntity<>(pontosColeta, HttpStatus.OK);
     }
