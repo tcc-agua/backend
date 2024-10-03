@@ -1,6 +1,7 @@
 package com.wise.forms_coleta.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.wise.forms_coleta.dtos.hidrometro.HidrometroCreateDTO;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroDTO;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,4 +36,9 @@ public class Hidrometro {
     private Set<Coleta> coletas = new HashSet<>();
 
     public Hidrometro(HidrometroDTO data) { this.volume = data.volume();}
+
+    public Hidrometro(HidrometroCreateDTO data) {
+        this.volume = data.volume();
+
+    }
 }

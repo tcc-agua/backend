@@ -5,6 +5,9 @@ import com.wise.forms_coleta.entities.Ponto;
 
 public record HorimetroDTO(Long id, Double horimetro, Ponto ponto) {
     public HorimetroDTO(Horimetro horimetro){
-        this(horimetro.getId(), horimetro.getHorimetro(), horimetro.getPonto());
+        this(
+                horimetro.getId(),
+                horimetro.getHorimetro(),
+                horimetro.getPonto());
     }
 }
