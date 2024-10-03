@@ -194,6 +194,13 @@ CREATE TABLE notificacoes (
     data DATE NOT NULL
 );
 
+CREATE TABLE hidrometro (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    volume DOUBLE NOT NULL,
+    ponto_id BIGINT,
+    FOREIGN KEY (ponto_id) REFERENCES ponto(id)
+);
+
 -- Auxiliares
 
 CREATE TABLE coleta_pmpt (
@@ -338,3 +345,11 @@ CREATE TABLE coleta_bs01hidrometro (
     FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
     FOREIGN KEY (bs01hidrometro_id) REFERENCES bs01_hidrometro(id) ON DELETE CASCADE
 );
+
+CREATE TABLE coleta_hidrometro (
+    coleta_id BIGINT,
+    hidrometro_id BIGINT,
+    PRIMARY KEY (coleta_id, hidrometro_id),
+    FOREIGN KEY (coleta_id) REFERENCES coleta(id) ON DELETE CASCADE,
+    FOREIGN KEY (hidrometro_id) REFERENCES hidrometro(id) ON DELETE CASCADE
+    )

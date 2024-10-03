@@ -236,6 +236,15 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
+        - id: hidrometro
+          uri: http://forms-coleta:8081
+          predicates:
+          - Path=/hidrometro/**
+          filters:
+          - name: TokenRelay
+          - AddResponseHeader=Access-Control-Allow-Origin, http://localhost:5173
+          - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
+          - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 logging:
   level:
     org.springframework.security: DEBUG
