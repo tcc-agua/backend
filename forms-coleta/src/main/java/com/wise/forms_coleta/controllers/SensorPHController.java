@@ -45,7 +45,7 @@ public class SensorPHController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
-    @GetMapping("/get-ph")
+    @GetMapping
     public ResponseEntity<List<SensorPHDTO>> getAll() {
         return new ResponseEntity<>(sensorPHGetAllService.getAll(), HttpStatus.OK);
     }
