@@ -28,7 +28,7 @@ public class NotificacoesController {
     @Autowired
     NotifDeleteAllService notifDeleteAllService;
 
-    @PostMapping("/postNotif")
+    @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid NotifCreateDTO data, UriComponentsBuilder uriBuilder) {
         NotifDTO notifDTO = notifSaveService.save(data);
@@ -36,7 +36,7 @@ public class NotificacoesController {
         return ResponseEntity.created(uri).body("Notificacao criada com sucesso!");
     }
 
-    @GetMapping("/getNotif")
+    @GetMapping
     public ResponseEntity<List<NotifDTO>> getAll(){
     return new ResponseEntity<>(notifGetAllService.getAll(), HttpStatus.OK);
     }

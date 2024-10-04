@@ -38,11 +38,11 @@ public class TQ01Controller {
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid TQ01CreateDTO data, UriComponentsBuilder uriBuilder){
         TQ01DTO tq01DTO = tq01SaveService.save(data);
-        URI uri = uriBuilder.path("/TQ01/{id}").buildAndExpand(tq01DTO.id()).toUri();
+        URI uri = uriBuilder.path("/tq01/{id}").buildAndExpand(tq01DTO.id()).toUri();
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
-    @GetMapping ("/get")
+    @GetMapping
     public ResponseEntity<List<TQ01DTO>> getAll() {
         return new ResponseEntity<>(tq01GetAllService.getAll(), HttpStatus.OK);
     }
