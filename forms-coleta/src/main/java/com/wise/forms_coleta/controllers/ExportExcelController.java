@@ -1,6 +1,9 @@
 package com.wise.forms_coleta.controllers;
 
+import com.wise.forms_coleta.implementations.excel.exportar_excel.ExcelExportHidrometroServiceImpl;
 import com.wise.forms_coleta.implementations.excel.exportar_excel.ExcelExportServiceImpl;
+import com.wise.forms_coleta.services.exportar_excel.ExcelExportHidrometroService;
+import com.wise.forms_coleta.services.exportar_excel.ExcelExportService;
 import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -18,10 +21,10 @@ import java.util.List;
 @RequestMapping("/exportExcel")
 public class ExportExcelController {
     @Autowired
-    ExcelExportServiceImpl excelExportService;
+    ExcelExportService excelExportService;
 
     @Autowired
-    GetExcelDataService getExcelDataService;
+    ExcelExportHidrometroService excelExportHidrometroService;
 
     @GetMapping()
     public ResponseEntity<ByteArrayResource> exportToExcel(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
@@ -40,8 +43,20 @@ public class ExportExcelController {
         }
     }
 
-//    @GetMapping("/data/{sheetName}")
-//    public List<List<String>> getExcelData(@PathVariable String sheetName) throws IOException {
-//        return getExcelDataService.readExcelFile(sheetName);
-//    }
+    @GetMapping("/hidrometro")
+    public ResponseEntity<ByteArrayResource> exportToExcelHidrometro(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        System.out.println("DATA INICIO: " + startDate + "\nDATA FIM: " + endDate);
+        System.out.println("TIPO DATA INICIO: " + startDate.getClass() + "\nTIPO DATA FIM: "+ endDate.getClass());
+        try {
+            ByteArrayResource excelFile = excelExportHidrometroService.exportToExcel(startDate, endDate);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=coletas_hidrometro.xlsx")
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .contentLength(excelFile.contentLength())
+                    .body(excelFile);
+        } catch (IOException e) {
+            e.printStackTrace(); // Adicione logs para ajudar na depuração
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
