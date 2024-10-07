@@ -51,22 +51,26 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                     headerRow.createCell(cellIndex++).setCellValue("Local do Hidrometro");
 
                     // Criar cabeçalhos dos meses
-                    Set<String> allMeses = new HashSet<>();
+                    Set<String> allMeses = new TreeSet<>(); // Usando TreeSet para manter a ordem
                     Map<Hidrometro, Map<String, Double>> volumesPorHidrometro = new HashMap<>();
 
-                    // Processar coletas e calcular volumes
+                    // Processar coletas e associar volumes
                     for (Coleta coleta : coletasFiltradas) {
                         String mesAno = coleta.getDataColeta().getMonthValue() + "/" + coleta.getDataColeta().getYear();
-                        allMeses.add(mesAno);
+                        allMeses.add(mesAno); // Adiciona meses
 
                         for (Hidrometro hidrometro : coleta.getHidrometroSet()) {
+                            // Inicializa o mapa para o hidrometro se não existir
                             volumesPorHidrometro.putIfAbsent(hidrometro, new HashMap<>());
                             Map<String, Double> volumesMes = volumesPorHidrometro.get(hidrometro);
-                            volumesMes.put(mesAno, volumesMes.getOrDefault(mesAno, 0.0) + hidrometro.getVolume());
+
+                            // Armazena o volume diretamente, sem somar
+                            volumesMes.put(mesAno, hidrometro.getVolume());
                         }
                     }
 
                     // Adicionar meses ao cabeçalho
+                    cellIndex = 2; // Reiniciar cellIndex para a inserção dos meses
                     for (String mes : allMeses) {
                         headerRow.createCell(cellIndex++).setCellValue(mes);
                     }
@@ -81,9 +85,10 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                             dataRow.createCell(cellIndex++).setCellValue(hidrometro.getPonto().getNome());
 
                             // Adicionar volumes por mês
-                            for (String mes : allMeses) {
+                            for (String mes : allMeses) { // Usar allMeses para percorrer todos os meses
                                 Double volume = volumesPorHidrometro.get(hidrometro).getOrDefault(mes, 0.0);
                                 dataRow.createCell(cellIndex++).setCellValue(volume);
+                                System.out.println("Hidrometro ID: " + hidrometro.getPonto().getId() + " - Mês: " + mes + " - VOLUME: " + volume);
                             }
                             idsHidrometros.add(hidrometro.getPonto().getId()); // Marca o hidrometro como processado
                         }
