@@ -3,10 +3,7 @@ package com.wise.forms_coleta.controllers;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroCreateDTO;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroDTO;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroPutDTO;
-import com.wise.forms_coleta.services.hidrometro.HidrometroDeleteService;
-import com.wise.forms_coleta.services.hidrometro.HidrometroGetAllService;
-import com.wise.forms_coleta.services.hidrometro.HidrometroPutService;
-import com.wise.forms_coleta.services.hidrometro.HidrometroSaveService;
+import com.wise.forms_coleta.services.hidrometro.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -35,6 +32,9 @@ public class HidrometroController {
     @Autowired
     HidrometroPutService hidrometroPutService;
 
+    @Autowired
+    HidrometroFindByPontoService hidrometroFindByPontoService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid HidrometroCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -58,5 +58,10 @@ public class HidrometroController {
     @Transactional
     public ResponseEntity<HidrometroDTO> put(@PathVariable Long id, @RequestBody @Valid HidrometroPutDTO data) {
         return new ResponseEntity<>(hidrometroPutService.put(id,data), HttpStatus.OK);
+    }
+
+    @GetMapping("/ponto/{ponto}")
+    public ResponseEntity<List<HidrometroDTO>> getAllByPonto(@PathVariable String ponto) {
+        return new ResponseEntity<>(hidrometroFindByPontoService.FindByPonto(ponto), HttpStatus.OK);
     }
 }
