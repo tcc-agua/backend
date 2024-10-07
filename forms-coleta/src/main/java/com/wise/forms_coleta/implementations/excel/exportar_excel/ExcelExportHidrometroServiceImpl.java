@@ -33,10 +33,43 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
     @Override
     public ByteArrayResource exportToExcel(LocalDate startDate, LocalDate endDate) throws IOException {
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
+            // Estilos
+            CellStyle borderStyle = workbook.createCellStyle();
+            borderStyle.setBorderBottom(BorderStyle.THIN);
+            borderStyle.setBorderTop(BorderStyle.THIN);
+            borderStyle.setBorderLeft(BorderStyle.THIN);
+            borderStyle.setBorderRight(BorderStyle.THIN);
+
+            CellStyle headerStyleRoyalBlue = workbook.createCellStyle();
+            headerStyleRoyalBlue.setFillForegroundColor(IndexedColors.DARK_BLUE.getIndex());
+            headerStyleRoyalBlue.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            headerStyleRoyalBlue.setBorderBottom(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderTop(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderLeft(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setBorderRight(BorderStyle.MEDIUM);
+            headerStyleRoyalBlue.setAlignment(HorizontalAlignment.CENTER);
+            headerStyleRoyalBlue.setVerticalAlignment(VerticalAlignment.CENTER);
+
+            Font fontRoyalBlue = workbook.createFont();
+            fontRoyalBlue.setColor(IndexedColors.WHITE.getIndex());
+            fontRoyalBlue.setBold(true);
+            headerStyleRoyalBlue.setFont(fontRoyalBlue);
+
+            CellStyle dataStyle = workbook.createCellStyle();
+            dataStyle.setBorderBottom(BorderStyle.THIN);
+            dataStyle.setBorderTop(BorderStyle.THIN);
+            dataStyle.setBorderLeft(BorderStyle.THIN);
+            dataStyle.setBorderRight(BorderStyle.THIN);
+            dataStyle.setAlignment(HorizontalAlignment.CENTER);
+            dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+
+            // Filtrando apenas os Excels relacionados ao nome "CA"
             List<Excel> excels = excelRepository.findAll()
                     .stream()
                     .filter(excel -> Objects.equals(excel.getNome(), "CA"))
                     .toList();
+
+            // Filtrando as coletas pela data
             List<Coleta> coletasFiltradas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
 
             for (Excel excel : excels) {
@@ -50,47 +83,67 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                     headerRow.createCell(cellIndex++).setCellValue("Item");
                     headerRow.createCell(cellIndex++).setCellValue("Local do Hidrometro");
 
-                    // Criar cabeçalhos dos meses
-                    Set<String> allMeses = new TreeSet<>(); // Usando TreeSet para manter a ordem
-                    Map<Hidrometro, Map<String, Double>> volumesPorHidrometro = new HashMap<>();
+                    // Aplicar estilo ao cabeçalho
+                    for (int i = 0; i < cellIndex; i++) {
+                        headerRow.getCell(i).setCellStyle(headerStyleRoyalBlue);
+                    }
+
+                    // Usando TreeSet para manter a ordem cronológica dos meses
+                    Set<String> allMeses = new TreeSet<>();
+                    Map<Long, Map<String, Double>> volumesPorHidrometro = new HashMap<>();
 
                     // Processar coletas e associar volumes
                     for (Coleta coleta : coletasFiltradas) {
                         String mesAno = coleta.getDataColeta().getMonthValue() + "/" + coleta.getDataColeta().getYear();
-                        allMeses.add(mesAno); // Adiciona meses
+                        allMeses.add(mesAno); // Adiciona os meses ao cabeçalho
 
                         for (Hidrometro hidrometro : coleta.getHidrometroSet()) {
-                            // Inicializa o mapa para o hidrometro se não existir
-                            volumesPorHidrometro.putIfAbsent(hidrometro, new HashMap<>());
-                            Map<String, Double> volumesMes = volumesPorHidrometro.get(hidrometro);
+                            Long pontoId = hidrometro.getPonto().getId();
 
-                            // Armazena o volume diretamente, sem somar
-                            volumesMes.put(mesAno, hidrometro.getVolume());
+                            // Inicializa o mapa para o hidrômetro se não existir
+                            volumesPorHidrometro.putIfAbsent(pontoId, new HashMap<>());
+                            Map<String, Double> volumesMes = volumesPorHidrometro.get(pontoId);
+
+                            // Soma os volumes para o mesmo mês
+                            volumesMes.put(mesAno, volumesMes.getOrDefault(mesAno, 0.0) + hidrometro.getVolume());
                         }
                     }
 
                     // Adicionar meses ao cabeçalho
-                    cellIndex = 2; // Reiniciar cellIndex para a inserção dos meses
+                    cellIndex = 2; // Reiniciar cellIndex para os meses
                     for (String mes : allMeses) {
-                        headerRow.createCell(cellIndex++).setCellValue(mes);
+                        Cell monthCell = headerRow.createCell(cellIndex++);
+                        monthCell.setCellValue(mes);
+                        monthCell.setCellStyle(headerStyleRoyalBlue); // Aplicar estilo aos meses
                     }
 
-                    // Adicionar dados das coletas sem repetição
-                    Set<Long> idsHidrometros = new HashSet<>(); // Para evitar repetição de pontos
-                    for (Hidrometro hidrometro : volumesPorHidrometro.keySet()) {
-                        if (!idsHidrometros.contains(hidrometro.getPonto().getId())) {
-                            Row dataRow = sheet.createRow(rowNum++);
-                            cellIndex = 0;
-                            dataRow.createCell(cellIndex++).setCellValue(hidrometro.getPonto().getId());
+                    // Preencher dados das coletas
+                    List<Long> pontoIds = new ArrayList<>(volumesPorHidrometro.keySet());
+                    Collections.sort(pontoIds); // Ordenar IDs
+
+                    for (Long pontoId : pontoIds) {
+                        Row dataRow = sheet.createRow(rowNum++);
+                        cellIndex = 0;
+
+                        // Preencher ponto e nome do hidrômetro usando o pontoId
+                        List<Hidrometro> hidrometros = hidrometroRepository.findAllByPontoId(pontoId);
+                        if (hidrometros != null && !hidrometros.isEmpty()) {
+                            Hidrometro hidrometro = hidrometros.get(0); // Supondo que queremos o primeiro hidrômetro
+
+                            dataRow.createCell(cellIndex++).setCellValue(pontoId);
                             dataRow.createCell(cellIndex++).setCellValue(hidrometro.getPonto().getNome());
 
-                            // Adicionar volumes por mês
-                            for (String mes : allMeses) { // Usar allMeses para percorrer todos os meses
-                                Double volume = volumesPorHidrometro.get(hidrometro).getOrDefault(mes, 0.0);
-                                dataRow.createCell(cellIndex++).setCellValue(volume);
-                                System.out.println("Hidrometro ID: " + hidrometro.getPonto().getId() + " - Mês: " + mes + " - VOLUME: " + volume);
+                            // Aplicar estilo à célula
+                            for (int i = 0; i < 2; i++) {
+                                dataRow.getCell(i).setCellStyle(dataStyle);
                             }
-                            idsHidrometros.add(hidrometro.getPonto().getId()); // Marca o hidrometro como processado
+
+                            // Preencher volumes por mês
+                            for (String mes : allMeses) {
+                                Double volume = volumesPorHidrometro.get(pontoId).getOrDefault(mes, 0.0);
+                                dataRow.createCell(cellIndex++).setCellValue(volume);
+                                dataRow.getCell(cellIndex - 1).setCellStyle(dataStyle); // Aplicar estilo ao volume
+                            }
                         }
                     }
                 }
@@ -101,4 +154,6 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
             return new ByteArrayResource(outputStream.toByteArray());
         }
     }
+
+
 }
