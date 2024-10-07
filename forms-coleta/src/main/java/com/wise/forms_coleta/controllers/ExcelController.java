@@ -4,6 +4,7 @@ import com.wise.forms_coleta.dtos.excel.ExcelCreateDTO;
 import com.wise.forms_coleta.dtos.excel.ExcelDTO;
 import com.wise.forms_coleta.services.excel.ExcelSaveService;
 import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
+import com.wise.forms_coleta.services.exportar_excel.GetExcelHidrometroDataService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ExcelController {
     @Autowired
     GetExcelDataService getExcelDataService;
 
+    @Autowired
+    GetExcelHidrometroDataService getExcelHidrometroDataService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<?> save(@RequestBody @Valid ExcelCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -37,5 +41,10 @@ public class ExcelController {
     @GetMapping("{sheetName}")
     public ResponseEntity<List<List<Object>>> getPontosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         return new ResponseEntity<>(getExcelDataService.readExcelFile(sheetName, startDate, endDate), HttpStatus.OK);
+    }
+
+    @GetMapping("{sheetName}/hidrometro")
+    public ResponseEntity<List<List<Object>>> getHidrometrosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+        return new ResponseEntity<>(getExcelHidrometroDataService.readExcelHidrometroFile(sheetName, startDate, endDate), HttpStatus.OK);
     }
 }
