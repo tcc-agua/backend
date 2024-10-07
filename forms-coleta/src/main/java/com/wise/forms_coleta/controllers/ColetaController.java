@@ -83,6 +83,8 @@ public class ColetaController {
         Page<Map<String, Object>> pontosColeta = coletaGetAllPontosService.getAllPontosByDate(startDate,
                 endDate != null ? endDate : startDate, pageRequest);
 
+        System.out.println(pontosColeta);
+
         return new ResponseEntity<>(pontosColeta, HttpStatus.OK);
     }
 

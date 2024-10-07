@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -89,7 +90,10 @@ public class ExcelExportServiceImpl implements ExcelExportService {
             dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
             List<Ponto> pontos = pontoRepository.findAll();
-            List<Excel> excels = excelRepository.findAll();
+            List<Excel> excels = excelRepository.findAll()
+                    .stream()
+                    .filter(excel -> List.of("DADOS ETAS", "NA", "PBS").contains(excel.getNome()))
+                    .toList();
 
             List<Coleta> coletasFiltradas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
 
