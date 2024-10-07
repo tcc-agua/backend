@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.hidrometro.HidrometroDeleteService;
 import com.wise.forms_coleta.services.hidrometro.HidrometroGetAllService;
 import com.wise.forms_coleta.services.hidrometro.HidrometroPutService;
 import com.wise.forms_coleta.services.hidrometro.HidrometroSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hidrometro")
+@Tag(name = "Hidrometro", description = "\"API para operações relacionadas aos pontos 'Hidrometro'\"")
 public class HidrometroController {
     @Autowired
     HidrometroSaveService hidrometroSaveService;

@@ -8,6 +8,7 @@ import com.wise.forms_coleta.services.pbs.PbDeleteService;
 import com.wise.forms_coleta.services.pbs.PbGetAllService;
 import com.wise.forms_coleta.services.pbs.PbPutService;
 import com.wise.forms_coleta.services.pbs.PbSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pb")
+@Tag(name = "PB", description = "\"API para operações relacionadas aos pontos 'Pb's'\"")
 public class PbController {
 
     @Autowired

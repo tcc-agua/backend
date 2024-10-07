@@ -9,6 +9,7 @@ import com.wise.forms_coleta.services.sensor_ph.SensorPHDeleteService;
 import com.wise.forms_coleta.services.sensor_ph.SensorPHGetAllService;
 import com.wise.forms_coleta.services.sensor_ph.SensorPHPutService;
 import com.wise.forms_coleta.services.sensor_ph.SensorPHSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sensor-ph")
+@Tag(name = "Sensor Ph", description = "\"API para operações relacionadas ao ponto 'Sensor Ph'\"")
 public class SensorPHController {
 
     @Autowired

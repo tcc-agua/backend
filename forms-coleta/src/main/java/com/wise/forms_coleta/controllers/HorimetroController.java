@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.horimetro.HorimetroDeleteService;
 import com.wise.forms_coleta.services.horimetro.HorimetroGetAllService;
 import com.wise.forms_coleta.services.horimetro.HorimetroPutService;
 import com.wise.forms_coleta.services.horimetro.HorimetroSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/horimetro")
+@Tag(name = "Horimetro", description = "\"API para operações relacionadas aos pontos 'Horimetro'\"")
 public class HorimetroController {
     @Autowired
     HorimetroSaveService horimetroSaveService;

@@ -10,6 +10,7 @@ import com.wise.forms_coleta.services.tq04_tq05.Tq04Tq05DeleteService;
 import com.wise.forms_coleta.services.tq04_tq05.Tq04Tq05GetAllService;
 import com.wise.forms_coleta.services.tq04_tq05.Tq04Tq05PutService;
 import com.wise.forms_coleta.services.tq04_tq05.Tq04Tq05SaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tq04tq05")
+@Tag(name = "TQ04 TQ05", description = "\"API para operações relacionadas aos pontos 'TQ04 e TQ05'\"")
 public class Tq04Tq05Controller {
 
     @Autowired

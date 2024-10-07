@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.pmpt.PmPtDeleteService;
 import com.wise.forms_coleta.services.pmpt.PmPtGetAllService;
 import com.wise.forms_coleta.services.pmpt.PmPtPutService;
 import com.wise.forms_coleta.services.pmpt.PmPtSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pmpt")
+@Tag(name = "PM PT", description = "\"API para operações relacionadas aos pontos 'Pm ou Pt'\"")
 public class PmPtController {
 
     @Autowired

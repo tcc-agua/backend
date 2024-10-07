@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.BC06.BC06DeleteService;
 import com.wise.forms_coleta.services.BC06.BC06GetAllService;
 import com.wise.forms_coleta.services.BC06.BC06PutService;
 import com.wise.forms_coleta.services.BC06.BC06SaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bc06")
+@Tag(name = "BC06", description = "\"API para operações relacionadas ao ponto 'BC06'\"")
 public class BC06Controller {
     @Autowired
     BC06SaveService bc06SaveService;

@@ -8,6 +8,7 @@ import com.wise.forms_coleta.services.faseLivre.FaseLivreDeleteService;
 import com.wise.forms_coleta.services.faseLivre.FaseLivreGetAllService;
 import com.wise.forms_coleta.services.faseLivre.FaseLivrePutService;
 import com.wise.forms_coleta.services.faseLivre.FaseLivreSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/faselivre")
+@Tag(name = "Fase Livre", description = "\"API para operações relacionadas ao ponto 'Fase Livre'\"")
 public class FaseLivreController {
 
     @Autowired

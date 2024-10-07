@@ -5,6 +5,7 @@ import com.wise.forms_coleta.implementations.excel.exportar_excel.ExcelExportSer
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportHidrometroService;
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportService;
 import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -19,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exportExcel")
+@Tag(name = "Excel")
 public class ExportExcelController {
     @Autowired
     ExcelExportService excelExportService;
@@ -26,7 +28,7 @@ public class ExportExcelController {
     @Autowired
     ExcelExportHidrometroService excelExportHidrometroService;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<ByteArrayResource> exportToExcel(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         System.out.println("DATA INICIO: " + startDate + "\nDATA FIM: " + endDate);
         System.out.println("TIPO DATA INICIO: " + startDate.getClass() + "\nTIPO DATA FIM: "+ endDate.getClass());

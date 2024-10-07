@@ -5,6 +5,7 @@ import com.wise.forms_coleta.dtos.notificacao.NotifDTO;
 import com.wise.forms_coleta.services.Notificacoes.NotifDeleteAllService;
 import com.wise.forms_coleta.services.Notificacoes.NotifGetAllService;
 import com.wise.forms_coleta.services.Notificacoes.NotifSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notificacoes")
+@Tag(name = "Notificações", description = "\"API para operações relacionadas as 'Notificações'\"")
 public class NotificacoesController {
     @Autowired
     NotifSaveService notifSaveService;

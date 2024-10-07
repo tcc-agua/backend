@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.bomba_bc03.BombaBc03DeleteService;
 import com.wise.forms_coleta.services.bomba_bc03.BombaBc03GetAllService;
 import com.wise.forms_coleta.services.bomba_bc03.BombaBc03PutService;
 import com.wise.forms_coleta.services.bomba_bc03.BombaBc03SaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bombabc03")
+@Tag(name = "Bomba BC03", description = "\"API para operações relacionadas a ponto 'Bomba BC03'\"")
 public class BombaBc03Controller {
 
     @Autowired

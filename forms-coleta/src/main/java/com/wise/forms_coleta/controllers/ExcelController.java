@@ -4,6 +4,7 @@ import com.wise.forms_coleta.dtos.excel.ExcelCreateDTO;
 import com.wise.forms_coleta.dtos.excel.ExcelDTO;
 import com.wise.forms_coleta.services.excel.ExcelSaveService;
 import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/excel")
+@Tag(name = "Excel", description = "\"API para operações relacionadas ao Excel\"")
 public class ExcelController {
     @Autowired
     ExcelSaveService excelSaveService;

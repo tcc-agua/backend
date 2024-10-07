@@ -4,6 +4,7 @@ import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoPutDTO;
 import com.wise.forms_coleta.services.ponto.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ponto")
+@Tag(name = "Ponto", description = "\"API para operações relacionadas aos Pontos'\"")
 public class PontoController {
 
     @Autowired

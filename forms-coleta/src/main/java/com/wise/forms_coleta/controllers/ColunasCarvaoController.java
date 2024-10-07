@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoDeleteService;
 import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoGetAllService;
 import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoPutService;
 import com.wise.forms_coleta.services.colunas_carvao.ColunasCarvaoSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/colunas-carvao")
+@Tag(name = "Colunas Carvão", description = "\"API para operações relacionadas ao ponto 'Colunas Carvão'\"")
 public class ColunasCarvaoController {
     @Autowired
     ColunasCarvaoSaveService colunasCarvaoSaveService;

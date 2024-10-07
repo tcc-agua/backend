@@ -9,6 +9,7 @@ import com.wise.forms_coleta.services.BH02.BH02DeleteService;
 import com.wise.forms_coleta.services.BH02.BH02GetAllService;
 import com.wise.forms_coleta.services.BH02.BH02PutService;
 import com.wise.forms_coleta.services.BH02.BH02SaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bh02")
+@Tag(name = "BH02", description = "\"API para operações relacionadas ao ponto 'BH02'\"")
 public class BH02Controller {
     @Autowired
     BH02SaveService bh02SaveService;

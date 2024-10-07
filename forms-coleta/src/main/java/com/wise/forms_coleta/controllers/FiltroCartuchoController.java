@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoDeleteServic
 import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoGetAllService;
 import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoPutService;
 import com.wise.forms_coleta.services.filtro_cartucho.FiltroCartuchoSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/filtro_cartucho")
+@Tag(name = "Filtro Cartucho", description = "\"API para operações relacionadas ao ponto 'Filtro Cartucho'\"")
 public class FiltroCartuchoController {
     @Autowired
     FiltroCartuchoSaveService filtroCartuchoSaveService;

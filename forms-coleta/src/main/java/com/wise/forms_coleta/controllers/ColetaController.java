@@ -3,6 +3,7 @@ package com.wise.forms_coleta.controllers;
 import com.wise.forms_coleta.dtos.coleta.ColetaCreateDTO;
 import com.wise.forms_coleta.dtos.coleta.ColetaDTO;
 import com.wise.forms_coleta.services.coleta.*;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/coleta")
+@Tag(name = "Coleta", description = "\"API para operações relacionadas a coletas\"")
 public class ColetaController {
     @Autowired
     ColetaSaveService coletaSaveService;
@@ -35,7 +37,7 @@ public class ColetaController {
     ColetaDeleteService coletaDeleteService;
 
     @Autowired
-    ColetaPutService coletaPutService;
+    ColetaPatchService coletaPutService;
 
     @Autowired
     ColetaGetAllPontosService coletaGetAllPontosService;
@@ -64,10 +66,10 @@ public class ColetaController {
         return new ResponseEntity<>(coletaDeleteService.delete(id), HttpStatus.OK);
     }
 
-    @PutMapping("{id}")
+    @PatchMapping("{id}")
     @Transactional
-    public ResponseEntity<ColetaDTO> put(@PathVariable Long id, @RequestBody @Valid ColetaCreateDTO data){
-        return new ResponseEntity<>(coletaPutService.put(id, data), HttpStatus.OK);
+    public ResponseEntity<ColetaDTO> patch(@PathVariable Long id, @RequestBody @Valid ColetaCreateDTO data){
+        return new ResponseEntity<>(coletaPutService.patch(id, data), HttpStatus.OK);
     }
 
     @GetMapping("/get-by-date")

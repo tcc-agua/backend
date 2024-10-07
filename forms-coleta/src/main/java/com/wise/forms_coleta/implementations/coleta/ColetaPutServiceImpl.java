@@ -5,25 +5,32 @@ import com.wise.forms_coleta.dtos.coleta.ColetaDTO;
 import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.ColetaRepository;
-import com.wise.forms_coleta.services.coleta.ColetaDeleteService;
-import com.wise.forms_coleta.services.coleta.ColetaPutService;
+import com.wise.forms_coleta.services.coleta.ColetaPatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ColetaPutServiceImpl implements ColetaPutService {
+public class ColetaPutServiceImpl implements ColetaPatchService {
     @Autowired
     private ColetaRepository coletaRepository;
 
     @Override
-    public ColetaDTO put(Long id, ColetaCreateDTO data) {
+    public ColetaDTO patch(Long id, ColetaCreateDTO data) {
         Coleta coleta = coletaRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
 
-        coleta.setTecnico(data.tecnico());
-        coleta.setDataColeta(data.dataColeta());
-        coleta.setHora_inicio(data.horaInicio());
-        coleta.setHora_fim(data.horaFim());
+        if(!(data.tecnico() == null)){
+            coleta.setTecnico(data.tecnico());
+        }
+        if(data.horaInicio() != null){
+            coleta.setHora_inicio(data.horaInicio());
+        }
+        if(data.dataColeta() != null){
+            coleta.setDataColeta(data.dataColeta());
+        }
+        if (data.horaFim() != null){
+            coleta.setHora_fim(data.horaFim());
+        }
 
         coletaRepository.save(coleta);
         return new ColetaDTO(coleta);

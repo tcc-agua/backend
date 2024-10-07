@@ -9,6 +9,7 @@ import com.wise.forms_coleta.services.tq02.TQ02SaveService;
 import com.wise.forms_coleta.services.tq02.Tq02DeleteService;
 import com.wise.forms_coleta.services.tq02.Tq02GetAllService;
 import com.wise.forms_coleta.services.tq02.Tq02PutService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/tq02")
+@Tag(name = "TQ02", description = "\"API para operações relacionadas ao ponto 'TQ02'\"")
 public class TQ02Controller {
 
     @Autowired

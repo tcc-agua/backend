@@ -7,6 +7,7 @@ import com.wise.forms_coleta.services.CD.CDDeleteService;
 import com.wise.forms_coleta.services.CD.CDGetAllService;
 import com.wise.forms_coleta.services.CD.CDPutService;
 import com.wise.forms_coleta.services.CD.CDSaveService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cd")
+@Tag(name = "CD", description = "\"API para operações relacionadas aos pontos 'CD's'\"")
 public class CDController {
     @Autowired
     CDSaveService cdSaveService;
