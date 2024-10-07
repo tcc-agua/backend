@@ -4,6 +4,7 @@ import com.wise.forms_coleta.dtos.excel.ExcelCreateDTO;
 import com.wise.forms_coleta.dtos.excel.ExcelDTO;
 import com.wise.forms_coleta.services.excel.ExcelSaveService;
 import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
+import com.wise.forms_coleta.services.exportar_excel.GetExcelHidrometroDataService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -16,7 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/excel")
@@ -27,6 +27,9 @@ public class ExcelController {
 
     @Autowired
     GetExcelDataService getExcelDataService;
+
+    @Autowired
+    GetExcelHidrometroDataService getExcelHidrometroDataService;
 
     @PostMapping
     @Transactional
@@ -39,5 +42,10 @@ public class ExcelController {
     @GetMapping("{sheetName}")
     public ResponseEntity<List<List<Object>>> getPontosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
         return new ResponseEntity<>(getExcelDataService.readExcelFile(sheetName, startDate, endDate), HttpStatus.OK);
+    }
+
+    @GetMapping("{sheetName}/hidrometro")
+    public ResponseEntity<List<List<Object>>> getHidrometrosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+        return new ResponseEntity<>(getExcelHidrometroDataService.readExcelHidrometroFile(sheetName, startDate, endDate), HttpStatus.OK);
     }
 }
