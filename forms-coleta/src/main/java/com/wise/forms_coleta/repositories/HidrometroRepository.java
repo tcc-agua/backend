@@ -9,4 +9,5 @@ import java.util.List;
 public interface HidrometroRepository extends JpaRepository<Hidrometro, Long> {
 
     List<Hidrometro> findAllByPontoId(Long pontoId);
+    List<Hidrometro> findAllByPonto(Ponto ponto);
 }
