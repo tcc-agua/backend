@@ -44,10 +44,10 @@ public class ColetaController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> save(@RequestBody @Valid ColetaCreateDTO data, UriComponentsBuilder uriBuilder){
+    public ResponseEntity<ColetaDTO> save(@RequestBody @Valid ColetaCreateDTO data, UriComponentsBuilder uriBuilder){
         ColetaDTO coletaDTO = coletaSaveService.save(data);
         URI uri = uriBuilder.path("/coleta/{id}").buildAndExpand(coletaDTO.id()).toUri();
-        return ResponseEntity.created(uri).body("Coleta criada com sucesso!");
+        return ResponseEntity.created(uri).body(coletaDTO);
     }
 
     @GetMapping("{id}")
