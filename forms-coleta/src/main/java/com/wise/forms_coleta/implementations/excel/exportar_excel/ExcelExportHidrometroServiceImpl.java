@@ -74,11 +74,12 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
 
             for (Excel excel : excels) {
                 if (!coletasFiltradas.isEmpty()) {
-                    Sheet sheet = workbook.createSheet(excel.getNome());
+                    // Criação da aba de Hidrometros
+                    Sheet sheetHidrometros = workbook.createSheet(excel.getNome());
                     int rowNum = 0;
 
                     // Criar cabeçalho
-                    Row headerRow = sheet.createRow(rowNum++);
+                    Row headerRow = sheetHidrometros.createRow(rowNum++);
                     int cellIndex = 0;
                     headerRow.createCell(cellIndex++).setCellValue("Item");
                     headerRow.createCell(cellIndex++).setCellValue("Local do Hidrometro");
@@ -122,7 +123,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                     Collections.sort(pontoIds); // Ordenar IDs
 
                     for (Long pontoId : pontoIds) {
-                        Row dataRow = sheet.createRow(rowNum++);
+                        Row dataRow = sheetHidrometros.createRow(rowNum++);
                         cellIndex = 0;
 
                         // Preencher ponto e nome do hidrômetro usando o pontoId
@@ -141,21 +142,83 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                             // Preencher volumes por mês
                             for (String mes : allMeses) {
                                 Double volume = volumesPorHidrometro.get(pontoId).getOrDefault(mes, 0.0);
-                                dataRow.createCell(cellIndex++).setCellValue(volume);
+                                if (volume == 0.0) {
+                                    dataRow.createCell(cellIndex++).setCellValue("-");
+                                } else {
+                                    dataRow.createCell(cellIndex++).setCellValue(volume);
+                                }
                                 dataRow.getCell(cellIndex - 1).setCellStyle(dataStyle); // Aplicar estilo ao volume
+                            }
+                        }
+                    }
+
+                    // Nova aba para Consumo das Áreas
+                    Sheet sheetConsumoAreas = workbook.createSheet("Consumo das Áreas");
+                    rowNum = 0;
+
+                    // Criar cabeçalho
+                    Row headerRowConsumo = sheetConsumoAreas.createRow(rowNum++);
+                    cellIndex = 0;
+                    headerRowConsumo.createCell(cellIndex++).setCellValue("Item");
+                    headerRowConsumo.createCell(cellIndex++).setCellValue("Local do Hidrometro");
+
+                    // Aplicar estilo ao cabeçalho
+                    for (int i = 0; i < cellIndex; i++) {
+                        headerRowConsumo.getCell(i).setCellStyle(headerStyleRoyalBlue);
+                    }
+
+                    // Adicionar meses ao cabeçalho
+                    cellIndex = 2;
+                    for (String mes : allMeses) {
+                        Cell monthCell = headerRowConsumo.createCell(cellIndex++);
+                        monthCell.setCellValue(mes);
+                        monthCell.setCellStyle(headerStyleRoyalBlue);
+                    }
+
+                    // Preencher dados da diferença entre meses
+                    for (Long pontoId : pontoIds) {
+                        Row dataRow = sheetConsumoAreas.createRow(rowNum++);
+                        cellIndex = 0;
+
+                        // Preencher ponto e nome do hidrômetro
+                        List<Hidrometro> hidrometros = hidrometroRepository.findAllByPontoId(pontoId);
+                        if (hidrometros != null && !hidrometros.isEmpty()) {
+                            Hidrometro hidrometro = hidrometros.get(0);
+
+                            dataRow.createCell(cellIndex++).setCellValue(pontoId);
+                            dataRow.createCell(cellIndex++).setCellValue(hidrometro.getPonto().getNome());
+
+                            // Aplicar estilo à célula
+                            for (int i = 0; i < 2; i++) {
+                                dataRow.getCell(i).setCellStyle(dataStyle);
+                            }
+
+                            // Calcular a diferença entre o mês atual e o anterior
+                            String prevMes = null;
+                            for (String mes : allMeses) {
+                                Double volumeAtual = volumesPorHidrometro.get(pontoId).getOrDefault(mes, 0.0);
+                                if (prevMes != null) {
+                                    Double volumeAnterior = volumesPorHidrometro.get(pontoId).getOrDefault(prevMes, 0.0);
+                                    Double diferenca = volumeAtual - volumeAnterior;
+                                    if (diferenca == 0.0) {
+                                        dataRow.createCell(cellIndex++).setCellValue("-");
+                                    } else {
+                                        dataRow.createCell(cellIndex++).setCellValue(diferenca);
+                                    }
+                                } else {
+                                    dataRow.createCell(cellIndex++).setCellValue("-"); // Sem diferença para o primeiro mês
+                                }
+                                prevMes = mes;
+                                dataRow.getCell(cellIndex - 1).setCellStyle(dataStyle); // Aplicar estilo à célula
                             }
                         }
                     }
                 }
             }
 
-
-
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             workbook.write(outputStream);
             return new ByteArrayResource(outputStream.toByteArray());
         }
     }
-
-
 }
