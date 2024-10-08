@@ -142,7 +142,11 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                             // Preencher volumes por mês
                             for (String mes : allMeses) {
                                 Double volume = volumesPorHidrometro.get(pontoId).getOrDefault(mes, 0.0);
-                                dataRow.createCell(cellIndex++).setCellValue(volume);
+                                if (volume == 0.0) {
+                                    dataRow.createCell(cellIndex++).setCellValue("-");
+                                } else {
+                                    dataRow.createCell(cellIndex++).setCellValue(volume);
+                                }
                                 dataRow.getCell(cellIndex - 1).setCellStyle(dataStyle); // Aplicar estilo ao volume
                             }
                         }
@@ -196,11 +200,16 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                                 if (prevMes != null) {
                                     Double volumeAnterior = volumesPorHidrometro.get(pontoId).getOrDefault(prevMes, 0.0);
                                     Double diferenca = volumeAtual - volumeAnterior;
-                                    dataRow.createCell(cellIndex++).setCellValue(diferenca);
+                                    if (diferenca == 0.0) {
+                                        dataRow.createCell(cellIndex++).setCellValue("-");
+                                    } else {
+                                        dataRow.createCell(cellIndex++).setCellValue(diferenca);
+                                    }
                                 } else {
-                                    dataRow.createCell(cellIndex++).setCellValue(0.0); // Sem diferença para o primeiro mês
+                                    dataRow.createCell(cellIndex++).setCellValue("-"); // Sem diferença para o primeiro mês
                                 }
                                 prevMes = mes;
+                                dataRow.getCell(cellIndex - 1).setCellStyle(dataStyle); // Aplicar estilo à célula
                             }
                         }
                     }
@@ -212,7 +221,4 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
             return new ByteArrayResource(outputStream.toByteArray());
         }
     }
-
-
-
 }
