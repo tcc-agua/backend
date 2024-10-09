@@ -3,6 +3,7 @@ package com.wise.forms_coleta.controllers;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroCreateDTO;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroDTO;
 import com.wise.forms_coleta.dtos.hidrometro.HidrometroPutDTO;
+import com.wise.forms_coleta.entities.Hidrometro;
 import com.wise.forms_coleta.services.hidrometro.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -61,7 +63,7 @@ public class HidrometroController {
     }
 
     @GetMapping("/ponto/{ponto}")
-    public ResponseEntity<List<HidrometroDTO>> getAllByPonto(@PathVariable String ponto) {
-        return new ResponseEntity<>(hidrometroFindByPontoService.FindByPonto(ponto), HttpStatus.OK);
+    public ResponseEntity<List<Hidrometro>> getAllByPonto(@PathVariable String ponto, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
+        return new ResponseEntity<>(hidrometroFindByPontoService.FindByPonto(ponto, startDate, endDate), HttpStatus.OK);
     }
 }
