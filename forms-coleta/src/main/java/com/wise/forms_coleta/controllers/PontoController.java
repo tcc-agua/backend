@@ -3,6 +3,7 @@ package com.wise.forms_coleta.controllers;
 import com.wise.forms_coleta.dtos.ponto.PontoCreateDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoDTO;
 import com.wise.forms_coleta.dtos.ponto.PontoPutDTO;
+import com.wise.forms_coleta.dtos.ponto.PontoStatusDTO;
 import com.wise.forms_coleta.services.ponto.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
@@ -39,6 +40,9 @@ public class PontoController {
     @Autowired
     PontoGetAllByExcelService pontoGetAllByExcelService;
 
+    @Autowired
+    PontoPatchStatusService pontoPatchStatusService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PontoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -72,5 +76,11 @@ public class PontoController {
     @GetMapping("/excel/{excel}")
     public ResponseEntity<List<PontoDTO>> getAllByExcel(@PathVariable String excel){
         return new ResponseEntity<>(pontoGetAllByExcelService.getAllPointsByExcel(excel), HttpStatus.OK);
+    }
+
+    @PatchMapping("{name}")
+    @Transactional
+    public ResponseEntity<PontoDTO> patch(@PathVariable String name, @RequestBody @Valid PontoStatusDTO data){
+        return new ResponseEntity<>(pontoPatchStatusService.patch(name, data), HttpStatus.OK);
     }
 }
