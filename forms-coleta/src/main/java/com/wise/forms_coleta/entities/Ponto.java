@@ -100,6 +100,14 @@ public class Ponto {
     @JsonManagedReference
     private Set<Hidrometro> hidrometroSet = new HashSet<>();
 
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<Horimetro> horimetroSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "ponto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<SensorPH> phSet = new HashSet<>();
+
     public Ponto(PontoCreateDTO data){
         this.nome = data.nome();
         this.localizacao = data.localizacao();
