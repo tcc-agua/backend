@@ -24,7 +24,7 @@ public class ProfileController {
         attributesMap.put("access_token", authorizedClient.getAccessToken().getTokenValue());
         attributesMap.put("client_name", authorizedClient.getClientRegistration().getClientId());
         attributesMap.put("user_attributes", oidcUser.getAttributes());
-        attributesMap.put("expires_at", authorizedClient.getAccessToken().getExpiresAt());
+        attributesMap.put("expires_at", oidcUser.getIdToken().getExpiresAt());
         attributesMap.put("authenticated_at", oidcUser.getIdToken().getAuthenticatedAt());
         return attributesMap;
     }
