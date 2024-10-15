@@ -45,7 +45,7 @@ public class ExcelController {
     }
 
     @GetMapping("{sheetName}/hidrometro")
-    public ResponseEntity<List<List<Object>>> getHidrometrosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
-        return new ResponseEntity<>(getExcelHidrometroDataService.readExcelHidrometroFile(sheetName, startDate, endDate), HttpStatus.OK);
+    public ResponseEntity<List<List<Object>>> getHidrometrosByExcel(@PathVariable String sheetName, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate, @RequestParam Boolean definicao){
+        return new ResponseEntity<>(getExcelHidrometroDataService.readExcelHidrometroFile(sheetName, startDate, endDate, definicao), HttpStatus.OK);
     }
 }

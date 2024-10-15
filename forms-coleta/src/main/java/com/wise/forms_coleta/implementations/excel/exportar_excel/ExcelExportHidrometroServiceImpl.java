@@ -66,7 +66,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
             // Filtrando apenas os Excels relacionados ao nome "CA"
             List<Excel> excels = excelRepository.findAll()
                     .stream()
-                    .filter(excel -> Objects.equals(excel.getNome(), "CA"))
+                    .filter(excel -> Objects.equals(excel.getNome(), "LH") || Objects.equals(excel.getNome(), "CA"))
                     .toList();
 
             // Filtrando as coletas pela data
@@ -75,7 +75,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
             for (Excel excel : excels) {
                 if (!coletasFiltradas.isEmpty()) {
                     // Criação da aba de Hidrometros
-                    Sheet sheetHidrometros = workbook.createSheet(excel.getNome());
+                    Sheet sheetHidrometros = workbook.createSheet("LH");
                     int rowNum = 0;
 
                     // Criar cabeçalho
@@ -153,7 +153,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                     }
 
                     // Nova aba para Consumo das Áreas
-                    Sheet sheetConsumoAreas = workbook.createSheet("Consumo das Áreas");
+                    Sheet sheetConsumoAreas = workbook.createSheet("CA");
                     rowNum = 0;
 
                     // Criar cabeçalho
