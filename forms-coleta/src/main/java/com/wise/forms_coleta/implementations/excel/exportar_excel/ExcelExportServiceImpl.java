@@ -19,10 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -147,6 +144,14 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                                             coleta.getCdSet().stream().anyMatch(cd -> ponto.getCdSet().contains(cd)) ||
                                             coleta.getHorimetroSet().stream().anyMatch(horimetro -> ponto.getHorimetroSet().contains(horimetro)) ||
                                             coleta.getPhSet().stream().anyMatch(ph -> ponto.getPhSet().contains(ph))
+                            ))
+                            .sorted(Comparator.comparing(ponto ->
+                                    (ponto.getColunasCarvaoSet().size() + ponto.getPmPtSet().size() + ponto.getBc06Set().size() +
+                                            ponto.getBc01Set().size() + ponto.getPBsSet().size() + ponto.getFiltroCartuchoSet().size() +
+                                            ponto.getFaseLivreSet().size() + ponto.getTq01Set().size() + ponto.getTq02Set().size() +
+                                            ponto.getBh02Set().size() + ponto.getBs01PressaoSet().size() + ponto.getTq04Tq05Set().size() +
+                                            ponto.getBombaBc03Set().size() + ponto.getBs01HidrometroSet().size() + ponto.getCdSet().size() +
+                                            ponto.getHorimetroSet().size() + ponto.getPhSet().size())
                             ))
                             .toList();
 
