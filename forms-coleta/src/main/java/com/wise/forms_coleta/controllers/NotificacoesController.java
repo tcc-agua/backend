@@ -3,6 +3,7 @@ package com.wise.forms_coleta.controllers;
 import com.wise.forms_coleta.dtos.notificacao.NotifCreateDTO;
 import com.wise.forms_coleta.dtos.notificacao.NotifDTO;
 import com.wise.forms_coleta.services.Notificacoes.NotifDeleteAllService;
+import com.wise.forms_coleta.services.Notificacoes.NotifDeleteService;
 import com.wise.forms_coleta.services.Notificacoes.NotifGetAllService;
 import com.wise.forms_coleta.services.Notificacoes.NotifSaveService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,6 +31,9 @@ public class NotificacoesController {
     @Autowired
     NotifDeleteAllService notifDeleteAllService;
 
+    @Autowired
+    NotifDeleteService notifDeleteService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid NotifCreateDTO data, UriComponentsBuilder uriBuilder) {
@@ -47,6 +51,12 @@ public class NotificacoesController {
     @Transactional
     public ResponseEntity<String> deleteAll() {
         return new ResponseEntity<>(notifDeleteAllService.deleteAll(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("{id}")
+    @Transactional
+    public ResponseEntity<String> delete(@PathVariable Long id) {
+        return new ResponseEntity<>(notifDeleteService.delete(id), HttpStatus.OK);
     }
 
 }
