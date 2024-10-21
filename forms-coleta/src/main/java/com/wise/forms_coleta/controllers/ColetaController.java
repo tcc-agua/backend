@@ -42,6 +42,9 @@ public class ColetaController {
     @Autowired
     ColetaGetAllPontosService coletaGetAllPontosService;
 
+    @Autowired
+    ColetaGetUltimaService coletaGetUltimaService;
+
     @PostMapping
     @Transactional
     public ResponseEntity<ColetaDTO> save(@RequestBody @Valid ColetaCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -88,6 +91,11 @@ public class ColetaController {
         System.out.println(pontosColeta);
 
         return new ResponseEntity<>(pontosColeta, HttpStatus.OK);
+    }
+
+    @GetMapping("coleta_ultima")
+    public ResponseEntity<ColetaDTO> getLast(){
+        return new ResponseEntity<>(coletaGetUltimaService.getLast(), HttpStatus.OK);
     }
 
 }
