@@ -202,8 +202,10 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
                 pontoColeta.put("dados", tq04Tq05);
                 pontosColeta.add(pontoColeta);
             }
-
-            coletaData.put("details", pontosColeta);
+            int start = (int) pageable.getOffset();
+            int end = Math.min((start + pageable.getPageSize()), pontosColeta.size());
+            List<Map<String, Object>> paginatedPontos = pontosColeta.subList(start, end);
+            coletaData.put("details", paginatedPontos);
             return coletaData;
         }).collect(Collectors.toList());
 
