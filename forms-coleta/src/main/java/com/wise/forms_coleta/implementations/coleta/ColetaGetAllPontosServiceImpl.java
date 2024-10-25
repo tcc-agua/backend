@@ -23,15 +23,17 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
     @Override
     public Page<Map<String, Object>> getAllPontosByDate(LocalDate startDate, LocalDate endDate, Pageable pageable) {
         // Filtra as coletas por data com paginação
-        Page<Coleta> coletas = coletaRepository.findAllByDataColetaBetween(startDate, endDate, pageable);
+        List<Coleta> coletas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
 
         // Converte a lista de Coleta para Map<String, Object>
-        List<Map<String, Object>> coletasComPontos = coletas.stream().map(coleta -> {
-            Map<String, Object> coletaData = new LinkedHashMap<>(); // Usa LinkedHashMap para manter a ordem dos campos
-            coletaData.put("id", coleta.getId()); // Adiciona o id da coleta
-            coletaData.put("date", coleta.getDataColeta().toString()); // Ajuste o formato da data conforme necessário
+        List<Map<String, Object>> coletasComPontos = new ArrayList<>();
 
-            // Formatações de data e hora
+        // Converte a lista de Coleta para Map<String, Object>
+        for(Coleta coleta : coletas){
+
+            Map<String, Object> coletaData = new LinkedHashMap<>();
+            coletaData.put("id", coleta.getId());
+
             DateTimeFormatter dateFormatterForDateField = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String formattedDateForDateField = coleta.getDataColeta().format(dateFormatterForDateField);
             coletaData.put("date", formattedDateForDateField);
@@ -41,12 +43,10 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
             DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
             String formattedTime = coleta.getHora_inicio().format(timeFormatter);
 
-            // Adiciona manualmente o fuso horário "BRT" à string formatada
             String description = formattedDate + ", " + formattedTime + " BRT";
+            coletaData.put("description", description);
 
-            coletaData.put("description", description); // Usa a data formatada na descrição
-
-            // Adiciona os pontos da coleta
+            // Adiciona todos os detalhes da coleta
             List<Map<String, Object>> pontosColeta = new ArrayList<>();
 
             // Exemplo de como adicionar pontos
@@ -202,14 +202,25 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
                 pontoColeta.put("dados", tq04Tq05);
                 pontosColeta.add(pontoColeta);
             }
+            int totalDetails = pontosColeta.size();
             int start = (int) pageable.getOffset();
-            int end = Math.min((start + pageable.getPageSize()), pontosColeta.size());
-            List<Map<String, Object>> paginatedPontos = pontosColeta.subList(start, end);
+            int end = Math.min(start + pageable.getPageSize(), totalDetails);
+
+            // Aplica a sublista para os detalhes paginados
+            List<Map<String, Object>> paginatedPontos = (start < totalDetails) ? pontosColeta.subList(start, end) : Collections.emptyList();
             coletaData.put("details", paginatedPontos);
-            return coletaData;
-        }).collect(Collectors.toList());
+
+            coletasComPontos.add(coletaData);
+        }
 
         // Retorna a lista convertida como um Page utilizando o PageImpl
-        return new PageImpl<>(coletasComPontos, pageable, coletas.getTotalElements());
+        // Use o número total de detalhes em vez de coletas
+        long totalElements = coletas.stream().mapToLong(coleta -> coleta.getBC01Set().size() + coleta.getBc06Set().size() + coleta.getBh02Set().size() + coleta.getBombaBc03Set().size()
+                + coleta.getBs01HidrometroSet().size() + coleta.getBs01PressaoSet().size() + coleta.getCdSet().size() + coleta.getColunasCarvaoSet().size() + coleta.getFaseLivreSet().size()
+                + coleta.getFiltroCartuchoSet().size() + coleta.getHorimetroSet().size() + coleta.getPbSet().size() + coleta.getPmPtSet().size() + coleta.getPhSet().size() + coleta.getTq01Set().size()
+                + coleta.getTq02Set().size() + coleta.getTq04Tq05Set().size()
+        ).sum();
+
+        return new PageImpl<>(coletasComPontos, pageable, totalElements);
     }
 }
