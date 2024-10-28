@@ -46,6 +46,13 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
             String description = formattedDate + ", " + formattedTime + " BRT";
             coletaData.put("description", description);
 
+            int totalElementsIndividual = coleta.getBC01Set().size() + coleta.getBc06Set().size() + coleta.getBh02Set().size() + coleta.getBombaBc03Set().size()
+                    + coleta.getBs01HidrometroSet().size() + coleta.getBs01PressaoSet().size() + coleta.getCdSet().size() + coleta.getColunasCarvaoSet().size() + coleta.getFaseLivreSet().size()
+                    + coleta.getFiltroCartuchoSet().size() + coleta.getHorimetroSet().size() + coleta.getPbSet().size() + coleta.getPmPtSet().size() + coleta.getPhSet().size() + coleta.getTq01Set().size()
+                    + coleta.getTq02Set().size() + coleta.getTq04Tq05Set().size();
+
+            coletaData.put("totalElementsIndividual", totalElementsIndividual);
+
             // Adiciona todos os detalhes da coleta
             List<Map<String, Object>> pontosColeta = new ArrayList<>();
 
@@ -214,7 +221,6 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
         }
 
         // Retorna a lista convertida como um Page utilizando o PageImpl
-        // Use o número total de detalhes em vez de coletas
         long totalElements = coletas.stream().mapToLong(coleta -> coleta.getBC01Set().size() + coleta.getBc06Set().size() + coleta.getBh02Set().size() + coleta.getBombaBc03Set().size()
                 + coleta.getBs01HidrometroSet().size() + coleta.getBs01PressaoSet().size() + coleta.getCdSet().size() + coleta.getColunasCarvaoSet().size() + coleta.getFaseLivreSet().size()
                 + coleta.getFiltroCartuchoSet().size() + coleta.getHorimetroSet().size() + coleta.getPbSet().size() + coleta.getPmPtSet().size() + coleta.getPhSet().size() + coleta.getTq01Set().size()
