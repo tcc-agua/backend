@@ -3,6 +3,7 @@ package com.wise.forms_coleta.implementations.excel.exportar_excel;
 import com.wise.forms_coleta.entities.Coleta;
 import com.wise.forms_coleta.entities.Excel;
 import com.wise.forms_coleta.entities.Hidrometro;
+import com.wise.forms_coleta.exceptions.GenericsNotFoundException;
 import com.wise.forms_coleta.repositories.ColetaRepository;
 import com.wise.forms_coleta.repositories.ExcelRepository;
 import com.wise.forms_coleta.repositories.HidrometroRepository;
@@ -213,6 +214,8 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
                             }
                         }
                     }
+                } else {
+                    throw new GenericsNotFoundException("Não existem dados nessa data!");
                 }
             }
 

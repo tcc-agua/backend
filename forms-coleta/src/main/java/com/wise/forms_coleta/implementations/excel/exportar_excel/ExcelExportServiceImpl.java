@@ -601,6 +601,8 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                         }
 
                     }
+                } else {
+                    throw new GenericsNotFoundException("Não existem dados nessa data!");
                 }
             }
 

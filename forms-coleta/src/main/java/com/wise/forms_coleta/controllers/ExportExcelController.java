@@ -1,10 +1,7 @@
 package com.wise.forms_coleta.controllers;
 
-import com.wise.forms_coleta.implementations.excel.exportar_excel.ExcelExportHidrometroServiceImpl;
-import com.wise.forms_coleta.implementations.excel.exportar_excel.ExcelExportServiceImpl;
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportHidrometroService;
 import com.wise.forms_coleta.services.exportar_excel.ExcelExportService;
-import com.wise.forms_coleta.services.exportar_excel.GetExcelDataService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/exportExcel")
