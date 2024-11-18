@@ -14,11 +14,14 @@ public class ColetaPutServiceImpl implements ColetaPatchService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método de alterar a instância de coleta
     @Override
     public ColetaDTO patch(Long id, ColetaCreateDTO data) {
+        // Encontrando a instância de coleta pelo id
         Coleta coleta = coletaRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Setando as alterações nos campos
         if(!(data.tecnico() == null)){
             coleta.setTecnico(data.tecnico());
         }
@@ -32,6 +35,7 @@ public class ColetaPutServiceImpl implements ColetaPatchService {
             coleta.setHora_fim(data.horaFim());
         }
 
+        // Salvando no banco as alterações
         coletaRepository.save(coleta);
         return new ColetaDTO(coleta);
     }

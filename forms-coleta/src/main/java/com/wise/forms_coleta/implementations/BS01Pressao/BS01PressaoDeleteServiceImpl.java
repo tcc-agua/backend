@@ -14,11 +14,14 @@ public class BS01PressaoDeleteServiceImpl implements BS01PressaoDeleteService {
     @Autowired
     BS01PressaoRepository bs01PressaoRepository;
 
+    // Método para deletar uma instância de BS01 Pressao
     @Override
     public String delete(Long id) {
+        // Pegando a instância de BS01 Pressao pelo id
         BS01Pressao bs01Pressao = bs01PressaoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         bs01PressaoRepository.delete(bs01Pressao);
         return "Formulário deletado com sucesso!";
     }

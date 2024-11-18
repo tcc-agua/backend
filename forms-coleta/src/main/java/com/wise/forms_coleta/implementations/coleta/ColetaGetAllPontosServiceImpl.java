@@ -44,8 +44,10 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
             String formattedTime = coleta.getHora_inicio().format(timeFormatter);
 
             String description = formattedDate + ", " + formattedTime + " BRT";
+            // Adicionando a descrição
             coletaData.put("description", description);
 
+            // Determinando o total de elementos
             int totalElementsIndividual = coleta.getBC01Set().size() + coleta.getBc06Set().size() + coleta.getBh02Set().size() + coleta.getBombaBc03Set().size()
                     + coleta.getBs01HidrometroSet().size() + coleta.getBs01PressaoSet().size() + coleta.getCdSet().size() + coleta.getColunasCarvaoSet().size() + coleta.getFaseLivreSet().size()
                     + coleta.getFiltroCartuchoSet().size() + coleta.getHorimetroSet().size() + coleta.getPbSet().size() + coleta.getPmPtSet().size() + coleta.getPhSet().size() + coleta.getTq01Set().size()
@@ -56,7 +58,7 @@ public class ColetaGetAllPontosServiceImpl implements ColetaGetAllPontosService 
             // Adiciona todos os detalhes da coleta
             List<Map<String, Object>> pontosColeta = new ArrayList<>();
 
-            // Exemplo de como adicionar pontos
+            // Adicionando os dados
             for (BC01 bc01 : coleta.getBC01Set()) {
                 Map<String, Object> pontoColeta = new LinkedHashMap<>();
                 pontoColeta.put("id", bc01.getId());

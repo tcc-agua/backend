@@ -36,6 +36,7 @@ public class PmPtController {
     @Autowired
     PmPtPutService pmPtPutService;
 
+    // Endpoint de registro de coletas do PmPt
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PmPtCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -44,17 +45,20 @@ public class PmPtController {
         return ResponseEntity.created(uri).body("PmPt criado com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de PmPt
     @GetMapping
     public ResponseEntity<List<PmPtDTO>> getAll(){
         return new ResponseEntity<>(pmPtGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de PmPt
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(pmPtDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de PmPt
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<PmPtDTO> put(@PathVariable Long id, @RequestBody @Valid PmPtPutDTO data){

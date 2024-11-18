@@ -12,8 +12,10 @@ public class ColetaGetByIdServiceImpl implements ColetaGetByIdService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método para retornar uma coleta específica filtrando por ID
     @Override
     public ColetaDTO getById(Long id) {
+        // Retornando um novo DTO, passando como parâmetro a coleta recuperada do banco filtrando por ID
         return new ColetaDTO(coletaRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!")));
     }

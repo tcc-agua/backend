@@ -14,6 +14,7 @@ public class ColetaGetAllServiceImpl implements ColetaGetAllService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método para listar as instâncias de coleta
     @Override
     public List<ColetaDTO> getAll() {
         return coletaRepository.findAll().stream().map(ColetaDTO::new).toList();

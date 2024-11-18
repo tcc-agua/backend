@@ -12,10 +12,14 @@ public class BC06DeleteServiceImpl implements BC06DeleteService {
     @Autowired
     private BC06Repository bc06Repository;
 
+    // Método para deletar uma instância de BC06
     @Override
     public String delete(Long id) {
+        // Pegando a instância de BC01 pelo id
         BC06 bc06 = bc06Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+
+        // Deletando no banco a instância
         bc06Repository.delete(bc06);
         return "Formulário deletado com sucesso!";
     }

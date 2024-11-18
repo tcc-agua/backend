@@ -22,32 +22,45 @@ import java.net.URI;
 @EnableWebFluxSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private ReactiveClientRegistrationRepository clientRegistrationRepository;
-
+    // jwk-set-uri da aplicação no azure
     @Value("${spring.security.oauth2.client.provider.azure.jwk-set-uri}")
     private String jwkSetUri;
 
+    // logout-uri da aplicação
     @Value("${LOGOUT_URI}")  // Ex: URI de logout do Azure
     private String logoutURI;
 
+    // Filtro de segurança
     @Bean
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        // Desabilita a proteção contra ataques CSRF, como a aplicação conta com a segurança da autenticação com o token JWT, essa proteção
+        // não é necessária.
         http.csrf(ServerHttpSecurity.CsrfSpec::disable)
+                // Desabilita o CORS, como a aplicação controla as origens que podem ou não fazer requisições, o CORS não é necessário
                 .cors(ServerHttpSecurity.CorsSpec::disable);
 
+        // Definindo as regras para realizar uma requisição
         http.authorizeExchange(conf -> conf
+                        // Permite que os endpoints /login e /logout sejam acessados sem autenticação
                         .pathMatchers("/login", "/logout").permitAll()
+                        // Qualquer outro endpoint só pode ser acessado com autenticação
                         .anyExchange().authenticated())
+                // Configurando a aplicação com o OAuth2,
                 .oauth2Login(conf -> conf
+                        // Definindo o endpoint de redirecionamento após o login ser feito com sucesso
                         .authenticationSuccessHandler(new RedirectServerAuthenticationSuccessHandler("http://localhost:5173/inicial")))
+                // Definindo a proteção da aplicação com tokens JWT
                 .oauth2ResourceServer(conf -> conf
+                        // Definindo o decodificador JWT para a validação e interpretação dos tokens recebidos
                         .jwt(jwt -> jwt.jwtDecoder(jwtDecoder())))
+                // Configuração do logout
                 .logout(logout -> logout
+                        // Quando o logout for feito com sucesso, esse interpretador será utilizado
                         .logoutSuccessHandler(azureLogoutSuccessHandler()));  // Usando o Azure Logout
         return http.build();
     }
 
+    // Interpretador JWT
     @Bean
     public ReactiveJwtDecoder jwtDecoder() {
         return NimbusReactiveJwtDecoder.withJwkSetUri(jwkSetUri).build();

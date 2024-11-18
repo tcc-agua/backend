@@ -15,6 +15,7 @@ public class PbGetAllServiceImpl implements PbGetAllService {
     @Autowired
     private PbRepository pbRepository;
 
+    // Método para listar as instâncias de pb
     @Override
     public List<PbDTO> getAll() {
         return pbRepository.findAll().stream().map(PbDTO::new).toList();

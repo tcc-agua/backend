@@ -38,6 +38,7 @@ public class BS01PressaoController {
     @Autowired
     BS01PressaoPutService bs01PressaoPutService;
 
+    // Endpoint de registro de coletas do BS01 Pressao
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BS01PressaoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -46,17 +47,20 @@ public class BS01PressaoController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de BS01 Pressao
     @GetMapping
     public ResponseEntity<List<BS01PressaoDTO>> getAll(){
         return new ResponseEntity<>(bs01PressaoGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de BS01 Pressao
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(bs01PressaoDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de BS01 Pressao
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BS01PressaoDTO> put(@PathVariable Long id, @RequestBody @Valid BS01PressaoPutDTO data){

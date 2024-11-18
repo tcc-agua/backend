@@ -14,6 +14,7 @@ public class BS01HidrometroGetAllServiceImpl implements BS01HidrometroGetAllServ
     @Autowired
     private BS01HidrometroRepository bs01HidrometroRepository;
 
+    // Método para listar as instâncias de BS01 Hidrometro
     @Override
     public List<BS01HidrometroDTO> getAll() {
         return bs01HidrometroRepository.findAll().stream().map(BS01HidrometroDTO::new).toList();

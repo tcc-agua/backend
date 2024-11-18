@@ -37,6 +37,7 @@ public class HidrometroController {
     @Autowired
     HidrometroFindByPontoService hidrometroFindByPontoService;
 
+    // Endpoint de registro de coletas do hidrometro
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid HidrometroCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -45,23 +46,27 @@ public class HidrometroController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de hidrometro
     @GetMapping
     public ResponseEntity<List<HidrometroDTO>> getAll() {
         return new ResponseEntity<>(hidrometroGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de hidrometro
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return new ResponseEntity<>(hidrometroDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de hidrometro
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<HidrometroDTO> put(@PathVariable Long id, @RequestBody @Valid HidrometroPutDTO data) {
         return new ResponseEntity<>(hidrometroPutService.put(id,data), HttpStatus.OK);
     }
 
+    // Endpoint para pegar todas as coletas de hidrometro de acordo com um ponto, filtrando por data
     @GetMapping("/ponto/{ponto}")
     public ResponseEntity<List<Hidrometro>> getAllByPonto(@PathVariable String ponto, @RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         return new ResponseEntity<>(hidrometroFindByPontoService.FindByPonto(ponto, startDate, endDate), HttpStatus.OK);

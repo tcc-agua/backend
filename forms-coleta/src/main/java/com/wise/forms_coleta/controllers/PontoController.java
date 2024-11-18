@@ -43,6 +43,7 @@ public class PontoController {
     @Autowired
     PontoPatchStatusService pontoPatchStatusService;
 
+    // Endpoint de registro de um novo ponto
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PontoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -51,33 +52,39 @@ public class PontoController {
         return ResponseEntity.created(uri).body("Ponto criado com sucesso!");
     }
 
+    // Endpoint de retorno de um ponto específico filtrando por nome
     @GetMapping("{name}")
     public ResponseEntity<PontoDTO> getByName(@PathVariable String name){
         return new ResponseEntity<>(pontoGetByNameService.getPointByName(name), HttpStatus.OK);
     }
 
+    // Endpoint de listagem de todas os pontos
     @GetMapping
     public ResponseEntity<List<PontoDTO>> getAll(){
         return new ResponseEntity<>(pontoGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma ponto
     @DeleteMapping("{name}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable String name){
         return new ResponseEntity<>(pontoDeleteService.delete(name), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de um ponto
     @PutMapping("{name}")
     @Transactional
     public ResponseEntity<PontoDTO> put(@PathVariable String name, @RequestBody @Valid PontoPutDTO data){
         return new ResponseEntity<>(pontoPutService.put(name, data), HttpStatus.OK);
     }
 
+    // Endpoint de listagem de todas os pontos filtrando por um excel
     @GetMapping("/excel/{excel}")
     public ResponseEntity<List<PontoDTO>> getAllByExcel(@PathVariable String excel){
         return new ResponseEntity<>(pontoGetAllByExcelService.getAllPointsByExcel(excel), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de um campo de um ponto
     @PatchMapping("{name}")
     @Transactional
     public ResponseEntity<PontoDTO> patch(@PathVariable String name, @RequestBody @Valid PontoStatusDTO data){

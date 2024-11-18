@@ -14,6 +14,7 @@ public class HidrometroGetAllServiceImpl implements HidrometroGetAllService {
     @Autowired
     private HidrometroRepository hidrometroRepository;
 
+    // Método para listar as instâncias de hidrometro
     @Override
     public List<HidrometroDTO> getAll() {
         return hidrometroRepository.findAll().stream().map(HidrometroDTO::new).toList();

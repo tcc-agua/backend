@@ -35,6 +35,7 @@ public class HorimetroController {
     @Autowired
     HorimetroPutService horimetroPutService;
 
+    // Endpoint de registro de coletas do horimetro
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid HorimetroCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -43,17 +44,20 @@ public class HorimetroController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de horimetro
     @GetMapping
     public ResponseEntity<List<HorimetroDTO>> getAll(){
         return new ResponseEntity<>(horimetroGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de horimetro
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(horimetroDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de horimetro
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<HorimetroDTO> put(@PathVariable Long id, @RequestBody @Valid HorimetroPutDTO data){

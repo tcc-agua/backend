@@ -14,6 +14,7 @@ public class NotifSaveServiceImpl implements NotifSaveService {
     @Autowired
     NotifRepository notifRepository;
 
+    // Retornando um NotifDTO e dentro dele salvando no banco uma nova instância de Notificação
     @Override
     public NotifDTO save(NotifCreateDTO data) {
         return new NotifDTO(notifRepository.save(new Notificacoes(data)));

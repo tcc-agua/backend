@@ -13,11 +13,14 @@ public class BS01HidrometroDeleteServiceImpl implements BS01HidrometroDeleteServ
     @Autowired
     private BS01HidrometroRepository bs01HidrometroRepository;
 
+    // Método para deletar uma instância de BS01 Hidrometro
     @Override
     public String delete(Long id) {
+        // Pegando a instância de BS01 Hidrometro pelo id
         BS01Hidrometro bs01Hidrometro  = bs01HidrometroRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         bs01HidrometroRepository.delete(bs01Hidrometro);
         return "Formulário deletado com sucesso!";
     }

@@ -13,6 +13,7 @@ public class FaseLivreGetAllServiceImpl implements FaseLivreGetAllService {
     @Autowired
     private FaseLivreRepository faseLivreRepository;
 
+    // Método para listar as instâncias de fase livre
     @Override
     public List<FaseLivreDTO> getAll() {
         return faseLivreRepository.findAll().stream().map(FaseLivreDTO::new).toList();

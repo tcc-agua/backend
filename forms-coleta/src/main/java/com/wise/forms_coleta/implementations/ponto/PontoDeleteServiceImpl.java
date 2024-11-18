@@ -15,10 +15,13 @@ public class PontoDeleteServiceImpl implements PontoDeleteService {
     @Autowired
     private PontoRepository pontoRepository;
 
+    // Método para deletar uma instância de ponto
     @Override
     public String delete(String name) {
+        // Pegando a instância de ponto pelo nome
         Ponto ponto = pontoRepository.findByNome(name).orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // Deletando no banco a instância
         pontoRepository.delete(ponto);
         return "Ponto deletado com sucesso!";
     }

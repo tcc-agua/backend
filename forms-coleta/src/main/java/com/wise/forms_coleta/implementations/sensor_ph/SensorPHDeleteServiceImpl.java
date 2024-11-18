@@ -13,12 +13,14 @@ public class SensorPHDeleteServiceImpl implements SensorPHDeleteService {
     @Autowired
     private SensorPHRepository sensorPHRepository;
 
+    // Método para deletar uma instância de sensor ph
     @Override
     public String delete(Long id) {
+        // Pegando a instância de sensor ph pelo id
         SensorPH sensorPH = sensorPHRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
-
+        // Deletando no banco a instância
         sensorPHRepository.delete(sensorPH);
         return "Formulário deletado com sucesso!";
     }

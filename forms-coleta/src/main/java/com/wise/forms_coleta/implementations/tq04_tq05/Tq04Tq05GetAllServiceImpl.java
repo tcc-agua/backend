@@ -13,6 +13,7 @@ public class Tq04Tq05GetAllServiceImpl implements Tq04Tq05GetAllService {
     @Autowired
     private Tq04Tq05Repository tq04Tq05Repository;
 
+    // Método para listar as instâncias de Tq04/Tq05
     @Override
     public List<Tq04Tq05DTO> getAll() {
         return tq04Tq05Repository.findAll().stream().map(Tq04Tq05DTO::new).toList();

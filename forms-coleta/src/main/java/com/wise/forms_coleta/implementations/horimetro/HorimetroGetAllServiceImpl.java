@@ -13,6 +13,7 @@ public class HorimetroGetAllServiceImpl implements HorimetroGetAllService {
     @Autowired
     private HorimetroRepository horimetroRepository;
 
+    // Método para listar as instâncias de horimetro
     @Override
     public List<HorimetroDTO> getAll() {
         return horimetroRepository.findAll().stream().map(HorimetroDTO::new).toList();

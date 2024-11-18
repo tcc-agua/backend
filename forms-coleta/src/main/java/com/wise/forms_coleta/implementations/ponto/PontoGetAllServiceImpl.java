@@ -15,6 +15,7 @@ public class PontoGetAllServiceImpl implements PontoGetAllService {
     @Autowired
     private PontoRepository pontoRepository;
 
+    // Método para listar as instâncias de ponto
     @Override
     public List<PontoDTO> getAll() {
 

@@ -35,6 +35,7 @@ public class ColunasCarvaoController {
     @Autowired
     ColunasCarvaoPutService colunasCarvaoPutService;
 
+    // Endpoint de registro de coletas do Colunas Carvão
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid ColunasCarvaoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -43,17 +44,20 @@ public class ColunasCarvaoController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de Colunas Carvão
     @GetMapping
     public ResponseEntity<List<ColunasCarvaoDTO>> getAll(){
         return new ResponseEntity<>(colunasCarvaoGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de Colunas Carvão
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(colunasCarvaoDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de Colunas Carvão
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<ColunasCarvaoDTO> put(@PathVariable Long id, @RequestBody @Valid ColunasCarvaoPutDTO data){

@@ -14,10 +14,13 @@ import java.util.Map;
 @RestController
 public class ProfileController {
 
+    // Endpoint de informações do usuário logado
     @GetMapping("/userinfo")
+    // Permitindo que o frontend acesse esse endpoint
     @CrossOrigin("http://localhost:5173")
     public Map<String, Object> userInfo(@AuthenticationPrincipal OidcUser oidcUser, @RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
 
+        // Devolvendo os tokens de acesso e id, nome, expiração e atributos
         System.out.println("TOKEN:" + authorizedClient.getAccessToken().getTokenValue());
         Map<String, Object> attributesMap = new HashMap<>(oidcUser.getAttributes());
         attributesMap.put("id_token", oidcUser.getIdToken().getTokenValue());

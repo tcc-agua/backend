@@ -12,11 +12,14 @@ public class ColunasCarvaoDeleteServiceImpl implements ColunasCarvaoDeleteServic
     @Autowired
     private ColunasCarvaoRepository colunasCarvaoRepository;
 
+    // Método para deletar uma instância de colunas carvão
     @Override
     public String delete(Long id) {
+        // Pegando a instância de colunas carvão pelo id
         ColunasCarvao colunasCarvao = colunasCarvaoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         colunasCarvaoRepository.delete(colunasCarvao);
         return "Formulário deletado com sucesso!";
     }

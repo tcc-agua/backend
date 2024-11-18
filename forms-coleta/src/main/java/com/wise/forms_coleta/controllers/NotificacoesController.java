@@ -34,6 +34,7 @@ public class NotificacoesController {
     @Autowired
     NotifDeleteService notifDeleteService;
 
+    // Endpoint de registro de coletas de notificações
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid NotifCreateDTO data, UriComponentsBuilder uriBuilder) {
@@ -42,17 +43,20 @@ public class NotificacoesController {
         return ResponseEntity.created(uri).body("Notificacao criada com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de notificações
     @GetMapping
     public ResponseEntity<List<NotifDTO>> getAll(){
     return new ResponseEntity<>(notifGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar todas as coletas de notificações
     @DeleteMapping
     @Transactional
     public ResponseEntity<String> deleteAll() {
         return new ResponseEntity<>(notifDeleteAllService.deleteAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma notificação
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {

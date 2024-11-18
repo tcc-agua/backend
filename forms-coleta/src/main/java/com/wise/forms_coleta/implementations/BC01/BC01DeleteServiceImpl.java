@@ -13,11 +13,14 @@ public class BC01DeleteServiceImpl implements BC01DeleteService {
     @Autowired
     private BC01Repository bc01repo;
 
+    // Método para deletar uma instância de BC01
     @Override
     public String delete(Long id) {
+        // Pegando a instância de BC01 pelo id
         BC01 bc01 = bc01repo.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         bc01repo.delete(bc01);
         return "Fomulário deletado com sucesso!";
     }

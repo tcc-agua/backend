@@ -15,8 +15,10 @@ public class PontoGetByNameServiceImpl implements PontoGetByNameService {
     @Autowired
     private PontoRepository pontoRepository;
 
+    // Método que retorna o ponto de acordo com o nome
     @Override
     public PontoDTO getPointByName(String name) {
+        // Pegando a instância de ponto filtrando pelo nome, se não encontrar uma exceção é lançada
         Ponto ponto = pontoRepository.findByNome(name)
                 .orElseThrow(() -> new GenericsNotFoundException( "Ponto não encontrado!"));
 

@@ -15,18 +15,21 @@ public class BC01PutServiceImpl implements BC01PutService {
     @Autowired
     private BC01Repository bc01repo;
 
-
+    // Método de alterar a instância de BC01
     @Override
     public BC01DTO put(Long id, BC01PutDTO data) {
+        // Encontrando a instância de BC01 pelo id
         BC01 bc01 = bc01repo.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         bc01.setHorimetro(data.horimetro());
         bc01.setPressao(data.pressao());
         bc01.setFrequencia(data.frequencia());
         bc01.setVazao(data.vazao());
         bc01.setVolume(data.volume());
 
+        // Salvando no banco as alterações
         bc01repo.save(bc01);
         return new BC01DTO(bc01);
     }

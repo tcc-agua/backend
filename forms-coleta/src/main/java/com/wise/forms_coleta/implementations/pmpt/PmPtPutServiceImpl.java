@@ -14,15 +14,19 @@ public class PmPtPutServiceImpl implements PmPtPutService {
     @Autowired
     private PmPtRepository pmPtRepository;
 
+    // Método de alterar a instância de PmPt
     @Override
     public PmPtDTO put(Long id, PmPtPutDTO data) {
+        // Encontrando a instância de PmPt pelo id
         PmPt pmPt = pmPtRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         pmPt.setFl_remo_manual(data.flRemoManual());
         pmPt.setNivel_agua(data.nivelAgua());
         pmPt.setNivel_oleo(data.nivelOleo());
 
+        // Salvando no banco as alterações
         pmPtRepository.save(pmPt);
         return new PmPtDTO(pmPt);
     }

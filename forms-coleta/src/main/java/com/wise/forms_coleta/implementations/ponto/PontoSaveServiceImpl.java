@@ -19,18 +19,19 @@ public class PontoSaveServiceImpl implements PontoSaveService {
     @Autowired
     private ExcelRepository excelRepository;
 
-    // métodos
-
+    // Método de salvar nova coleta de ponto
     @Override
     public PontoDTO save(PontoCreateDTO data) {
-
+        // Pegando a instância de excel de acordo com o nome passado
         Excel excel = excelRepository.findByNome(data.nome_excel())
                 .orElseThrow(() -> new GenericsNotFoundException("Planilha não encontrada!"));
 
+        // Nova entidade ponto
         Ponto ponto = new Ponto(data);
-
+        // Setando o excel
         ponto.setExcel(excel);
 
+        // Retornando novo PontoDTO, passando como parâmetro o retorno do método de salvar o ponto no banco de dados
         return new PontoDTO(pontoRepository.save(ponto));
     }
 

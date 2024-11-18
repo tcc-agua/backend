@@ -16,15 +16,20 @@ public class ColetaGetUltimaServiceImpl  implements ColetaGetUltimaService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método para pegar a última coleta
     @Override
     public ColetaDTO getLast() {
+        // Retornando a lista de coletas existentes no banco
         List<Coleta> coletas = coletaRepository.findAll();
+        // Pegando a última instância de coleta
         Coleta ultimaColeta = coletas.isEmpty() ? null : coletas.get(coletas.size() - 1);
 
+        // Se a última instância recuperada não for nula, retorna um novo DTO
         if(ultimaColeta != null){
             return new ColetaDTO(ultimaColeta);
         }
 
+        // Se for nula a exceção é lançada
         throw new GenericsNotFoundException("Coleta não encontrada");
     }
 }

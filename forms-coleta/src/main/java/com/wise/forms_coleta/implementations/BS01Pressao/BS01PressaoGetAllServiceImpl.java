@@ -14,6 +14,7 @@ public class BS01PressaoGetAllServiceImpl implements BS01PressaoGetAllService {
     @Autowired
     BS01PressaoRepository bs01PressaoRepository;
 
+    // Método para listar as instâncias de BS01 Pressao
     @Override
     public List<BS01PressaoDTO> getAll() {
         return bs01PressaoRepository.findAll().stream().map(BS01PressaoDTO::new).toList();

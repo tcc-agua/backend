@@ -14,6 +14,7 @@ public class SensorPHGetAllServiceImpl implements SensorPHGetAllService {
     @Autowired
     private SensorPHRepository sensorPHRepository;
 
+    // Método para listar as instâncias de sensor ph
     @Override
     public List<SensorPHDTO> getAll() {
         return sensorPHRepository.findAll().stream().map(SensorPHDTO::new).toList();

@@ -37,6 +37,7 @@ public class CDController {
     @Autowired
     CDDeleteService cdDeleteService;
 
+    // Endpoint de registro de coletas do CD
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid CDCreateDTO data, UriComponentsBuilder uriComponentsBuilder){
@@ -45,17 +46,20 @@ public class CDController {
         return ResponseEntity.created(uri).body("Formulário salvo com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de CD
     @GetMapping
     public ResponseEntity<List<CDDTO>> getAll() {
         return new ResponseEntity<>(cdGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de CD
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return  new ResponseEntity<>(cdDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de CD
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<CDDTO> put(@PathVariable Long id, @RequestBody @Valid CDPutDTO data) {

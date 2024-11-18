@@ -13,7 +13,7 @@ public class FiltroCartuchoGetAllServiceImpl implements FiltroCartuchoGetAllServ
     @Autowired
     private FiltroCartuchoRepository filtroCartuchoRepository;
 
-
+    // Método para listar as instâncias de filtro cartucho
     @Override
     public List<FiltroCartuchoDTO> getAll() {
         return filtroCartuchoRepository.findAll().stream().map(FiltroCartuchoDTO::new).toList();

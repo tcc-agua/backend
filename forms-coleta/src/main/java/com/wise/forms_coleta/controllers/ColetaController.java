@@ -45,6 +45,7 @@ public class ColetaController {
     @Autowired
     ColetaGetUltimaService coletaGetUltimaService;
 
+    // Endpoint de registro de uma nova instância de coleta
     @PostMapping
     @Transactional
     public ResponseEntity<ColetaDTO> save(@RequestBody @Valid ColetaCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -53,28 +54,33 @@ public class ColetaController {
         return ResponseEntity.created(uri).body(coletaDTO);
     }
 
+    // Endpoint de retornar uma coleta por ID
     @GetMapping("{id}")
     public ResponseEntity<ColetaDTO> getById(@PathVariable Long id){
         return new ResponseEntity<>(coletaGetByIdService.getById(id), HttpStatus.OK);
     }
 
+    // Endpoint de listagem de coletas
     @GetMapping
     public ResponseEntity<List<ColetaDTO>> getAll(){
         return new ResponseEntity<>(coletaGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma instância de coleta
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(coletaDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma instância de coleta
     @PatchMapping("{id}")
     @Transactional
     public ResponseEntity<ColetaDTO> patch(@PathVariable Long id, @RequestBody @Valid ColetaCreateDTO data){
         return new ResponseEntity<>(coletaPutService.patch(id, data), HttpStatus.OK);
     }
 
+    // Endpoint que pega uma coleta filtrando por data e paginação
     @GetMapping("/get-by-date")
     public ResponseEntity<Page<Map<String, Object>>> getByDate(
             @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -93,6 +99,7 @@ public class ColetaController {
         return new ResponseEntity<>(pontosColeta, HttpStatus.OK);
     }
 
+    // Endpoint que pega a última coleta registrada
     @GetMapping("coleta_ultima")
     public ResponseEntity<ColetaDTO> getLast(){
         return new ResponseEntity<>(coletaGetUltimaService.getLast(), HttpStatus.OK);

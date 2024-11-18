@@ -13,11 +13,14 @@ public class TQ02DeleteServiceImpl implements Tq02DeleteService {
     @Autowired
     private TQ02Repository tq02Repository;
 
+    // Método para deletar uma instância de TQ02
     @Override
     public String delete(Long id) {
+        // Pegando a instância de TQ02 pelo id
         TQ02 tq02 = tq02Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         tq02Repository.delete(tq02);
         return "Formulário deletado com sucesso!";
     }

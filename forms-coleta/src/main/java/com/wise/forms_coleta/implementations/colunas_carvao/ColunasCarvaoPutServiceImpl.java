@@ -16,11 +16,14 @@ public class ColunasCarvaoPutServiceImpl implements ColunasCarvaoPutService {
     @Autowired
     private ColunasCarvaoRepository colunasCarvaoRepository;
 
+    // Método de alterar a instância de colunas carvão
     @Override
     public ColunasCarvaoDTO put(Long id, ColunasCarvaoPutDTO data) {
+        // Encontrando a instância de colunas carvão pelo id
         ColunasCarvao colunasCarvao = colunasCarvaoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         colunasCarvao.setPressao_c01(data.presssao_c01());
         colunasCarvao.setPressao_c02(data.pressao_c02());
         colunasCarvao.setPressao_c03(data.pressao_c03());
@@ -28,6 +31,7 @@ public class ColunasCarvaoPutServiceImpl implements ColunasCarvaoPutService {
         colunasCarvao.setHouve_troca_carvao(data.houve_troca_carvao());
         colunasCarvao.setHouve_retrolavagem(data.houve_retrolavagem());
 
+        // Salvando no banco as alterações
         colunasCarvaoRepository.save(colunasCarvao);
         return new ColunasCarvaoDTO(colunasCarvao);
     }

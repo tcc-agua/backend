@@ -21,19 +21,26 @@ public class PontoPutServiceImpl implements PontoPutService {
     @Autowired
     private ExcelRepository excelRepository;
 
+    // Método de alterar a instância de ponto
     @Override
     public PontoDTO put(String name, PontoPutDTO data) {
+
+        // Encontrando a instância de ponto pelo nome
         Ponto ponto = pontoRepository.findByNome(name)
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // Encontrando a instância de excel pelo nome
         Excel excel = excelRepository.findByNome(data.excel())
                 .orElseThrow(() -> new GenericsNotFoundException("Excel não encontrado!"));
 
+
+        // Setando as alterações nos campos
         ponto.setNome(data.nome());
         ponto.setLocalizacao(data.localizacao());
         ponto.setStatus(data.statusEnum());
         ponto.setExcel(excel);
 
+        // Salvando no banco as alterações
         pontoRepository.save(ponto);
         return new PontoDTO(ponto);
     }

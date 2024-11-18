@@ -36,6 +36,7 @@ public class BC01Controller {
     @Autowired
     BC01PutService bc01PutService;
 
+    // Endpoint de registro de coletas do BC01
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BC01CreateDTO data, UriComponentsBuilder uriBuilder) {
@@ -44,18 +45,20 @@ public class BC01Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de BC01
     @GetMapping
     public ResponseEntity<List<BC01DTO>> getAll() {
         return new ResponseEntity<>(bc01GetAllService.getAll(), HttpStatus.OK);
     }
 
-
+    // Endpoint para deletar uma coleta de BC01
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return new ResponseEntity<>(bc01DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de BC01
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BC01DTO> put(@PathVariable Long id, @RequestBody @Valid BC01PutDTO data){

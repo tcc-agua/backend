@@ -15,14 +15,18 @@ public class PontoPatchServiceImpl implements PontoPatchStatusService {
     @Autowired
     private PontoRepository pontoRepository;
 
+    // Método para atualizar um campo do ponto
     @Override
     public PontoDTO patch(String name, PontoStatusDTO data) {
 
+        // recuperando a instância de ponto filtrando pelo nome
         Ponto ponto = pontoRepository.findByNome(name)
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // setando o status do ponto
         ponto.setStatus(data.status());
 
+        // salvando no banco
         pontoRepository.save(ponto);
 
         return new PontoDTO(ponto);

@@ -27,21 +27,30 @@ public class FiltroCartuchoSaveServiceImpl implements FiltroCartuchoSaveService 
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método de salvar nova coleta de filtro cartucho
     @Override
     public FiltroCartuchoDTO save(FiltroCartuchoCreateDTO data) {
+
+        // Pegando a instância de ponto de acordo com o nome passado
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // Pegando a instância de coleta de acordo com o id passado
         Coleta coleta = coletaRepository.findById(data.idColeta())
                 .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Nova entidade filtro cartucho
         FiltroCartucho filtroCartucho = new FiltroCartucho(data);
+        // Setando o ponto
         filtroCartucho.setPonto(ponto);
-
+        // Associando a instância de filtro cartucho criada a coleta
         coleta.getFiltroCartuchoSet().add(filtroCartucho);
 
+        // Salvando no banco a instância de filtro cartucho
         filtroCartuchoRepository.save(filtroCartucho);
+        // Setando a hora de fim da coleta
         coleta.setHora_fim(LocalTime.now());
+        // Salvando no banco a instância de coleta
         coletaRepository.save(coleta);
 
         return new FiltroCartuchoDTO(filtroCartucho);

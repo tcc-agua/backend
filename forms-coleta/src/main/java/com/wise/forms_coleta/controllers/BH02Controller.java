@@ -37,6 +37,7 @@ public class BH02Controller {
     @Autowired
     BH02PutService bh02PutService;
 
+    // Endpoint de registro de coletas do BH02
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BH02CreateDTO data, UriComponentsBuilder uriBuilder) {
@@ -45,17 +46,20 @@ public class BH02Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de BH02
     @GetMapping
     public ResponseEntity<List<BH02DTO>> getAll() {
         return new ResponseEntity<>(bh02GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de BH02
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(bh02DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de BH02
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BH02DTO> put(@PathVariable Long id, @RequestBody @Valid BH02PutDTO data)

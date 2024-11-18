@@ -36,6 +36,7 @@ public class TQ01Controller {
     @Autowired
     TQ01PutService tq01PutService;
 
+    // Endpoint de registro de coletas do TQ01
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid TQ01CreateDTO data, UriComponentsBuilder uriBuilder){
@@ -44,17 +45,20 @@ public class TQ01Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de TQ01
     @GetMapping
     public ResponseEntity<List<TQ01DTO>> getAll() {
         return new ResponseEntity<>(tq01GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de TQ01
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id) {
         return new ResponseEntity<>(tq01DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de TQ01
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<TQ01DTO> put(@PathVariable Long id, @RequestBody @Valid TQ01PutDTO data) {

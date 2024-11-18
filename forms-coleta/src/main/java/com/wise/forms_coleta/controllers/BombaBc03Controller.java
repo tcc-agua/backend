@@ -37,6 +37,7 @@ public class BombaBc03Controller {
     BombaBc03PutService bombaBc03PutService;
 
 
+    // Endpoint de registro de coletas do Bomba BC 03
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BombaBc03CreateDTO data, UriComponentsBuilder uriBuilder){
@@ -45,17 +46,20 @@ public class BombaBc03Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de Bomba BC 03
     @GetMapping
     public ResponseEntity<List<BombaBc03DTO>> getAll() {
         return new ResponseEntity<>(bombaBc03GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de Bomba BC 03
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(bombaBc03DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de Bomba BC 03
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BombaBc03DTO> put(@PathVariable Long id, @RequestBody @Valid BombaBc03PutDTO data){

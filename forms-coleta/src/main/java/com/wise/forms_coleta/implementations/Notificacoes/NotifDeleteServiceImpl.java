@@ -14,10 +14,13 @@ public class NotifDeleteServiceImpl implements NotifDeleteService {
     @Autowired
     private NotifRepository notifRepository;
 
+    // Método para deletar uma instância de notificação
     @Override
     public String delete(Long id) {
+        // Pegando a instância de notificação pelo id
         Notificacoes notificacoes = notifRepository.findById(id)
                 .orElseThrow(()-> new GenericsNotFoundException("Formulário não encontrado!"));
+        // Deletando no banco a instância
         notifRepository.delete(notificacoes);
         return "Formulário deletado com sucesso!";
     }

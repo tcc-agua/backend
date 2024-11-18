@@ -13,6 +13,7 @@ public class TQ02GetAllServiceImpl implements Tq02GetAllService {
     @Autowired
     private TQ02Repository tq02Repository;
 
+    // Método para listar as instâncias de TQ02
     @Override
     public List<TQ02DTO> getAll() {
         return tq02Repository.findAll().stream().map(TQ02DTO::new).toList();

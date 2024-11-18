@@ -12,11 +12,14 @@ public class BH02DeleteServiceImpl implements BH02DeleteService {
     @Autowired
     private BH02Repository bh02Repository;
 
+    // Método para deletar uma instância de BC01
     @Override
     public String delete(Long id){
+        // Pegando a instância de BH02 pelo id
         BH02 bh02 = bh02Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         bh02Repository.delete(bh02);
         return "Formulário deletado com sucesso!";
     }

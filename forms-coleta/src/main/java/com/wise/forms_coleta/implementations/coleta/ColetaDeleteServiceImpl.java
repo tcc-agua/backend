@@ -12,11 +12,14 @@ public class ColetaDeleteServiceImpl implements ColetaDeleteService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método para deletar uma instância de coleta
     @Override
     public String delete(Long id) {
+        // Pegando a instância de coleta pelo id
         Coleta coleta = coletaRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Deletando no banco a instância
         coletaRepository.delete(coleta);
         return "Coleta deletada com sucesso!";
     }

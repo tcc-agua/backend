@@ -28,21 +28,30 @@ public class BH02SaveServiceImpl implements BH02SaveService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método de salvar nova coleta de BH02
     @Override
     public BH02DTO save(BH02CreateDTO data) {
+        // Pegando a instância de ponto de acordo com o nome passado
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // Pegando a instância de coleta de acordo com o id passado
         Coleta coleta = coletaRepository.findById(data.idColeta())
                 .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Nova entidade BH02
         BH02 bh02 = new BH02(data);
+        // Setando o ponto
         bh02.setPonto(ponto);
+        // Associando a instância de BC01 criada a coleta
         coleta.getBh02Set().add(bh02);
 
+        // Setando a hora de fim da coleta
         coleta.setHora_fim(LocalTime.now());
 
+        // Salvando no banco a instância de BC01
         bh02Repository.save(bh02);
+        // Salvando no banco a instância de coleta
         coletaRepository.save(coleta);
 
         return new BH02DTO(bh02);

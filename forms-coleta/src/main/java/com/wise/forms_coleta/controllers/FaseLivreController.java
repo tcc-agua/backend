@@ -37,6 +37,7 @@ public class FaseLivreController {
     @Autowired
     FaseLivrePutService faseLivrePutService;
 
+    // Endpoint de registro de coletas do Fase Livre
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid FaseLivreCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -45,18 +46,20 @@ public class FaseLivreController {
 
         return ResponseEntity.created(uri).body("Formulário criado com sucesso!");
     }
-
+    // Endpoint de listagem de todas as coletas de Fase Livre
     @GetMapping
     public ResponseEntity<List<FaseLivreDTO>> getAll(){
         return new ResponseEntity<>(faseLivreGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de Fase Livre
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(faseLivreDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de Fase Livre
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<FaseLivreDTO> put(@PathVariable Long id, @RequestBody @Valid FaseLivrePutDTO data){

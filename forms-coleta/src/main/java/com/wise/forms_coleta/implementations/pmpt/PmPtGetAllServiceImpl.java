@@ -13,6 +13,7 @@ public class PmPtGetAllServiceImpl implements PmPtGetAllService {
     @Autowired
     private PmPtRepository pmPtRepository;
 
+    // Método para listar as instâncias de PmPt
     @Override
     public List<PmPtDTO> getAll() {
         return pmPtRepository.findAll().stream().map(PmPtDTO::new).toList();

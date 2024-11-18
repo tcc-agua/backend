@@ -15,15 +15,19 @@ public class CDPutServiceImpl implements CDPutService {
     @Autowired
     private CDRepository cdRepo;
 
+    // Método de alterar a instância de CD
     @Override
     public CDDTO put(Long id, CDPutDTO data) {
+        // Encontrando a instância de CD pelo id
         CD cd = cdRepo.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado"));
 
+        // Setando as alterações nos campos
         cd.setTipo_rede(data.tipo_rede());
         cd.setPressao(data.pressao());
         cd.setHidrometro(data.hidrometro());
 
+        // Salvando no banco as alterações
         cdRepo.save(cd);
         return new CDDTO(cd);
 

@@ -14,12 +14,16 @@ public class HidrometroPutServiceImpl implements HidrometroPutService {
     @Autowired
     private HidrometroRepository hidrometroRepository;
 
+    // Método de alterar a instância de hidrometro
     @Override
     public HidrometroDTO put(Long id, HidrometroPutDTO data) {
+        // Encontrando a instância de hidrometro pelo id
         Hidrometro hidrometro = hidrometroRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         hidrometro.setVolume(data.volume());
+        // Salvando no banco as alterações
         hidrometroRepository.save(hidrometro);
         return new HidrometroDTO(hidrometro);
     }

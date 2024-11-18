@@ -28,21 +28,28 @@ public class PmPtSaveServiceImpl implements PmPtSaveService {
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método de salvar nova coleta de PmPt
     @Override
     public PmPtDTO save(PmPtCreateDTO data) {
 
+        // Pegando a instância de ponto de acordo com o nome passado
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado"));
 
+        // Pegando a instância de coleta de acordo com o id passado
         Coleta coleta = coletaRepository.findById(data.idColeta())
                 .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Nova entidade PmPt
         PmPt pmPt = new PmPt(data);
+        // Setando o ponto
         pmPt.setPonto(ponto);
+        // Associando a instância de PmPt criada a coleta
         coleta.getPmPtSet().add(pmPt);
 
-
+        // Salvando no banco a instância de PmPt
         pmPtrepository.save(pmPt);
+        // Salvando no banco a instância de coleta
         coletaRepository.save(coleta);
         return new PmPtDTO(pmPt);
     }

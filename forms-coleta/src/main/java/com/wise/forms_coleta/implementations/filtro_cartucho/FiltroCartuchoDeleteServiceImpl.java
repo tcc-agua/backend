@@ -12,11 +12,13 @@ public class FiltroCartuchoDeleteServiceImpl implements FiltroCartuchoDeleteServ
     @Autowired
     private FiltroCartuchoRepository filtroCartuchoRepository;
 
-
+    // Método para deletar uma instância de filtro cartucho
     @Override
     public String delete(Long id) {
+        // Pegando a instância de filtro cartucho pelo id
         FiltroCartucho filtroCartucho = filtroCartuchoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+        // Deletando no banco a instância
         filtroCartuchoRepository.delete(filtroCartucho);
         return "Formulário deletado com sucesso!";
     }

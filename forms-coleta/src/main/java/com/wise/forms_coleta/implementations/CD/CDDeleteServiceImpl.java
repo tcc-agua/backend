@@ -13,11 +13,14 @@ public class CDDeleteServiceImpl implements CDDeleteService {
     @Autowired
     private CDRepository cdRepo;
 
+    // Método para deletar uma instância de CD
     @Override
     public String delete(Long id) {
+        // Pegando a instância de CD pelo id
         CD cd = cdRepo.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado! "));
 
+        // Deletando no banco a instância
         cdRepo.delete(cd);
         return "Formulário deletado com sucesso!";
     }

@@ -13,6 +13,7 @@ public class CDGetAllServiceImpl implements CDGetAllService {
     @Autowired
     private CDRepository cdRepo;
 
+    // Método para listar as instâncias de CD
     @Override
     public List<CDDTO> getAll() {
         return  cdRepo.findAll().stream().map(CDDTO::new).toList();

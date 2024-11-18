@@ -14,15 +14,19 @@ public class BH02PutServiceImpl implements BH02PutService {
     @Autowired
     private BH02Repository bh02Repository;
 
+    // Método de alterar a instância de BH02
     @Override
     public BH02DTO put(Long id, BH02PutDTO data) {
+        // Encontrando a instância de BH02 pelo id
         BH02 bh02 = bh02Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         bh02.setHorimetro(data.horimetro());
         bh02.setFrequencia(data.frequencia());
         bh02.setPressao(data.pressao());
 
+        // Salvando no banco as alterações
         bh02Repository.save(bh02);
         return new BH02DTO(bh02);
     }

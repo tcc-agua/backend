@@ -38,6 +38,7 @@ public class TQ02Controller {
     @Autowired
     Tq02PutService tq02PutService;
 
+    // Endpoint de registro de coletas do TQ02
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid TQ02CreateDTO data, UriComponentsBuilder uriBuilder){
@@ -46,17 +47,20 @@ public class TQ02Controller {
         return ResponseEntity.created(uri).body("TQ02 criado com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de TQ02
     @GetMapping
     public ResponseEntity<List<TQ02DTO>> getAll(){
         return new ResponseEntity<>(tq02GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de TQ02
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(tq02DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de TQ02
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<TQ02DTO> put(@PathVariable Long id, @RequestBody @Valid TQ02PutDTO data){

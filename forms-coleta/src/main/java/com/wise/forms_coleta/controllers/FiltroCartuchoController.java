@@ -35,6 +35,7 @@ public class FiltroCartuchoController {
     @Autowired
     FiltroCartuchoPutService filtroCartuchoPutService;
 
+    // Endpoint de registro de coletas do Filtro Cartucho
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid FiltroCartuchoCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -43,17 +44,20 @@ public class FiltroCartuchoController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de Filtro Cartucho
     @GetMapping
     public ResponseEntity<List<FiltroCartuchoDTO>> getAll(){
         return new ResponseEntity<>(filtroCartuchoGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de Filtro Cartucho
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(filtroCartuchoDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de Filtro Cartucho
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<FiltroCartuchoDTO> put(@PathVariable Long id, @RequestBody @Valid FiltroCartuchoPutDTO data){

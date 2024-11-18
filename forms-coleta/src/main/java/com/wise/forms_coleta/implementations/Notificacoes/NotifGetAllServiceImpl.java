@@ -14,6 +14,7 @@ public class NotifGetAllServiceImpl implements NotifGetAllService {
     @Autowired
     private NotifRepository notifRepository;
 
+    // Método para listar as instâncias de notificação
     @Override
     public List<NotifDTO> getAll() {
         return notifRepository.findAll().stream().map(NotifDTO::new).toList();

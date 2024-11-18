@@ -12,10 +12,13 @@ public class PmPtDeleteServiceImpl implements PmPtDeleteService {
     @Autowired
     private PmPtRepository pmPtRepository;
 
+    // Método para deletar uma instância de PmPt
     @Override
     public String delete(Long id) {
+        // Pegando a instância de PmPt pelo id
         PmPt pmPt = pmPtRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+        // Deletando no banco a instância
         pmPtRepository.delete(pmPt);
         return "Formulário deletado com sucesso!";
     }

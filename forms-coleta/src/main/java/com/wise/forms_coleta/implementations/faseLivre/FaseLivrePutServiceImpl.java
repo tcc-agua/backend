@@ -14,14 +14,18 @@ public class FaseLivrePutServiceImpl implements FaseLivrePutService {
     @Autowired
     private FaseLivreRepository faseLivreRepository;
 
+    // Método de alterar a instância de fase livre
     @Override
     public FaseLivreDTO put(Long id, FaseLivrePutDTO data) {
+        // Encontrando a instância de fase livre pelo id
         FaseLivre faseLivre = faseLivreRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         faseLivre.setVolume(data.volume());
         faseLivre.setHouve_troca(data.houve_troca());
 
+        // Salvando no banco as alterações
         faseLivreRepository.save(faseLivre);
 
         return new FaseLivreDTO(faseLivre);

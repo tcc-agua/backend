@@ -13,7 +13,7 @@ spring:
             client-secret: ${CLIENT_SECRET}
             scope: openid, profile, email
             redirect-uri: http://localhost:5173/callback
-            provider: azure  # Adicione essa linha para especificar o provider
+            provider: azure
         provider:
           azure:
             issuer-uri: ${ISSUER_URI}
@@ -25,7 +25,7 @@ spring:
     gateway:
       routes:
         - id: BC01
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bc01/**
           filters:
@@ -35,7 +35,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: BC06
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bc06/**
           filters:
@@ -45,7 +45,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: cd
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/cd/**
           filters:
@@ -55,7 +55,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: coleta
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/coleta/**
           filters:
@@ -65,7 +65,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: colunas-carvao
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/colunas-carvao/**
           filters:
@@ -75,7 +75,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: excel
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/excel/**
           filters:
@@ -85,7 +85,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: faselivre
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/faselivre/**
           filters:
@@ -95,7 +95,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: filtro_cartucho
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/filtro_cartucho/**
           filters:
@@ -105,7 +105,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: horimetro
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/horimetro/**
           filters:
@@ -115,7 +115,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: pb
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/pb/**
           filters:
@@ -125,7 +125,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: pmpt
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/pmpt/**
           filters:
@@ -135,7 +135,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: ponto
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/ponto/**
           filters:
@@ -145,7 +145,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: sensor-ph
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/sensor-ph/**
           filters:
@@ -155,7 +155,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: TQ01
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/tq01/**
           filters:
@@ -165,7 +165,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
 
         - id: bh02
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bh02/**
           filters:
@@ -174,7 +174,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: export_excel
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/exportExcel/**
           filters:
@@ -183,7 +183,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: notificacoes
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/notificacoes/**
           filters:
@@ -192,7 +192,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: bs01-hidrometro
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bs01-hidrometro/**
           filters:
@@ -201,7 +201,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: bs01-pressao
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bs01-pressao/**
           filters:
@@ -210,7 +210,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: bombabc03
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/bombabc03/**
           filters:
@@ -219,7 +219,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: tq02
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/tq02/**
           filters:
@@ -228,7 +228,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: tq04tq05
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
             - Path=/tq04tq05/**
           filters:
@@ -237,7 +237,7 @@ spring:
             - AddResponseHeader=Access-Control-Allow-Methods, GET, POST, PUT, DELETE, OPTIONS
             - AddResponseHeader=Access-Control-Allow-Headers, Authorization, Content-Type
         - id: hidrometro
-          uri: http://forms-coleta:8081
+          uri: http://localhost:8081
           predicates:
           - Path=/hidrometro/**
           filters:

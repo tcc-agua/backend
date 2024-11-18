@@ -24,6 +24,7 @@ public class ExportExcelController {
     @Autowired
     ExcelExportHidrometroService excelExportHidrometroService;
 
+    // Endpoint para baixar a planilha excel das coletas filtrando por data
     @GetMapping
     public ResponseEntity<ByteArrayResource> exportToExcel(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         System.out.println("DATA INICIO: " + startDate + "\nDATA FIM: " + endDate);
@@ -41,6 +42,7 @@ public class ExportExcelController {
         }
     }
 
+    // Endpoint para baixar a planilha excel das coletas de hidrometros filtrando por data
     @GetMapping("/hidrometro")
     public ResponseEntity<ByteArrayResource> exportToExcelHidrometro(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate) {
         System.out.println("DATA INICIO: " + startDate + "\nDATA FIM: " + endDate);

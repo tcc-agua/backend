@@ -34,13 +34,11 @@ public class ExcelExportServiceImpl implements ExcelExportService {
     @Autowired
     private ExcelRepository excelRepository;
 
-//    @Value("${excel.export.path}")
-//    private String exportPath;
-
+    // Método que cria um novo excel, exportando ele
     @Override
     public ByteArrayResource exportToExcel(LocalDate startDate, LocalDate endDate) throws IOException {
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
-
+            // Estilos
             CellStyle borderStyle = workbook.createCellStyle();
             borderStyle.setBorderBottom(BorderStyle.THIN);
             borderStyle.setBorderTop(BorderStyle.THIN);
@@ -87,12 +85,16 @@ public class ExcelExportServiceImpl implements ExcelExportService {
             dataStyle.setAlignment(HorizontalAlignment.CENTER);
             dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
+            // Recuperando os pontos
             List<Ponto> pontos = pontoRepository.findAll();
+
+            // Recuperando os excels e filtrando pelos nomes existentes
             List<Excel> excels = excelRepository.findAll()
                     .stream()
                     .filter(excel -> List.of("DADOS ETAS", "NA", "PBS").contains(excel.getNome()))
                     .toList();
 
+            // Recuperando coletas filtradas de acordo com a data
             List<Coleta> coletasFiltradas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
 
             for (Excel excel : excels) {
@@ -158,6 +160,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
 
 
                     for (Ponto ponto : pontosFiltrados) {
+                        // Definindo o número de colunas de acordo com o nome de cada ponto
                         int numCols = ponto.getNome().toUpperCase().contains("PB") ? 5 :
                                 ponto.getNome().toUpperCase().contains("CD") ? 3 :
                                         (ponto.getNome().toUpperCase().contains("PM") || ponto.getNome().toUpperCase().contains("PT")) ? 3 :
@@ -225,7 +228,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     // Adiciona os subcabeçalhos dos pontos
                     for (Ponto ponto : pontosFiltrados) {
                         String[] headers;
-
+                        // Definindo os nomes de cada header
                         if (ponto.getNome().toUpperCase().contains("PB")) {
                             headers = new String[]{"Pressão PI-B.01.1 (kgf/cm²)", "Pulsos PQ-B.01.1", "Nível de Óleo (m)", "Nível d'água (m)", "Volume Manual Removido de Óleo (L)"};
                         } else if (ponto.getNome().toUpperCase().contains("CD")) {
@@ -266,6 +269,7 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                             headers = new String[]{};
                         }
 
+                        // Para cada header a célula é criada e é definido o valor e o estilo
                         for (String header : headers) {
                             Cell headerCell = subHeaderRow.createCell(cellIndex++);
                             ;
@@ -285,7 +289,6 @@ public class ExcelExportServiceImpl implements ExcelExportService {
                     sheet.addMergedRegion(new CellRangeAddress(0, 1, 3, 3)); // "Hora Fim"
 
                     // Adiciona os dados de coleta filtrados pelos pontos da aba atual
-//                    for (Coleta coleta : coletasFiltradas) {
                     for (Coleta coleta : coletasFiltradas) {
                         boolean coletaRelevante = coleta.getPbSet().stream().anyMatch(pb -> pontosFiltrados.contains(pb.getPonto())) ||
                                 coleta.getCdSet().stream().anyMatch(cd -> pontosFiltrados.contains(cd.getPonto())) ||

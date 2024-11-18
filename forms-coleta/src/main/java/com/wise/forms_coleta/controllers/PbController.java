@@ -38,6 +38,7 @@ public class PbController {
     @Autowired
     PbPutService pbPutService;
 
+    // Endpoint de registro de coletas de PB
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid PbCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -46,17 +47,20 @@ public class PbController {
         return ResponseEntity.created(uri).body("pb criado com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de PB
     @GetMapping("/get")
     public ResponseEntity<List<PbDTO>> getAll() {
         return new ResponseEntity<>(pbGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de PB
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(pbDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de PB
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<PbDTO> put(@PathVariable Long id, @RequestBody @Valid PbPutDTO data){

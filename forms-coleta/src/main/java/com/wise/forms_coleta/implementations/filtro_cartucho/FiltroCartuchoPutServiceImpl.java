@@ -14,13 +14,18 @@ public class FiltroCartuchoPutServiceImpl implements FiltroCartuchoPutService {
     @Autowired
     private FiltroCartuchoRepository filtroCartuchoRepository;
 
-
+    // Método de alterar a instância de filtro cartucho
     @Override
     public FiltroCartuchoDTO put(Long id, FiltroCartuchoPutDTO data) {
+        // Encontrando a instância de filtro cartucho pelo id
         FiltroCartucho filtroCartucho = filtroCartuchoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+
+        // Setando as alterações nos campos
         filtroCartucho.setPressao_entrada(data.pressao_entrada());
         filtroCartucho.setPressao_saida(data.pressao_saida());
+
+        // Salvando no banco as alterações
         filtroCartuchoRepository.save(filtroCartucho);
         return new FiltroCartuchoDTO(filtroCartucho);
     }

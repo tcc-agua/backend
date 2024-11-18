@@ -12,10 +12,13 @@ public class HorimetroDeleteServiceImpl implements HorimetroDeleteService {
     @Autowired
     private HorimetroRepository horimetroRepository;
 
+    // Método para deletar uma instância de horimetro
     @Override
     public String delete(Long id) {
+        // Pegando a instância de horimetro pelo id
         Horimetro horimetro = horimetroRepository.findById(id)
                 .orElseThrow(()-> new GenericsNotFoundException("Formulário não encontrado!"));
+        // Deletando no banco a instância
         horimetroRepository.delete(horimetro);
         return "Formulário deletado com sucesso!";
     }

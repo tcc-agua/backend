@@ -26,23 +26,31 @@ public class BombaBc03SaveServiceImpl implements BombaBc03SaveService {
     @Autowired
     private BombaBc03Repository bombaBc03Repository;
 
-
+    // Método de salvar nova coleta de Bomba bc 03
     @Override
     public BombaBc03DTO save(BombaBc03CreateDTO data) {
+
+        // Pegando a instância de ponto de acordo com o nome passado
         Ponto ponto = pontoRepository.findByNome(data.nomePonto())
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
 
+        // Pegando a instância de coleta de acordo com o id passado
         Coleta coleta = coletaRepository.findById(data.idColeta())
                 .orElseThrow(() ->new GenericsNotFoundException("Coleta não encontrada!"));
 
+        // Nova entidade BC01
         BombaBc03 bombaBc03 = new BombaBc03(data);
+        // Setando o ponto
         bombaBc03.setPonto(ponto);
-
+        // Associando a instância de BC01 criada a coleta
         coleta.getBombaBc03Set().add(bombaBc03);
 
+        // Setando a hora de fim da coleta
         coleta.setHora_fim(LocalTime.now());
 
+        // Salvando no banco a instância de BC01
         bombaBc03Repository.save(bombaBc03);
+        // Salvando no banco a instância de coleta
         coletaRepository.save(coleta);
 
         return new BombaBc03DTO(bombaBc03);

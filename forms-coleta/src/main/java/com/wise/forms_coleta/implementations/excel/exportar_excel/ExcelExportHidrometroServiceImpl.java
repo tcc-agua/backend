@@ -31,6 +31,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método que cria um novo excel, exportando ele
     @Override
     public ByteArrayResource exportToExcel(LocalDate startDate, LocalDate endDate) throws IOException {
         try (XSSFWorkbook workbook = new XSSFWorkbook()) {
@@ -64,7 +65,7 @@ public class ExcelExportHidrometroServiceImpl implements ExcelExportHidrometroSe
             dataStyle.setAlignment(HorizontalAlignment.CENTER);
             dataStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
-            // Filtrando apenas os Excels relacionados ao nome "CA"
+            // Filtrando apenas os Excels relacionados ao nome "CA" e "LH"
             List<Excel> excels = excelRepository.findAll()
                     .stream()
                     .filter(excel -> Objects.equals(excel.getNome(), "LH") || Objects.equals(excel.getNome(), "CA"))

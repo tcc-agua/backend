@@ -11,6 +11,7 @@ public class NotifDeleteAllServiceImpl implements NotifDeleteAllService {
     @Autowired
     private NotifRepository notifRepository;
 
+    // Método para deletar todas as notificações
     @Override
     public String deleteAll() {
         notifRepository.deleteAll();

@@ -35,6 +35,7 @@ public class BC06Controller {
     @Autowired
     BC06PutService bc06PutService;
 
+    // Endpoint de registro de coletas do BC06
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BC06CreateDTO data, UriComponentsBuilder uriBuilder){
@@ -42,17 +43,21 @@ public class BC06Controller {
         URI uri = uriBuilder.path("/bc06/{id}").buildAndExpand(bc06DTO.id()).toUri();
         return ResponseEntity.created(uri).body("Formulário criado com sucesso!");
     }
+
+    // Endpoint de listagem de todas as coletas de BC06
     @GetMapping
     public ResponseEntity<List<BC06DTO>> getAll(){
         return new ResponseEntity<>(bc06GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de BC06
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(bc06DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de BC06
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BC06DTO> put(@PathVariable Long id, @RequestBody @Valid BC06PutDTO data){

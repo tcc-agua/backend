@@ -12,12 +12,14 @@ public class PbDeleteServiceImpl implements PbDeleteService {
     @Autowired
     private PbRepository pbRepository;
 
-
+    // Método para deletar uma instância de pb
     @Override
     public String delete(Long id) {
+        // Pegando a instância de pb pelo id
         PBs pBs = pbRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         pbRepository.delete(pBs);
 
         return "Formulário deletado com sucesso!";

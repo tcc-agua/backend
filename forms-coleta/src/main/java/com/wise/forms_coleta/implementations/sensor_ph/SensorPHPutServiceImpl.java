@@ -15,13 +15,17 @@ public class SensorPHPutServiceImpl implements SensorPHPutService {
     @Autowired
     private SensorPHRepository sensorPHRepository;
 
+    // Método de alterar a instância de sensor ph
     @Override
     public SensorPHDTO put(Long id, SensorPHPutDTO data) {
+        // Encontrando a instância de sensor ph pelo id
         SensorPH sensorPH = sensorPHRepository.findById(id)
                 .orElseThrow( () -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         sensorPH.setPh(data.ph());
 
+        // Salvando no banco as alterações
         sensorPHRepository.save(sensorPH);
         return new SensorPHDTO(sensorPH);
 

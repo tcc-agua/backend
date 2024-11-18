@@ -14,6 +14,7 @@ public class TQ01GetAllServiceImpl implements TQ01GetAllService {
     @Autowired
     private TQ01Repository tq01Repository;
 
+    // Método para listar as instâncias de TQ01
     @Override
     public List<TQ01DTO> getAll() {
         return tq01Repository.findAll().stream().map(TQ01DTO::new).toList();

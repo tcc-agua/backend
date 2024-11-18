@@ -12,11 +12,14 @@ public class FaseLivreDeleteServiceImpl implements FaseLivreDeleteService {
     @Autowired
     private FaseLivreRepository faseLivreRepository;
 
+    // Método para deletar uma instância de fase livre
     @Override
     public String delete(Long id) {
+        // Pegando a instância de fase livre pelo id
         FaseLivre faseLivre = faseLivreRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         faseLivreRepository.delete(faseLivre);
         return "Formulário deletado com sucesso!";
     }

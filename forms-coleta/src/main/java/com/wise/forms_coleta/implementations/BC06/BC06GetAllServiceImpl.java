@@ -13,6 +13,7 @@ public class BC06GetAllServiceImpl implements BC06GetAllService {
     @Autowired
     private BC06Repository bc06Repository;
 
+    // Método para listar as instâncias de BC06
     @Override
     public List<BC06DTO> getAll() {
         return bc06Repository.findAll().stream().map(BC06DTO::new).toList();

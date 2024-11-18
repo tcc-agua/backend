@@ -13,6 +13,7 @@ public class BH02GetAllServiceImpl implements BH02GetAllService {
     @Autowired
     private BH02Repository bh02Repository;
 
+    // Método para listar as instâncias de BH02
     @Override
     public List<BH02DTO> getAll() {
         return bh02Repository.findAll().stream().map(BH02DTO::new).toList();

@@ -12,11 +12,14 @@ public class BombaBc03DeleteServiceImpl implements BombaBc03DeleteService {
     @Autowired
     private BombaBc03Repository bc03Repository;
 
+    // Método para deletar uma instância de Bomba Bc 03
     @Override
     public String delete(Long id) {
+        // Pegando a instância de Bomba Bc 03 pelo id
         BombaBc03 bombaBc03 = bc03Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Deletando no banco a instância
         bc03Repository.delete(bombaBc03);
 
         return "Formulário deletado com sucesso!";

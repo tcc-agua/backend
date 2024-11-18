@@ -38,7 +38,7 @@ public class SensorPHController {
     @Autowired
     SensorPHGetAllService sensorPHGetAllService;
 
-
+    // Endpoint de registro de coletas do sensorPH
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid SensorPHCreateDTO data, UriComponentsBuilder uriBuilder) {
@@ -47,17 +47,20 @@ public class SensorPHController {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de sensorPH
     @GetMapping
     public ResponseEntity<List<SensorPHDTO>> getAll() {
         return new ResponseEntity<>(sensorPHGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de sensorPH
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete (@PathVariable Long id) {
         return new ResponseEntity<>(sensorPHDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de sensorPH
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<SensorPHDTO> put(@PathVariable Long id, @RequestBody @Valid SensorPHPutDTO data){

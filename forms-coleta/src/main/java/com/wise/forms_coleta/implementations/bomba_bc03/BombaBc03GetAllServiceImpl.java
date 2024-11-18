@@ -13,7 +13,7 @@ public class BombaBc03GetAllServiceImpl implements BombaBc03GetAllService {
     @Autowired
     private BombaBc03Repository bc03Repository;
 
-
+    // Método para listar as instâncias de Bomba bc 03
     @Override
     public List<BombaBc03DTO> getAll() {
         return bc03Repository.findAll().stream().map(BombaBc03DTO::new).toList();

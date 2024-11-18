@@ -13,6 +13,7 @@ public class ColunasCarvaoGetAllServiceImpl implements ColunasCarvaoGetAllServic
     @Autowired
     private ColunasCarvaoRepository colunasCarvaoRepository;
 
+    // Método para listar as instâncias de colunas carvão
     @Override
     public List<ColunasCarvaoDTO> getAll() {
         return colunasCarvaoRepository.findAll().stream().map(ColunasCarvaoDTO::new).toList();

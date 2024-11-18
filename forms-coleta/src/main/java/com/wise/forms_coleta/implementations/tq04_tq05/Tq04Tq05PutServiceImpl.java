@@ -14,16 +14,21 @@ public class Tq04Tq05PutServiceImpl implements Tq04Tq05PutService {
     @Autowired
     private Tq04Tq05Repository tq04Tq05Repository;
 
+    // Método de alterar a instância de Tq04/Tq05
     @Override
     public Tq04Tq05DTO put(Long id, Tq04Tq05PutDTO data) {
+        // Encontrando a instância de BC01 pelo id
         Tq04Tq05 tq04Tq05 = tq04Tq05Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+
+        // Setando as alterações nos campos
         tq04Tq05.setHouve_preparo_solucao(data.houve_preparo_solucao());
         tq04Tq05.setQtd_bombonas(data.qtd_bombonas());
         tq04Tq05.setKg_bombonas(data.kg_bombonas());
         tq04Tq05.setHorimetro(data.horimetro());
         tq04Tq05.setHidrometro(data.hidrometro());
 
+        // Salvando no banco as alterações
         tq04Tq05Repository.save(tq04Tq05);
         return new Tq04Tq05DTO(tq04Tq05);
     }

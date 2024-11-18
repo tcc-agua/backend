@@ -15,13 +15,17 @@ public class BS01PressaoPutServiceImpl implements BS01PressaoPutService {
     @Autowired
     BS01PressaoRepository bs01PressaoRepository;
 
+    // Método de alterar a instância de BS01 Pressao
     @Override
     public BS01PressaoDTO put(Long id, BS01PressaoPutDTO data) {
+        // Encontrando a instância de BS01 Pressao pelo id
         BS01Pressao bs01Pressao = bs01PressaoRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         bs01Pressao.setPressao(data.pressao());
 
+        // Salvando no banco as alterações
         bs01PressaoRepository.save(bs01Pressao);
         return new BS01PressaoDTO(bs01Pressao);
     }

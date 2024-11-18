@@ -22,19 +22,24 @@ public class PontoGetAllByExcelServiceImpl implements PontoGetAllByExcelService 
     @Autowired
     private ExcelRepository excelRepository;
 
+    // Método que retorna todos os pontos filtrando por excel
     @Override
     public List<PontoDTO> getAllPointsByExcel(String excel) {
+        // Pegando a instância de excel de acordo com o nome
         Excel excel1 = excelRepository.findByNome(excel)
                 .orElseThrow(() -> new GenericsNotFoundException("Excel não encontrado!"));
 
+        // Lista de todos os pontos filtrados de acordo com o excel recuperado anteriormente
         List<Ponto> pontos = pontoRepository.findAllByExcel(excel1);
 
+        // Se a lista estiver vazia, uma exceção é retornada
         if (pontos.isEmpty()) {
             throw new GenericsNotFoundException("Nenhum ponto encontrado para este Excel!");
         }
 
+        // Retornando os pontos
         return pontos.stream()
-                .map(PontoDTO::new) // Supondo que você tenha um construtor em PontoDTO que receba um Ponto
+                .map(PontoDTO::new)
                 .collect(Collectors.toList());
     }
 }

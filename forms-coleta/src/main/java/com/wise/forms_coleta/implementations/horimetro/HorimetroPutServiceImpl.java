@@ -14,12 +14,16 @@ public class HorimetroPutServiceImpl implements HorimetroPutService {
     @Autowired
     private HorimetroRepository horimetroRepository;
 
-
+    // Método de alterar a instância de horimetro
     @Override
     public HorimetroDTO put(Long id, HorimetroPutDTO data) {
+        // Encontrando a instância de horimetro pelo id
         Horimetro horimetro = horimetroRepository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
+        // Setando as alterações nos campos
         horimetro.setHorimetro(data.horimetro());
+
+        // Salvando no banco as alterações
         horimetroRepository.save(horimetro);
         return new HorimetroDTO(horimetro);
     }

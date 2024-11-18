@@ -13,8 +13,10 @@ public class ColetaSaveServiceImpl implements ColetaSaveService {
     @Autowired
     ColetaRepository coletaRepository;
 
+    // Método de salvar nova coleta de coleta
     @Override
     public ColetaDTO save(ColetaCreateDTO data) {
+        // Retornando nova ColetaDTO, dentro dela é salvo no banco uma nova instância de coleta
         return new ColetaDTO(coletaRepository.save(new Coleta(data)));
     }
 }

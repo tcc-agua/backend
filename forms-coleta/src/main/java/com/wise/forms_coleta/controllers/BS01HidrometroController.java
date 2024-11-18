@@ -37,6 +37,7 @@ public class BS01HidrometroController {
     @Autowired
     BS01HidrometroGetAllService bs01HidrometroGetAllService;
 
+    // Endpoint de registro de coletas do BS01 Hidrometro
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid BS01HidrometroCreateDTO data, UriComponentsBuilder uriBuilder){
@@ -47,17 +48,20 @@ public class BS01HidrometroController {
 
     }
 
+    // Endpoint de listagem de todas as coletas de BS01 Hidrometro
     @GetMapping
     public ResponseEntity<List<BS01HidrometroDTO>> getAll(){
         return new ResponseEntity<>(bs01HidrometroGetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de BS01 Hidrometro
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(bs01HidrometroDeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de BS01 Hidrometro
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<BS01HidrometroDTO> put(@PathVariable Long id, @RequestBody @Valid BS01HidrometroPutDTO data){

@@ -14,6 +14,7 @@ public class BC01GetAllServiceImpl implements BC01GetAllService {
     @Autowired
     private BC01Repository bc01repo;
 
+    // Método para listar as instâncias de BC01
     @Override
     public List<BC01DTO> getAll() {
         return bc01repo.findAll().stream().map(BC01DTO::new).toList();

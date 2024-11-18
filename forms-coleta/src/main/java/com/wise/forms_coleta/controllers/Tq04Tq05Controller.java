@@ -39,6 +39,7 @@ public class Tq04Tq05Controller {
     @Autowired
     Tq04Tq05PutService tq04Tq05PutService;
 
+    // Endpoint de registro de coletas do TQ04 e TQ05
     @PostMapping
     @Transactional
     public ResponseEntity<String> save(@RequestBody @Valid Tq04Tq05CreateDTO data, UriComponentsBuilder uriBuilder){
@@ -47,17 +48,20 @@ public class Tq04Tq05Controller {
         return ResponseEntity.created(uri).body("Formulário preenchido com sucesso!");
     }
 
+    // Endpoint de listagem de todas as coletas de TQ04 e TQ05
     @GetMapping
     public ResponseEntity<List<Tq04Tq05DTO>> getAll(){
         return new ResponseEntity<>(tq04Tq05GetAllService.getAll(), HttpStatus.OK);
     }
 
+    // Endpoint para deletar uma coleta de TQ04 e TQ05
     @DeleteMapping("{id}")
     @Transactional
     public ResponseEntity<String> delete(@PathVariable Long id){
         return new ResponseEntity<>(tq04Tq05DeleteService.delete(id), HttpStatus.OK);
     }
 
+    // Endpoint de atualização de uma coleta de TQ04 e TQ05
     @PutMapping("{id}")
     @Transactional
     public ResponseEntity<Tq04Tq05DTO> put(@PathVariable Long id, @RequestBody @Valid Tq04Tq05PutDTO data){

@@ -29,14 +29,20 @@ public class HidrometroFindByPontoServiceImpl implements HidrometroFindByPontoSe
     @Autowired
     private ColetaRepository coletaRepository;
 
+    // Método para achar o hidrometro de acordo com o ponto
     @Override
     public List<Hidrometro> FindByPonto(String ponto, LocalDate startDate, LocalDate endDate) {
+        // Pegando a instância de ponto associada à aquele nome
         Ponto ponto1 = pontoRepository.findByNome(ponto)
                 .orElseThrow(() -> new GenericsNotFoundException("Ponto não encontrado!"));
+
+        // Lista de coletas filtrando por data
         List<Coleta> coletas = coletaRepository.findAllByDataColetaBetween(startDate, endDate);
 
+        // Iniciando uma lista de hidrometros
         List<Hidrometro> hidrometrosFiltrados = new ArrayList<>();
 
+        // Para cada coleta dentro da lista de coletas pega os hidrometros associados aquela coleta e adiciona a lista de hidrometros
         for (Coleta coleta : coletas) {
             for (Hidrometro hidrometro : coleta.getHidrometroSet()) {
                 if (hidrometro.getPonto().equals(ponto1)) {
@@ -45,10 +51,12 @@ public class HidrometroFindByPontoServiceImpl implements HidrometroFindByPontoSe
             }
         }
 
+        // Se a lista de hidrometros no final estiver vazia, um erro é retornado
         if (hidrometrosFiltrados.isEmpty()) {
             throw new GenericsNotFoundException("Nenhuma coleta de hidrômetro encontrada para esse ponto e intervalo de datas.");
         }
 
+        // Retornando a lista
         return hidrometrosFiltrados;
     }
 

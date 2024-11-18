@@ -14,14 +14,18 @@ public class TQ02PutServiceImpl implements Tq02PutService {
     @Autowired
     private TQ02Repository tq02Repository;
 
+    // Método de alterar a instância de TQ02
     @Override
     public TQ02DTO put(Long id, TQ02PutDTO data) {
+        // Encontrando a instância de TQ02 pelo id
         TQ02 tq02 = tq02Repository.findById(id)
                 .orElseThrow(() -> new GenericsNotFoundException("Formulário não encontrado!"));
 
+        // Setando as alterações nos campos
         tq02.setSensor_ph(data.sensor_ph());
         tq02.setLt_02_1(data.Lt_02_1());
 
+        // Salvando no banco as alterações
         tq02Repository.save(tq02);
         return new TQ02DTO(tq02);
     }
